@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
-export default function Sho() {
+export default function Login() {
+
+    const role = useParams().role
 
     const [form, setForm] = useState({
         email: '',
@@ -15,8 +17,6 @@ export default function Sho() {
     const history = useHistory()
 
     const changeHandler = (event) => {
-        if (event.target.value === "")
-            return
         setForm({
             ...form,
             [event.target.name]: event.target.value
@@ -26,15 +26,18 @@ export default function Sho() {
     const submitHandler = () => {
         setMsg('Verifying. Please Wait')
 
-        axios.post('/sho/login', form)
+        axios.post(`/${role}/login`, form)
             .then((res) => {
                 console.log(res.data);
                 if (res.data.status === "success") {
-                    let sho = res.data.sho
-                    Cookies.set('token', sho._id, { expires: 7 })
-                    Cookies.set('sho', { sho: sho }, { expires: 7 })
+                    let user = res.data.user
+
                     Cookies.remove('user')
-                    history.push('/sho/dashboard')
+                    Cookies.set('token', user._id, { expires: 7 })
+                    Cookies.set('user', { user: user })
+                    Cookies.set('role', role)
+
+                    history.push(`/dashboard/${role}`)
                 } else if (res.data.msg === "NOUSER") {
                     setMsg('No user with given details found')
                 } else if (res.data.msg === "INVPASS") {
@@ -64,7 +67,7 @@ export default function Sho() {
                         </div>
                         <div className="mt-4 flex items-center justify-between">
                             <span className="border-b w-1/5 lg:w-1/4"></span>
-                            <a href="/#" className="text-xl text-center text-gray-500 uppercase">SHO LOGIN</a>
+                            <a href="/#" className="text-xl text-center text-gray-500 uppercase">{role} LOGIN</a>
                             <span className="border-b w-1/5 lg:w-1/4"></span>
                         </div>
                         <div className="mt-4">
@@ -74,7 +77,7 @@ export default function Sho() {
                                 type="email"
                                 placeholder="EMAIL"
                                 onChange={changeHandler}
-                                value={form.shoId}
+                                value={form.email}
                                 name="email"
                                 required />
                         </div>

@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router-dom'
 
 import Landing from './pages/Landing'
 import Report from './pages/Report'
-import Sho from './components/OfficerLogin/Sho'
-import ShoDashboard from './pages/Dashboard/Sho'
+import Login from './components/OfficerLogin/Login'
+import Dashboard from './pages/Dashboard/Dashboard'
 
 export default function AppRouter() {
     return (
@@ -14,12 +14,12 @@ export default function AppRouter() {
                 <Report />
             </Route>
 
-            <Route path="/sho/dashboard">
-                <ShoDashboard />
+            <Route path="/dashboard/:role">
+                <Dashboard />
             </Route>
 
-            <Route path="/sho">
-                <Sho />
+            <Route path="/login/:role">
+                <Login />
             </Route>
 
             <Route path="/">

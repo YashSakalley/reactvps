@@ -4,7 +4,7 @@ import Nav from '../../components/Dashboard/Nav'
 import Status from '../../components/Dashboard/Status'
 import SideBar from '../../components/Dashboard/SideBar'
 
-export default function Sho() {
+export default function Dashboard() {
     const [sideBarOpen, setSideBarOpen] = useState(false)
     return (
         <div className="flex h-screen bg-gray-200 font-roboto">
@@ -23,4 +23,4 @@ export default function Sho() {
 
         </div >
     )
-}
+} 

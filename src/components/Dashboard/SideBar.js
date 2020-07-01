@@ -1,6 +1,8 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 export default function SideBar({ sideBarOpen, setSideBarOpen }) {
+    const role = useParams().role
     return (
         <div
             className={`fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 ${sideBarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'}`}
@@ -8,7 +10,7 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
             <div className="flex items-center justify-center mt-8">
                 <div className="items-center">
                     <img src="https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/10743111741548234985-512.png" className="w-26 h-32" alt="" />
-                    <div className="my-2 text-white text-xl text-center border-2 border-white p-2">SHO</div>
+                    <div className="my-2 text-white text-xl text-center border-2 border-white p-2">{role.toUpperCase()}</div>
                 </div>
             </div>
 

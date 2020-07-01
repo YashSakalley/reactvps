@@ -46,9 +46,9 @@ export default function Nav() {
                             <div className={styles.dropdown}>
                                 <button className={`${styles.dropbtn} rounded-tl-lg rounded-tr-lg`}>OFFICERS LOGIN </button>
                                 <div className={styles.dropdownContent}>
-                                    <Link to="/sho">SHO</Link>
-                                    <a href="/#">SP</a>
-                                    <a href="/#">IO</a>
+                                    <Link to="/login/sho">SHO</Link>
+                                    <Link to="/login/sp">SP</Link>
+                                    <Link to="/login/io">IO</Link>
                                 </div>
                             </div>
                         </div>
