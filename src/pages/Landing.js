@@ -1,10 +1,10 @@
 import React from 'react'
-import Nav from '../components/Nav/Nav'
-import Slider from '../components/Slider/Slider'
-import Quote from '../components/Quote'
-import Auth from '../components/Auth'
-import Status from '../components/Status'
-import Footer from '../components/Footer'
+import Nav from '../components/Home/Nav/Nav'
+import Slider from '../components/Home/Slider/Slider'
+import Quote from '../components/Home/Quote'
+import Auth from '../components/Home/Auth'
+import Status from '../components/Home/Status'
+import Footer from '../components/Home/Footer'
 
 export default function Landing() {
     return (

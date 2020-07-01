@@ -15,13 +15,14 @@ export default function Status() {
         setform({ firId: e.target.value })
     }
 
-    const submitHandler = (e) => {
-        e.preventDefault()
+    const submitHandler = () => {
+        setMsg('Checking. Please Wait')
 
         axios.get(`/firs/${form.firId}`)
             .then((response) => {
                 if (response.data.status === 'success') {
-                    setMsg(false)
+                    console.log(response);
+                    setMsg('Found')
                     setResult(response.data.fir.status)
                 } else {
                     setMsg(response.data.msg)
@@ -29,7 +30,8 @@ export default function Status() {
                 }
             })
             .catch((error) => {
-                setMsg('Error occurred. Please try later')
+                setMsg('Invalid FIR id')
+                setResult(false)
                 console.log(error);
             })
 
@@ -48,7 +50,7 @@ export default function Status() {
                         <div className="hidden lg:block lg:w-1/2 bg-cover" style={{ backgroundImage: "url('https://svitla.com/uploads/0/2135-database_management_software.jpg')" }}></div>
                         <div className="w-full p-8 lg:w-1/2">
                             <div className="flex justify-center">
-                                <img src="https://lh3.googleusercontent.com/proxy/ISAhow91iujjLLBbx8isGnNK4EKRr-fvOWbyPzkIltGdTGgyvpUa25l4NM6BWtodQTDlBU9Eg60O3F4hOe5lMBYKXq35UlwxhCvbpeDZylTsfGfC3jL3uVL3T9Fd4Q" className="w-34 h-32" alt="" />
+                                <img src="https://lh3.googleusercontent.com/proxy/ISAhow91iujjLLBbx8isGnNK4EKRr-fvOWbyPzkIltGdTGgyvpUa25l4NM6BWtodQTDlBU9Eg60O3F4hOe5lMBYKXq35UlwxhCvbpeDZylTsfGfC3jL3uVL3T9Fd4Q" className="w-34 h-32" alt="Check Status" />
                             </div>
                             <div className="mt-4 flex items-center justify-between">
                                 <span className="border-b w-1/5 lg:w-1/4"></span>

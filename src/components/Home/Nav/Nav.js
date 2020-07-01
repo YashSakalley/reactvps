@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Nav.module.css'; //using DropDown css from here
+import { Link } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 export default function Nav() {
 
@@ -45,7 +46,7 @@ export default function Nav() {
                             <div className={styles.dropdown}>
                                 <button className={`${styles.dropbtn} rounded-tl-lg rounded-tr-lg`}>OFFICERS LOGIN </button>
                                 <div className={styles.dropdownContent}>
-                                    <a href="/#">SHO</a>
+                                    <Link to="/sho">SHO</Link>
                                     <a href="/#">SP</a>
                                     <a href="/#">IO</a>
                                 </div>

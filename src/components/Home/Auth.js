@@ -78,7 +78,7 @@ export default function Auth() {
                                 console.log(user);
                                 Cookies.remove('token')
                                 Cookies.set('token', user._id, { expires: 7 })
-                                Cookies.set('user', { user: user })
+                                Cookies.set('user', { user: user }, { expires: 7 })
                                 history.push('/fir')
                             } else {
                                 setMsg('Internal Database Error')

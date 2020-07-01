@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Fir() {
+export default function Io() {
     return (
         <div>
-            Fir
+
         </div>
     )
 }
