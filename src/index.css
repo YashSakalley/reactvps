@@ -1,3 +1,14 @@
 * {
   scroll-behavior: smooth;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ccff;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 
-import ChatPage from '../components/Report/ChatPage'
+import ChatPage from '../components/Report/Chat/ChatPage'
 import CrimePage from '../components/Report/CrimePage'
 import UploadPage from '../components/Report/UploadPage'
 import FinalPage from '../components/Report/FinalPage'
 
 export default function Report() {
     const [currentPage, setCurrentPage] = useState({
-        crimePage: true,
-        chatPage: false,
+        crimePage: false,
+        chatPage: true,
         uploadPage: false,
         finalPage: false
     })
@@ -29,6 +29,12 @@ export default function Report() {
 
     const chatPageSubmit = () => {
         console.log('Chat Completed')
+        setCurrentPage({
+            crimePage: false,
+            chatPage: false,
+            uploadPage: true,
+            finalPage: false
+        })
     }
 
     return (

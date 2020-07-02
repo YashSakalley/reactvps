@@ -76,10 +76,15 @@ export default function Auth() {
                             if (response.data.status === 'success') {
                                 let user = response.data.user;
                                 console.log(user);
+
                                 Cookies.remove('token')
+                                Cookies.remove('user')
+
                                 Cookies.set('token', user._id, { expires: 7 })
                                 Cookies.set('user', { user: user }, { expires: 7 })
-                                history.push('/fir')
+                                Cookies.set('role', 'user')
+
+                                history.push('/submitReport')
                             } else {
                                 setMsg('Internal Database Error')
                             }
