@@ -1,23 +1,24 @@
 import React, { useState } from 'react'
 
 import ChatPage from '../components/Report/Chat/ChatPage'
-import CrimePage from '../components/Report/CrimePage'
+import CrimePage from '../components/Report/SelectCrime/CrimePage'
 import UploadPage from '../components/Report/UploadPage'
-import FinalPage from '../components/Report/FinalPage'
+import FinalPage from '../components/Report/FinalPage/FinalPage'
 
 export default function Report() {
     const [currentPage, setCurrentPage] = useState({
-        crimePage: false,
-        chatPage: true,
+        crimePage: true,
+        chatPage: false,
         uploadPage: false,
         finalPage: false
     })
 
-    const [crimes] = useState(['Cyber Bullying', 'Hacking or Phishing', 'Theft', 'Murder', 'Violence', 'Other'])
     const [crime, setCrime] = useState('Theft')
+    const [chatForm, setChatForm] = useState({})
+    const [mediaForm, setMediaForm] = useState({})
 
     const crimePageSubmit = (name) => {
-        console.log('Crime Selected')
+        console.log('Crime Selected', name)
         setCurrentPage({
             crimePage: false,
             chatPage: true,
@@ -27,8 +28,9 @@ export default function Report() {
         setCrime(name)
     }
 
-    const chatPageSubmit = () => {
-        console.log('Chat Completed')
+    const chatPageSubmit = (form) => {
+        console.log('Chat Completed', form)
+        setChatForm(form)
         setCurrentPage({
             crimePage: false,
             chatPage: false,
@@ -37,11 +39,22 @@ export default function Report() {
         })
     }
 
+    const uploadPageSubmit = (form) => {
+        console.log('File upload completed', form)
+        setMediaForm(form)
+        setCurrentPage({
+            crimePage: false,
+            chatPage: false,
+            uploadPage: false,
+            finalPage: true
+        })
+    }
+
     return (
         <>
             {
                 currentPage.crimePage
-                    ? <CrimePage crimes={crimes} submit={crimePageSubmit} />
+                    ? <CrimePage submit={crimePageSubmit} />
                     : null
             }
             {
@@ -51,12 +64,15 @@ export default function Report() {
             }
             {
                 currentPage.uploadPage
-                    ? <UploadPage />
+                    ? <UploadPage submit={uploadPageSubmit} />
                     : null
             }
             {
                 currentPage.finalPage
-                    ? <FinalPage />
+                    ? <FinalPage
+                        crime={crime}
+                        chatForm={chatForm}
+                        mediaForm={mediaForm} />
                     : null
             }
         </>

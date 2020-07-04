@@ -5,32 +5,32 @@ import axios from 'axios'
 export default function Status() {
 
     const [form, setform] = useState({
-        firId: ''
+        reportId: ''
     })
 
     const [msg, setMsg] = useState(false)
     const [result, setResult] = useState(false)
 
     const changeHandler = (e) => {
-        setform({ firId: e.target.value })
+        setform({ reportId: e.target.value })
     }
 
     const submitHandler = () => {
         setMsg('Checking. Please Wait')
 
-        axios.get(`/firs/${form.firId}`)
+        axios.get(`/reports/${form.reportId}`)
             .then((response) => {
                 if (response.data.status === 'success') {
                     console.log(response);
                     setMsg('Found')
-                    setResult(response.data.fir.status)
+                    setResult(response.data.report.status)
                 } else {
                     setMsg(response.data.msg)
                     console.log(response);
                 }
             })
             .catch((error) => {
-                setMsg('Invalid FIR id')
+                setMsg('Invalid report id')
                 setResult(false)
                 console.log(error);
             })
@@ -54,7 +54,7 @@ export default function Status() {
                             </div>
                             <div className="mt-4 flex items-center justify-between">
                                 <span className="border-b w-1/5 lg:w-1/4"></span>
-                                <a href="/" className="text-xl text-center text-gray-500 uppercase">CHECK YOUR FIR STATUS</a>
+                                <a href="/" className="text-xl text-center text-gray-500 uppercase">CHECK YOUR report STATUS</a>
                                 <span className="border-b w-1/5 lg:w-1/4"></span>
                             </div>
                             <div className="mt-4">
@@ -62,9 +62,9 @@ export default function Status() {
                                 <input
                                     className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
                                     type="text"
-                                    name="firId"
+                                    name="reportId"
                                     onChange={changeHandler}
-                                    value={form.firId} />
+                                    value={form.reportId} />
                             </div>
                             <div className="mt-4">
                                 <button

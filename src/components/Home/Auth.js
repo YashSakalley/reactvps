@@ -64,7 +64,7 @@ export default function Auth() {
                 console.log(response);
                 if (response.data.status === 'success') {
 
-                    console.log('Redirect to fir');
+                    console.log('Redirect to Report');
                     setMsg('Redirecting. Please Wait')
 
                     let formBody = {

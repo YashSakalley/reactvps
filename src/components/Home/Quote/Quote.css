@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css?family=Sanchez:400italic, 400");
+@import url("https://fonts.googleapis.com/css?family=Noto + Sans:400, 700");
+
+.Quote {
+  padding: 20px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #407690;
+  background: linear-gradient(to right bottom, #ececec, #cbc3c3);
+}
+
+.Quote blockquote {
+  border-left: #407690;
+}
+
+.Quote .groucho {
+  position: relative;
+  font-family: "Montaga", serif;
+  font-size: 2em;
+  line-height: 1.5em;
+}
+
+.Quote .groucho:before {
+  content: "\201C";
+  position: absolute;
+  top: 0.2em;
+  left: 0;
+  font-size: 6em;
+  font-style: italic;
+  color: rgb(202, 202, 202);
+  z-index: 0;
+}
+
+.Quote .groucho footer {
+  font-family: "Montaga", serif;
+  font-size: 0.6em;
+  font-weight: 700;
+  color: rgb(161, 161, 161);
+  float: right;
+}
+
+.Quote .groucho footer:before {
+  content: "\2015 ";
+}

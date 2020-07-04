@@ -50,7 +50,13 @@ export default function ChatBox({ crime, submit }) {
     }
 
     const onNextClick = () => {
-        submit()
+        let form = {
+            questions: [],
+            answers: []
+        }
+        form.answers = state.answers
+        form.questions = state.questions.map(({ question }) => (question))
+        submit(form)
     }
 
     return (
