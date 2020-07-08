@@ -6,10 +6,16 @@ import Report from './pages/Report'
 import Login from './components/OfficerLogin/Login'
 import Dashboard from './pages/Dashboard/Dashboard'
 import OfficerReport from './pages/Dashboard/Report'
+import Loading from './components/Loading/Loading'
+
 
 export default function AppRouter() {
     return (
         <Switch>
+
+            <Route path='/loading'>
+                <Loading />
+            </Route>
 
             <Route path="/submitReport">
                 <Report />
@@ -27,8 +33,14 @@ export default function AppRouter() {
                 <Login />
             </Route>
 
-            <Route path="/">
+            <Route path="/" exact>
                 <Landing />
+            </Route>
+
+            <Route path="/" >
+                404 not found
+                <br />
+                <a href="/">Click here to go home</a>
             </Route>
 
         </Switch>

@@ -5,11 +5,9 @@ import Status from '../../components/Dashboard/Status'
 import SideBar from '../../components/Dashboard/SideBar'
 import Search from '../../components/Dashboard/Search'
 import Table from '../../components/Dashboard/Table'
-import { useParams } from 'react-router-dom'
 
 export default function Dashboard() {
     const [sideBarOpen, setSideBarOpen] = useState(false)
-    console.log(useParams())
 
     return (
         <div className="flex h-screen bg-gray-200 font-roboto">

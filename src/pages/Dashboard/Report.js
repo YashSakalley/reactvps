@@ -4,10 +4,11 @@ import Nav from '../../components/Dashboard/Nav'
 import SideBar from '../../components/Dashboard/SideBar'
 import { useParams } from 'react-router-dom'
 import Content from '../../components/Dashboard/Content'
+import IoContent from '../../components/Dashboard/IoContent'
 
 export default function Dashboard() {
     const reportId = useParams().reportId
-
+    const role = useParams().role
     const [sideBarOpen, setSideBarOpen] = useState(false)
     return (
         <div className="flex h-screen bg-gray-200 font-roboto">
@@ -21,7 +22,13 @@ export default function Dashboard() {
 
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Nav sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} />
-                <Content id={reportId} />
+                {
+                    role === 'io'
+                        ?
+                        <IoContent />
+                        :
+                        <Content id={reportId} />
+                }
             </div>
 
         </div >

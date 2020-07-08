@@ -2,14 +2,20 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import Cookies from 'js-cookie'
+import ContentCell from './ContentCell'
 
 export default function Content({ id }) {
 
     const [content, setContent] = useState({
-        report: {},
+        report: {
+            answers: ['', '', '', '', '', '', ''],
+            questions: ['', '', '', '', '', '', '']
+        },
         user: {}
     })
     const [msg, setMsg] = useState(false)
+    const [showDetails, setShowDetails] = useState(false)
+
     let history = useHistory()
     let role = useParams().role
 
@@ -37,14 +43,13 @@ export default function Content({ id }) {
     }, [])
 
     const onBackHandler = () => {
-        history.push(`/dashboard/${role}`)
+        history.goBack()
     }
 
     const onAcceptHandler = () => {
         setMsg('Changing report status to approved...');
         const { user, report } = content
         const officer = Cookies.getJSON('user').user
-        console.log(officer);
 
         let officerRole
         if (role === 'sho') {
@@ -82,9 +87,7 @@ export default function Content({ id }) {
             }
         }
 
-
-
-        axios.put(`/reports/${content.report._id}`, { status: 'approved' })
+        axios.put(`/reports/${content.report._id}`, { status: `Approved by ${role.toUpperCase()}` })
             .then((res) => {
                 setMsg('Status updated. Generating pdf...')
             })
@@ -105,14 +108,51 @@ export default function Content({ id }) {
     const [rejectedReason, setRejectedReason] = useState('')
 
     const onDeclineHandler = () => {
-        axios.put(`/reports/${content.report._id}`, { status: 'rejected by sho', reason: rejectedReason })
+        axios.put(`/reports/${content.report._id}`, { status: `Rejected by ${role.toUpperCase()}`, reason: rejectedReason })
             .then((res) => {
                 console.log(res)
+                history.goBack()
             })
             .catch((err) => {
                 console.log(err)
             })
     }
+
+    const controls =
+        <>
+            {
+                showTextBox
+                    ?
+                    <div>
+                        <input
+                            type="text"
+                            className="w-full"
+                            value={rejectedReason}
+                            onChange={(event) => setRejectedReason(event.target.value)}
+                        ></input>
+                        <br />
+                        <button
+                            onClick={() => { setshowTextBox(false) }}
+                            className="mt-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-blue-400 text-black-100 hover:bg-blue-600 hover:text-black-500">CANCEL
+                            </button>
+                        <button
+                            onClick={onDeclineHandler}
+                            className="mt-4 ml-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-red-600 border-red-600 text-gray-100 hover:bg-red-500 hover:border-red-500 hover:text-gray-100">DECLINE
+                        </button>
+                    </div>
+                    :
+                    <>
+                        <button
+                            onClick={onAcceptHandler}
+                            className="mt-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-green-600 border-green-600 text-gray-100 hover:bg-green-500 hover:text-gray-100">ACCEPT
+                        </button>
+                        <button
+                            onClick={() => { setshowTextBox(true) }}
+                            className="mt-4 ml-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-red-600 border-red-600 text-gray-100 hover:bg-red-500 hover:border-red-500 hover:text-gray-100">DECLINE
+                        </button>
+                    </>
+            }
+        </>
 
     return (
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
@@ -128,71 +168,50 @@ export default function Content({ id }) {
                 </div>
                 <table className="text-left w-full mt-4 bg-white text-lg shadow-xl">
                     <tbody className="bg-grey-light flex flex-col items-center justify-between w-full">
-                        <tr className="flex w-full mb-4">
-                            <td className="p-4 w-1/3">AADHAAR NUMBER :</td>
-                            <td className="p-4 w-1/3">{content.user.uid}</td>
-                        </tr>
-                        <tr className="flex w-full mb-4">
-                            <td className="p-4 w-1/3">FULLNAME :</td>
-                            <td className="p-4 w-1/3">{content.user.first_name} {content.user.last_name}</td>
-                        </tr>
-                        <tr className="flex w-full mb-4">
-                            <td className="p-4 w-1/3">SUBMITTED ON (DATE AND TIME):</td>
-                            <td className="p-4 w-1/3">{date} {Time}</td>
-                        </tr>
-                        <tr className="flex w-full mb-4">
-                            <td className="p-4 w-1/3">CRIME RELATED:</td>
-                            <td className="p-4 w-1/3">{content.report.crime}</td>
-                        </tr>
-                        <tr className="flex w-full mb-4">
-                            <td className="p-4 w-1/3">PLACE:</td>
-                            <td className="p-4 w-1/3">BHOPAL</td>
-                        </tr>
-                        <tr className="flex w-full mb-4">
-                            <td className="p-4 w-1/3">DESCRIPTION GIVEN:</td>
-                            <td className="p-4 w-1/3">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Quisquam adipisci eaque odio, ut dignissimos ipsum culpa id! Nisi id maxime
-                            reiciendis ipsa illo a, corporis mollitia quod, molestias consequatur ipsum.
-                                    </td>
-                        </tr>
-                        <tr className="flex w-full mb-4">
-                            <td className="p-4 w-1/3">WITNESS:</td>
-                            <td className="p-4 w-1/3">2</td>
-                        </tr>
+                        <ContentCell id="AADHAAR NUMBER" value={content.user.uid} />
+                        <ContentCell id="FULLNAME" value={`${content.user.first_name} ${content.user.last_name}`} />
+                        <ContentCell id="SUBMITTED ON (DATE AND TIME)" value={`${date} ${Time}`} />
+                        <ContentCell id="CRIME RELATED" value={content.report.crime} />
+                        <ContentCell id="PLACE" value="BHOPAL" />
+                        <ContentCell id="STATUS" value={content.report.status} />
                     </tbody>
                 </table>
+                <h1
+                    className="text-3xl mx-2 my-5"
+                    onClick={() => setShowDetails(!showDetails)}>
+                    Details
+                        <span className="float-right text-base text-blue-400 cursor-pointer">
+                        {showDetails ? 'HIDE' : 'SHOW'}
+                    </span>
+                </h1>
+                {
+                    showDetails
+                        ?
+                        <table className="text-left w-full mt-4 bg-white text-lg shadow-xl">
+                            <tbody className="bg-grey-light flex flex-col items-center justify-between w-full">
+                                {
+                                    content.report.answers.map((answer, i) => (
+                                        <ContentCell
+                                            key={i}
+                                            id={content.report.questions[i]}
+                                            value={answer} />
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                        : null
+                }
                 <div className="flex p-2">
-                    {
-                        showTextBox
+                    {content.report.status === 'Pending'
+                        ?
+                        controls
+                        :
+                        content.report.status === 'Rejected by SHO'
                             ?
-                            <div>
-                                <input
-                                    type="text"
-                                    className="w-full"
-                                    value={rejectedReason}
-                                    onChange={(event) => setRejectedReason(event.target.value)}
-                                ></input>
-                                <br />
-                                <button
-                                    onClick={() => { setshowTextBox(false) }}
-                                    className="mt-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-blue-400 text-black-100 hover:bg-blue-600 hover:text-black-500">CANCEL
-                                </button>
-                                <button
-                                    onClick={onDeclineHandler}
-                                    className="mt-4 ml-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-red-600 border-red-600 text-gray-100 hover:bg-red-500 hover:border-red-500 hover:text-gray-100">DECLINE
-                                </button>
-                            </div>
-                            :
-                            <>
-                                <button
-                                    onClick={onAcceptHandler}
-                                    className="mt-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-green-600 border-green-600 text-gray-100 hover:bg-green-500 hover:text-gray-100">ACCEPT
-                                </button>
-                                <button
-                                    onClick={() => { setshowTextBox(true) }}
-                                    className="mt-4 ml-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-red-600 border-red-600 text-gray-100 hover:bg-red-500 hover:border-red-500 hover:text-gray-100">DECLINE
-                                </button>
-                            </>
+                            role === 'sp'
+                                ? controls
+                                : null
+                            : null
                     }
                 </div>
             </div>

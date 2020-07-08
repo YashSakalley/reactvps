@@ -1,6 +1,5 @@
 import React from 'react'
-import styles from './Slider.module.css'
-import './Slider.module.css'
+import './Slider.css'
 export default function Slider() {
 
     return (
@@ -15,7 +14,7 @@ export default function Slider() {
                         <a href="#login-section" className="text-white bg-red-500 hover:bg-red-600 rounded-lg shadow p-2 mx-2" >CLICK HERE</a>
                     </div>
                 </div>
-                <div className={styles.slider}>
+                <div className="slider">
                     <figure className="figure">
                         <div className="slide"><img src="https://cdn.hipwallpaper.com/i/56/1/adDCWc.jpg" alt="" /></div>
                         <div className="slide"><img src="https://images8.alphacoders.com/914/914689.png" alt="" /></div>

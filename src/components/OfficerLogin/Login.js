@@ -63,44 +63,46 @@ export default function Login() {
                         style={{ backgroundImage: "url('https://static.vecteezy.com/system/resources/thumbnails/000/242/730/original/police-officer-avatar-illustration.jpg')", backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }} ></div>
                     <div className="w-full p-8 lg:w-1/2">
                         <div className="flex justify-center">
-                            <img src="https://images.vexels.com/media/users/3/158397/isolated/preview/e5d4579c3400a6c604ede2357e7b6de9-badge-police-silhouette-by-vexels.png" className="w-64 h-36" alt="" />
+                            <img src="https://images.vexels.com/media/users/3/158397/isolated/preview/e5d4579c3400a6c604ede2357e7b6de9-badge-police-silhouette-by-vexels.png" className="w-40 h-36" alt="" />
                         </div>
                         <div className="mt-4 flex items-center justify-between">
                             <span className="border-b w-1/5 lg:w-1/4"></span>
                             <a href="/#" className="text-xl text-center text-gray-500 uppercase">{role} LOGIN</a>
                             <span className="border-b w-1/5 lg:w-1/4"></span>
                         </div>
-                        <div className="mt-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2"></label>
-                            <input
-                                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                                type="email"
-                                placeholder="EMAIL"
-                                onChange={changeHandler}
-                                value={form.email}
-                                name="email"
-                                required />
-                        </div>
-                        <div className="mt-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2"></label>
-                            <input
-                                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                                type="password"
-                                placeholder="PASSWORD"
-                                onChange={changeHandler}
-                                value={form.password}
-                                name="password"
-                                required />
-                        </div>
-                        <div className="mt-4">
-                            <button
-                                className="bg-gray-700 text-white font-bold py-2 px-4 rounded hover:bg-gray-600"
-                                onClick={submitHandler}
-                            >
-                                LOGIN
+                        <div className="px-8 m-4 mt-16">
+                            <div className="mt-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2"></label>
+                                <input
+                                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                    type="email"
+                                    placeholder="EMAIL"
+                                    onChange={changeHandler}
+                                    value={form.email}
+                                    name="email"
+                                    required />
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2"></label>
+                                <input
+                                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                    type="password"
+                                    placeholder="PASSWORD"
+                                    onChange={changeHandler}
+                                    value={form.password}
+                                    name="password"
+                                    required />
+                            </div>
+                            <div className="mt-4">
+                                <button
+                                    className="w-full bg-gray-700 text-white font-bold py-2 px-4 rounded hover:bg-gray-600"
+                                    onClick={submitHandler}
+                                >
+                                    LOGIN
                             </button>
+                            </div>
                         </div>
-                        <div style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
+                        <div style={{ textAlign: 'center', color: 'red' }} className="h-6">{msg ? msg : null}</div>
                     </div>
                 </div>
             </div>
