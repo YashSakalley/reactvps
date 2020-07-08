@@ -5,6 +5,7 @@ import Landing from './pages/Landing'
 import Report from './pages/Report'
 import Login from './components/OfficerLogin/Login'
 import Dashboard from './pages/Dashboard/Dashboard'
+import OfficerReport from './pages/Dashboard/Report'
 
 export default function AppRouter() {
     return (
@@ -12,6 +13,10 @@ export default function AppRouter() {
 
             <Route path="/submitReport">
                 <Report />
+            </Route>
+
+            <Route path="/dashboard/:role/:reportId">
+                <OfficerReport />
             </Route>
 
             <Route path="/dashboard/:role">

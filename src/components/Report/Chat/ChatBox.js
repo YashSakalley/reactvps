@@ -8,7 +8,7 @@ import FinishMsg from './FinishMsg'
 
 export default function ChatBox({ crime, submit }) {
     const [state, setState] = useState({
-        questions: [{ question: 'init', suggestions: [] }],
+        questions: [{ question: 'init', suggestions: [], label: '' }],
         answers: []
     })
 
@@ -55,7 +55,7 @@ export default function ChatBox({ crime, submit }) {
             answers: []
         }
         form.answers = state.answers
-        form.questions = state.questions.map(({ question }) => (question))
+        form.questions = state.questions.map(({ label }) => (label))
         submit(form)
     }
 

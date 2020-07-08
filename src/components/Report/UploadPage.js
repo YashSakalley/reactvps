@@ -1,20 +1,70 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 export default function UploadPage({ submit }) {
-    const [form, setForm] = useState({
-        evidence: [],
-        signature: ''
-    })
+    const [evidence, setEvidence] = useState(null)
+    const [signature, setSignature] = useState(null)
+    const [msg, setMsg] = useState(null)
+
+    const [finalEvidence, setFinalEvidence] = useState(null)
+    const [finalSignature, setFinalSignature] = useState(null)
+
+    const [canSubmit, setCanSubmit] = useState(false)
 
     const onChangeHandler = (event) => {
-        setForm({
-            ...form,
-            [event.target.id]: event.target.value
-        })
+        if (event.target.id === 'evidence') {
+            console.log('Changing evidence');
+            setEvidence(event.target.files[0])
+        } else {
+            console.log('Changing signature');
+            setSignature(event.target.files[0])
+        }
     }
 
-    const onSubmitHandler = () => {
-        submit(form)
+    const uploadFile = async () => {
+        console.log('Uploading');
+        setMsg('Starting upload')
+
+        let evidenceData = new FormData()
+        if (evidence) {
+            setMsg('Uploading evidence')
+            evidenceData.append('file', evidence)
+            await axios.post('/upload', evidenceData)
+                .then((res) => {
+                    console.log('evidence', res.data.file.filename)
+                    setMsg('Evidence uploaded')
+                    setFinalEvidence(res.data.file.filename)
+                })
+                .catch((err) => {
+                    console.log(err)
+                    setMsg('Error uploading evidence')
+                })
+        }
+        let signatureData = new FormData()
+
+        setMsg('Uploading signature')
+        signatureData.append('file', signature)
+        axios.post('/upload', signatureData)
+            .then((res) => {
+                let fileName = res.data.file.filename
+                console.log('signature', fileName)
+                setFinalSignature(fileName)
+                setMsg('Signature Uploaded. Click Finish to Continue...')
+                setCanSubmit(true)
+            })
+            .catch((err) => {
+                console.log(err)
+                setMsg('Error uploading signature')
+            })
+
+    }
+
+    const submitFiles = () => {
+        submit({
+            evidence: finalEvidence,
+            signature: finalSignature
+        })
+        console.log(finalEvidence, finalSignature);
     }
 
     return (
@@ -44,6 +94,7 @@ export default function UploadPage({ submit }) {
                             <div className="w-1/2 p-5">
                                 <input
                                     id="evidence"
+                                    name="evidence"
                                     type="file"
                                     className="hidden"
                                     onChange={onChangeHandler} />
@@ -68,10 +119,32 @@ export default function UploadPage({ submit }) {
                             </div>
                         </div>
                         <div className="bg-gray-400 h-1 w-full mt-5"></div>
-                        <button
-                            onClick={onSubmitHandler}
-                            className="bg-green-600 p-2 text-white mt-2 w-full"
-                        >FINISH</button>
+                        {
+                            msg
+                                ?
+                                <div>{msg}</div>
+                                :
+                                null
+                        }
+                        {
+                            !canSubmit
+                                ?
+                                signature === null
+                                    ?
+                                    <button
+                                        className="bg-green-600 p-2 text-white mt-2 w-full cursor-not-allowed opacity-50"
+                                    >UPLOAD</button>
+                                    :
+                                    <button
+                                        onClick={uploadFile}
+                                        className="bg-green-600 p-2 text-white mt-2 w-full hover:bg-green-800"
+                                    >UPLOAD</button>
+                                :
+                                <button
+                                    onClick={submitFiles}
+                                    className="bg-green-600 p-2 text-white mt-2 w-full hover:bg-green-800"
+                                >FINISH</button>
+                        }
                     </div>
                 </div>
             </div>
