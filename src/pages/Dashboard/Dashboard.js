@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-import Nav from '../../components/Dashboard/Nav'
-import Status from '../../components/Dashboard/Status'
-import SideBar from '../../components/Dashboard/SideBar'
-import Search from '../../components/Dashboard/Search'
-import Table from '../../components/Dashboard/Table'
+import Nav from '../../components/Dashboard/Utils/Nav'
+import Status from '../../components/Dashboard/Utils/Status'
+import SideBar from '../../components/Dashboard/Utils/SideBar'
+import Search from '../../components/Dashboard/Utils/Search'
+import Table from '../../components/Dashboard/Utils/Table'
 
 export default function Dashboard() {
     const [sideBarOpen, setSideBarOpen] = useState(false)

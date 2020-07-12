@@ -3,7 +3,7 @@ import Axios from 'axios'
 
 import TableCell from './TableCell'
 import { useParams } from 'react-router-dom'
-import Loading from '../Loading/Loading'
+import Loading from '../../Loading/Loading'
 
 export default function Table() {
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-import Nav from '../../components/Dashboard/Nav'
-import SideBar from '../../components/Dashboard/SideBar'
+import Nav from '../../components/Dashboard/Utils/Nav'
+import SideBar from '../../components/Dashboard/Utils/SideBar'
 import { useParams } from 'react-router-dom'
-import Content from '../../components/Dashboard/Content'
-import IoContent from '../../components/Dashboard/IoContent'
+import Content from '../../components/Dashboard/Content/Content'
+import IoContent from '../../components/Dashboard/Io/IoContent'
 
 export default function Dashboard() {
     const reportId = useParams().reportId
@@ -25,7 +25,7 @@ export default function Dashboard() {
                 {
                     role === 'io'
                         ?
-                        <IoContent />
+                        <IoContent id={reportId} />
                         :
                         <Content id={reportId} />
                 }
