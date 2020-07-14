@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import analyseText from './AnalyseText'
 import Axios from 'axios'
 
 export default function IoMedia({ index }) {
@@ -7,6 +8,10 @@ export default function IoMedia({ index }) {
     const [isError, setIsError] = useState(false)
 
     const analyse = (task) => {
+        console.log(task)
+        if (task === 'text') {
+            analyseText()
+        }
         setResult(false)
         Axios.post('/analyse', {})
             .then((res) => {
@@ -62,6 +67,11 @@ export default function IoMedia({ index }) {
                 onClick={() => analyse('faces')}
                 className="text-white bg-purple-500 p-4 ml-4">
                 SCAN FACES
+            </button>
+            <button
+                onClick={() => analyse('audio')}
+                className="text-white bg-purple-500 p-4 ml-4">
+                ANALYSE AUDIO
             </button>
             {
                 result

@@ -116,7 +116,7 @@ export default function Auth() {
                         AADHAAR LOGIN
                     </div>
                 </div>
-                <div className="py-6">
+                <div className="py-8">
                     <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 ">
                         <div className="hidden lg:block lg:w-1/2 bg-cover" style={{ backgroundImage: "url('https://martechtoday.com/wp-content/uploads/2018/08/AI1920_f0dksn.png')" }}></div>
                         <div className="w-full p-8 lg:w-1/2">
@@ -129,47 +129,56 @@ export default function Auth() {
                                 <a href="/" className="text-xl text-center text-gray-500 uppercase">LOGIN USING AADHAAR</a>
                                 <span className="border-b w-1/5 lg:w-1/4"></span>
                             </div>
-                            <div className="mt-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2"></label>
-                                <input
-                                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                                    type="text"
-                                    name="uid"
-                                    onChange={inputChangedHandler}
-                                    value={form.uid}
-                                    disabled={isUidDisabled}
-                                />
-                            </div>
-                            <div className="mt-4">
-                                <button
-                                    className="bg-gray-700 text-white font-bold py-2 px-4 rounded hover:bg-gray-600"
-                                    onClick={uidSubmitHandler}
-                                    disabled={isUidDisabled}>
-                                    GENERATE OTP
-                                </button>
-                            </div>
-                            <div className="mt-8">
-                                <div className="flex justify-between">
+                            <div className="px-32">
+
+                                <div className="mt-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2"></label>
+                                    <input
+                                        className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                        type="text"
+                                        name="uid"
+                                        onChange={inputChangedHandler}
+                                        value={form.uid}
+                                        disabled={isUidDisabled}
+                                    />
                                 </div>
-                                <input
-                                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                                    type="text"
-                                    name="otp"
-                                    onChange={inputChangedHandler}
-                                    value={form.otp}
-                                    disabled={isOtpDisabled}
-                                />
+                                <div className="mt-4">
+                                    <button
+                                        className={`w-full text-white font-bold py-2 px-4 rounded ${isUidDisabled ? 'bg-gray-600 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'}`}
+                                        onClick={uidSubmitHandler}
+                                        disabled={isUidDisabled}>
+                                        GENERATE OTP
+                                    </button>
+                                </div>
+
+
+                                <div className="mt-8">
+                                    <div className={`${!isOtpDisabled ? 'block' : 'hidden'} text-xl text-green-500`}>
+                                        OTP send to {phone}
+                                    </div>
+                                    <div className="mt-4 flex justify-between">
+                                        <label className="block text-gray-700 text-sm font-bold mb-2"></label>
+                                    </div>
+                                    <input
+                                        className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                        type="text"
+                                        name="otp"
+                                        onChange={inputChangedHandler}
+                                        value={form.otp}
+                                        disabled={isOtpDisabled}
+                                    />
+                                </div>
+                                <div className="mt-4">
+                                    <button
+                                        className={`w-full text-white font-bold py-2 px-4 rounded ${isOtpDisabled ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'}`}
+                                        onClick={otpSubmitHandler}
+                                        disabled={isOtpDisabled}>
+                                        SUBMIT OTP
+                                    </button>
+                                </div>
+
                             </div>
-                            <div className="mt-8">
-                                <button
-                                    className="bg-gray-700 text-white font-bold py-2 px-4 rounded hover:bg-gray-600"
-                                    onClick={otpSubmitHandler}
-                                    disabled={isOtpDisabled}>
-                                    SUBMIT OTP
-                                </button>
-                            </div>
-                            <div style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
+                            <div className="mt-4" style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
                         </div>
                     </div>
                 </div>

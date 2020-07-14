@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import Canvas from './Canvas'
 
 export default function UploadPage({ submit }) {
     const [evidence, setEvidence] = useState(null)
@@ -10,6 +11,8 @@ export default function UploadPage({ submit }) {
     const [finalSignature, setFinalSignature] = useState(null)
 
     const [canSubmit, setCanSubmit] = useState(false)
+
+    const [showCanvas, setShowCanvas] = useState(true)
 
     const onChangeHandler = (event) => {
         if (event.target.id === 'evidence') {
@@ -69,12 +72,30 @@ export default function UploadPage({ submit }) {
 
     return (
         <div style={{
-            backgroundImage: "url('https://cdn.wallpapersafari.com/43/98/WMXhls.jpg')",
+            backgroundImage: "url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f7702d6e-c194-4cf5-bee2-7177082d8e4a/d5eyfb2-4ae49ebc-e8a3-4e3a-b3ef-ba2d1fc3e9e1.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvZjc3MDJkNmUtYzE5NC00Y2Y1LWJlZTItNzE3NzA4MmQ4ZTRhXC9kNWV5ZmIyLTRhZTQ5ZWJjLWU4YTMtNGUzYS1iM2VmLWJhMmQxZmMzZTllMS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.yVoidfiHJFqumIZBlTsn5BS1PegOfbQmQH83QEYdSz8')",
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center'
         }}
             className="sm:h-screen">
+            {
+                showCanvas
+                    ?
+                    <div className="w-full h-full bg-gray-600 opacity-75 fixed">
+                        <div className="flex justify-center mt-16">
+                            <div>
+                                <div className="h-8 text-right">
+                                    <button className="p-2 hover:bg-red-400"
+                                        onClick={() => setShowCanvas(false)}>
+                                        <i className="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <Canvas />
+                            </div>
+                        </div>
+                    </div>
+                    : null
+            }
             <div className="py-5 px-5 md:py-24 md:px-16">
                 <div className="flex bg-gray-300 rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 ">
                     <div className="hidden lg:block lg:w-1/2 bg-cover"
@@ -115,7 +136,11 @@ export default function UploadPage({ submit }) {
                                     className="hidden"
                                     onChange={onChangeHandler} />
                                 <label htmlFor="signature" className="cursor-pointer bg-teal-500 text-white p-2 rounded-lg">UPLOAD SIGNATURE</label>
-                                <button className="block bg-blue-500 rounded-lg p-2 text-white mt-4 w-1/2">DRAW</button>
+                                <button
+                                    onClick={() => setShowCanvas(true)}
+                                    className="block bg-blue-500 rounded-lg p-2 text-white mt-4 w-1/2">
+                                    DRAW
+                                </button>
                             </div>
                         </div>
                         <div className="bg-gray-400 h-1 w-full mt-5"></div>

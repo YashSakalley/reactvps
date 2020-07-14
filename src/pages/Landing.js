@@ -5,6 +5,7 @@ import Quote from '../components/Home/Quote/Quote'
 import Auth from '../components/Home/Auth'
 import Status from '../components/Home/Status'
 import Footer from '../components/Home/Footer'
+import Workflow from '../components/Home/Workflow'
 
 export default function Landing() {
     return (
@@ -16,7 +17,9 @@ export default function Landing() {
                 author="Author" />
             <Auth />
             <Status />
+            <Workflow />
             <Footer />
+
         </div>
     )
 }

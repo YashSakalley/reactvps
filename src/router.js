@@ -7,11 +7,16 @@ import Login from './components/OfficerLogin/Login'
 import Dashboard from './pages/Dashboard/Dashboard'
 import OfficerReport from './pages/Dashboard/Report'
 import Loading from './components/Loading/Loading'
+import Canvas from './components/Report/Canvas'
 
 
 export default function AppRouter() {
     return (
         <Switch>
+
+            <Route path='/test'>
+                <Canvas />
+            </Route>
 
             <Route path='/loading'>
                 <Loading />
