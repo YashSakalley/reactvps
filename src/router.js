@@ -7,7 +7,7 @@ import Login from './components/OfficerLogin/Login'
 import Dashboard from './pages/Dashboard/Dashboard'
 import OfficerReport from './pages/Dashboard/Report'
 import Loading from './components/Loading/Loading'
-import Canvas from './components/Report/Canvas'
+import Canvas from './components/Canvas'
 
 
 export default function AppRouter() {

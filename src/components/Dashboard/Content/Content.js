@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import ContentCell from './ContentCell'
+import Canvas from '../../Canvas'
 
 export default function Content({ id }) {
 
@@ -13,7 +14,7 @@ export default function Content({ id }) {
         },
         user: {}
     })
-    const [msg, setMsg] = useState(false)
+    const [msg, setMsg] = useState(true)
     const [showDetails, setShowDetails] = useState(false)
 
     let history = useHistory()
@@ -46,8 +47,23 @@ export default function Content({ id }) {
         history.goBack()
     }
 
+    const [showCanvas, setShowCanvas] = useState(false)
+    const [showAcceptModal, setShowAcceptModal] = useState(false)
     const onAcceptHandler = () => {
-        setMsg('Changing report status to approved...');
+        setShowAcceptModal(true)
+    }
+
+    const [signature, setSignature] = useState(null)
+    const onSignatureChanged = (event) => {
+        console.clear()
+        console.log(event.target.files[0])
+        setSignature(event.target.files[0])
+    }
+
+    const onFinishHandler = () => {
+        setMsg('Uploading Signature . . .');
+        console.log('Changing Status');
+
         const { user, report } = content
         const officer = Cookies.getJSON('user').user
 
@@ -83,20 +99,36 @@ export default function Content({ id }) {
                 property: report.answers[3],
                 description_of_accussed: report.answers[4],
                 witness_details: report.answers[5],
-                complaint: report.answers[6]
+                complaint: report.answers[6],
+                sender_sign: report.signature,
+                reciever_sign: ''
             }
         }
 
-        axios.put(`/reports/${content.report._id}`, { status: `Approved by ${role.toUpperCase()}` })
+        let signatureData = new FormData()
+        signatureData.append('file', signature)
+        axios.post('/upload', signatureData)
             .then((res) => {
-                setMsg('Status updated. Generating pdf...')
-            })
-            .then(() => {
-                axios.post('/firs', body)
-            })
-            .then(() => {
-                setMsg('Pdf generated. Redirecting...')
-                onBackHandler()
+                if (res.data.status === 'success') {
+                    console.log('Signature Uploaded');
+                    setMsg('Signature Uploaded. Changing Status to approved . . .')
+                    let infoSignature = res.data.file.filename
+                    body.info.reciever_sign = infoSignature
+                    axios.put(`/reports/${content.report._id}`, { status: `Approved by ${role.toUpperCase()}` })
+                        .then((res) => {
+                            if (res.data.status === 'success') {
+                                setMsg('Status updated. Generating pdf...')
+                                console.log('Generating pdf');
+                                axios.post('/firs', body)
+                                    .then((res) => {
+                                        if (res.data.status === 'success') {
+                                            setMsg('Pdf Generated. Redirecting...')
+                                            onBackHandler()
+                                        }
+                                    })
+                            }
+                        })
+                }
             })
             .catch((err) => {
                 console.log(err)
@@ -157,10 +189,50 @@ export default function Content({ id }) {
     return (
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
             <div className="container px-6 pt-8 bg-gray-200">
-                <div
-                    className={`fixed z-20 inset-0 text-white bg-black opacity-50 transition-opacity ${msg ? 'block' : 'hidden'}`}>
-                    {msg}
-                </div>
+                {
+                    showAcceptModal
+                        ?
+                        <div
+                            style={{ backdropFilter: 'blur(3.8px)' }}
+                            className={`fixed z-20 flex text-center justify-center items-center inset-0 text-white bg-black bg-opacity-75 transition-opacity ${showAcceptModal ? 'block' : 'hidden'}`}>
+                            <div className="">
+                                <h2 className="text-xl m-4"> Please submit your signature to accept this report </h2>
+                                <input
+                                    type="file"
+                                    id="signature"
+                                    className="hidden"
+                                    onChange={onSignatureChanged} />
+                                <label htmlFor="signature" className="bg-green-400 p-2 pl-4 pr-4 m-2 text-black cursor-pointer">UPLOAD</label>
+                                    OR
+                                <button
+                                    onClick={() => setShowCanvas(true)}
+                                    className="bg-blue-400 p-2 pl-4 pr-4 m-2 text-black">DRAW</button> <br /> <br />
+                                {
+                                    signature
+                                        ?
+                                        <>
+                                            Signature Uploaded: {signature.name} <br /> <br />
+                                            <button onClick={onFinishHandler} className="p-2 text-xl w-full bg-blue-600">FINISH</button>
+                                        </>
+                                        : null
+                                }
+                            </div>
+                            {
+                                showCanvas
+                                    ?
+                                    <div className="absolute test-right">
+                                        <div className="text-right">
+                                            <button className="bg-red-400 p-2" onClick={() => setShowCanvas(false)}>
+                                                <i className="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <Canvas />
+                                    </div>
+                                    : null
+                            }
+                        </div>
+                        : null
+                }
                 <div className="flex">
                     <button onClick={onBackHandler} className="text-white h-full"><img className=""
                         src="https://img.icons8.com/fluent/48/000000/back.png" alt="" /></button>
@@ -193,7 +265,7 @@ export default function Content({ id }) {
                                     content.report.answers.map((answer, i) => (
                                         <ContentCell
                                             key={i}
-                                            id={content.report.questions[i]}
+                                            id={content.report.questions[i].toUpperCase()}
                                             value={answer} />
                                     ))
                                 }

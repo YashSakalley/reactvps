@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import Canvas from './Canvas'
+import Canvas from '../Canvas'
 
 export default function UploadPage({ submit }) {
     const [evidence, setEvidence] = useState(null)
