@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import OfficerReport from './pages/Dashboard/Report'
 import Loading from './components/Loading/Loading'
 import Canvas from './components/Canvas'
+import Chart from './pages/Dashboard/Chart'
 
 
 export default function AppRouter() {
@@ -24,6 +25,10 @@ export default function AppRouter() {
 
             <Route path="/submitReport">
                 <Report />
+            </Route>
+
+            <Route path='/chart/dashboard/:role/'>
+                <Chart />
             </Route>
 
             <Route path="/dashboard/:role/:reportId">

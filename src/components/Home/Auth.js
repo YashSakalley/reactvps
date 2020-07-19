@@ -110,8 +110,8 @@ export default function Auth() {
 
     return (
         <>
-            <div style={{ backgroundImage: "url('https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/65/755812093598c83.jpg')", backgroundSize: 'cover' }} className="h-screen">
-                <div id="login-section" className="bg-black font-black text-white text-2xl mx-12 p-5 border-l-8 border-purple-500">
+            <div style={{ backgroundImage: "url('https://external-preview.redd.it/btq3MWGxjKZFzuASimEuCb0PyvKuHAy1eHEmSWtF5fQ.jpg?auto=webp&s=2735c13f57c7b901336437489322694533d1d3dd')", backgroundSize: 'cover' }} className="h-screen">
+                <div id="login-section" className="bg-black font-black text-white text-2xl sm:mx-12 p-5 border-l-8 border-purple-500" style={{ background: 'linear-gradient(45deg, black, gray)' }}>
                     <div>
                         AADHAAR LOGIN
                     </div>

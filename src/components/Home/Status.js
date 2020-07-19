@@ -21,7 +21,6 @@ export default function Status() {
         axios.get(`/reports/${form.reportId}`)
             .then((response) => {
                 if (response.data.status === 'success') {
-                    console.log(response);
                     setMsg('Found')
                     setResult(response.data.report.status)
                 } else {
@@ -39,8 +38,10 @@ export default function Status() {
 
     return (
         <>
-            <div style={{ backgroundImage: "url('https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/65/755812093598c83.jpg')", backgroundSize: 'cover' }}>
-                <div id="login-section" className="bg-black font-black text-white text-2xl mx-12 p-5 border-l-8 border-purple-500">
+            <div style={{ backgroundImage: "url('https://i.imgur.com/aB4Om3L.png')", backgroundSize: 'cover' }}>
+                <div id="login-section"
+                    style={{ background: 'linear-gradient(45deg, #0f121b, #223996)' }}
+                    className="bg-black font-black text-white text-2xl mx-12 p-5 border-l-8 border-purple-500">
                     <div>
                         CHECK STATUS
                     </div>
@@ -50,7 +51,7 @@ export default function Status() {
                         <div className="hidden lg:block lg:w-1/2 bg-cover" style={{ backgroundImage: "url('https://svitla.com/uploads/0/2135-database_management_software.jpg')" }}></div>
                         <div className="w-full p-8 lg:w-1/2">
                             <div className="flex justify-center">
-                                <img src="https://lh3.googleusercontent.com/proxy/ISAhow91iujjLLBbx8isGnNK4EKRr-fvOWbyPzkIltGdTGgyvpUa25l4NM6BWtodQTDlBU9Eg60O3F4hOe5lMBYKXq35UlwxhCvbpeDZylTsfGfC3jL3uVL3T9Fd4Q" className="w-34 h-32" alt="Check Status" />
+                                <img src="https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/512/Docs-icon.png" className="w-34 h-32" alt="Check Status" />
                             </div>
                             <div className="mt-4 flex items-center justify-between">
                                 <span className="border-b w-1/5 lg:w-1/4"></span>
@@ -79,8 +80,20 @@ export default function Status() {
                     {
                         result
                             ?
-                            <div className="flex bg-white rounded-lg shadow-lg overflow-hidden m-2 p-5 sm:mx-24 ">
-                                STATUS: {result}
+                            <div className="flex justify-between bg-white rounded-lg shadow-lg overflow-hidden m-2 p-5 sm:mx-24 ">
+                                <div> STATUS: {result} </div>
+                                {
+                                    result.includes('Approved')
+                                        ?
+                                        <a
+                                            title="Show Generated Pdf"
+                                            className="hover:text-red-400 float-right"
+                                            href={`${process.env.REACT_APP_API_URL}/getPdf/${form.reportId}`}
+                                            target="_blank">
+                                            <i className="far fa-file-pdf text-3xl float-right"></i>
+                                        </a>
+                                        : null
+                                }
                             </div>
                             : null
                     }

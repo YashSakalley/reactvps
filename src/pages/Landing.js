@@ -6,6 +6,8 @@ import Auth from '../components/Home/Auth'
 import Status from '../components/Home/Status'
 import Footer from '../components/Home/Footer'
 import Workflow from '../components/Home/Workflow'
+// import NearbyStation from '../components/Home/NearbyStation'
+import Test from '../components/Home/Test'
 
 export default function Landing() {
     return (
@@ -18,8 +20,8 @@ export default function Landing() {
             <Auth />
             <Status />
             <Workflow />
+            <Test />
             <Footer />
-
         </div>
     )
 }

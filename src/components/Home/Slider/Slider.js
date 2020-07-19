@@ -11,7 +11,9 @@ export default function Slider() {
                         <div className="my-2 italic">
                             LETS GET STARTED
                         </div>
-                        <a href="#login-section" className="text-white bg-red-500 hover:bg-red-600 rounded-lg shadow p-2 mx-2" >CLICK HERE</a>
+                        <a href="#login-section"
+                            style={{ background: 'linear-gradient(57deg,rgb(5, 248, 228),rgb(3, 60, 245))' }}
+                            className="rounded-lg text-xl text-white hover:text-black shadow p-4 mx-2" >CLICK HERE</a>
                     </div>
                 </div>
                 <div className="slider">

@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function workflow() {
     return (
-        <div className="sm:h-screen" style={{ backgroundImage: "url('https://www.vamosrayos.com/b/2020/01/cool-in-illustrator-blue-hd-dark-background-texture-abstract.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
-            <div id="login-section" className="bg-black font-black text-white text-2xl mx-12 p-5 border-l-8 border-purple-500">
+        <div className="sm:h-screen" style={{ backgroundImage: "url('https://wallpaperaccess.com/full/1157091.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div id="login-section" className="bg-black font-black text-white text-2xl mx-12 p-5 border-l-8 border-purple-500" style={{ background: 'linear-gradient(45deg, black, gray)' }}>
                 <div>
                     HOW IT WORKS
                     </div>

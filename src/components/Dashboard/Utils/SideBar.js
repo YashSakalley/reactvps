@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 export default function SideBar({ sideBarOpen, setSideBarOpen }) {
     const role = useParams().role
@@ -15,7 +15,7 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
             </div>
 
             <nav className="mt-10">
-                <a className="flex items-center mt-4 py-2 px-6 block border-l-4 bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100"
+                <Link to={`/dashboard/${role}`} className="flex items-center mt-4 py-2 px-6 block border-l-4 bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100"
                     href="/#">
                     <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -25,10 +25,12 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
                             fill="currentColor" />
                     </svg>
 
-                    <span className="mx-4">Dashboard</span>
-                </a>
+                    <div className="mx-4">
+                        Dashboard
+                    </div>
+                </Link>
 
-                <a className="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
+                <Link to={`/chart/dashboard/${role}`} className="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
                     href="/#">
                     <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -45,11 +47,12 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
                             fill="currentColor" />
                     </svg>
 
-                    <span className="mx-4">OPTION 1</span>
-                </a>
+                    <div className="mx-4 uppercase">
+                        Statistics
+                    </div >
+                </Link>
 
-                <a className="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
-                    href="/#">
+                <Link to="" className="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100">
                     <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M7 3C6.44772 3 6 3.44772 6 4C6 4.55228 6.44772 5 7 5H13C13.5523 5 14 4.55228 14 4C14 3.44772 13.5523 3 13 3H7Z"
@@ -62,10 +65,10 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
                             fill="currentColor" />
                     </svg>
 
-                    <span className="mx-4">OPTION 2</span>
-                </a>
+                    <div className="mx-4">OPTION 2</div>
+                </Link>
 
-                <a className="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
+                <div className="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
                     href="/#">
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
@@ -76,7 +79,7 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
                     </svg>
 
                     <span className="mx-4">LOGOUT</span>
-                </a>
+                </div>
             </nav>
         </div>
     )

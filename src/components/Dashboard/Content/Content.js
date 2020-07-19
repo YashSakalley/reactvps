@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import ContentCell from './ContentCell'
 import Canvas from '../../Canvas'
+import Axios from 'axios'
 
 export default function Content({ id }) {
 
@@ -186,6 +187,16 @@ export default function Content({ id }) {
             }
         </>
 
+    const onShowPdf = () => {
+        Axios.get(`/getPdf/${content.report._id}`, { responseType: 'blob' })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     return (
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
             <div className="container px-6 pt-8 bg-gray-200">
@@ -233,10 +244,22 @@ export default function Content({ id }) {
                         </div>
                         : null
                 }
-                <div className="flex">
+                <div className="flex justify-between items-center">
                     <button onClick={onBackHandler} className="text-white h-full"><img className=""
                         src="https://img.icons8.com/fluent/48/000000/back.png" alt="" /></button>
                     <h1 className="text-3xl">DETAILED REPORT</h1>
+
+                    <div>
+                        <a
+                            title="Show Generated Pdf"
+                            className="hover:text-red-400"
+                            href={`${process.env.REACT_APP_API_URL}/getPdf/${content.report._id}`}
+                            target="_blank">
+
+                            <i className="far fa-file-pdf text-3xl "></i>
+
+                        </a>
+                    </div>
                 </div>
                 <table className="text-left w-full mt-4 bg-white text-lg shadow-xl">
                     <tbody className="bg-grey-light flex flex-col items-center justify-between w-full">
@@ -252,7 +275,7 @@ export default function Content({ id }) {
                     className="text-3xl mx-2 my-5"
                     onClick={() => setShowDetails(!showDetails)}>
                     Details
-                        <span className="float-right text-base text-blue-400 cursor-pointer">
+                    <span className="float-right text-base text-blue-400 cursor-pointer">
                         {showDetails ? 'HIDE' : 'SHOW'}
                     </span>
                 </h1>
