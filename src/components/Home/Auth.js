@@ -61,7 +61,7 @@ export default function Auth() {
 
         axios.post('/verify/otp', formBody)
             .then((response) => {
-                console.log(response);
+                console.log('otp response', response);
                 if (response.data.status === 'success') {
 
                     console.log('Redirect to Report');
@@ -73,6 +73,7 @@ export default function Auth() {
 
                     axios.post('/user/create', formBody)
                         .then((response) => {
+                            console.log(response)
                             if (response.data.status === 'success') {
                                 let user = response.data.user;
                                 console.log(user);
@@ -100,7 +101,7 @@ export default function Auth() {
             })
             .catch((error) => {
                 console.log('Axios OTP Error', error);
-                setMsg('Error Occurred. Please Try Later')
+                setMsg('Error sending OTP. Please Try Later')
             })
     }
 
