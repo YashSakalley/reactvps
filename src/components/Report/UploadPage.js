@@ -12,7 +12,7 @@ export default function UploadPage({ submit }) {
 
     const [canSubmit, setCanSubmit] = useState(false)
 
-    const [showCanvas, setShowCanvas] = useState(true)
+    const [showCanvas, setShowCanvas] = useState(false)
 
     const onChangeHandler = (event) => {
         if (event.target.id === 'evidence') {
@@ -120,6 +120,9 @@ export default function UploadPage({ submit }) {
                                     className="hidden"
                                     onChange={onChangeHandler} />
                                 <label htmlFor="evidence" className="cursor-pointer bg-gray-500 text-white p-2 rounded-lg">UPLOAD EVIDENCE</label>
+                                <div className="mt-4">{
+                                    evidence ? evidence.name : 'No evidence file uploaded'
+                                }</div>
                             </div>
                         </div>
                         <div className="bg-gray-400 h-1 w-full mt-5"></div>
@@ -141,6 +144,9 @@ export default function UploadPage({ submit }) {
                                     className="block bg-blue-500 rounded-lg p-2 text-white mt-4 w-1/2">
                                     DRAW
                                 </button>
+                                <div className="mt-4">{
+                                    signature ? signature.name : 'No signature file uploaded'
+                                }</div>
                             </div>
                         </div>
                         <div className="bg-gray-400 h-1 w-full mt-5"></div>

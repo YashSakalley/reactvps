@@ -11,11 +11,12 @@ export default function Content({ id }) {
     const [content, setContent] = useState({
         report: {
             answers: ['', '', '', '', '', '', ''],
-            questions: ['', '', '', '', '', '', '']
+            questions: ['', '', '', '', '', '', ''],
+            status: ''
         },
         user: {}
     })
-    const [msg, setMsg] = useState(true)
+    const [msg, setMsg] = useState('')
     const [showDetails, setShowDetails] = useState(false)
 
     let history = useHistory()
@@ -132,6 +133,7 @@ export default function Content({ id }) {
                 }
             })
             .catch((err) => {
+                setMsg('Error occurred. Please try later')
                 console.log(err)
             })
 
@@ -187,16 +189,6 @@ export default function Content({ id }) {
             }
         </>
 
-    const onShowPdf = () => {
-        Axios.get(`/getPdf/${content.report._id}`, { responseType: 'blob' })
-            .then((res) => {
-                console.log(res)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-
     return (
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
             <div className="container px-6 pt-8 bg-gray-200">
@@ -227,6 +219,16 @@ export default function Content({ id }) {
                                         </>
                                         : null
                                 }
+                                {
+                                    msg !== ''
+                                        ?
+                                        <>
+                                            <br />
+                                            {msg} <br />
+                                            <i className="mt-4 text-4xl fas fa-circle-notch fa-spin"></i>
+                                        </>
+                                        : null
+                                }
                             </div>
                             {
                                 showCanvas
@@ -250,15 +252,19 @@ export default function Content({ id }) {
                     <h1 className="text-3xl">DETAILED REPORT</h1>
 
                     <div>
-                        <a
-                            title="Show Generated Pdf"
-                            className="hover:text-red-400"
-                            href={`${process.env.REACT_APP_API_URL}/getPdf/${content.report._id}`}
-                            target="_blank">
-
-                            <i className="far fa-file-pdf text-3xl "></i>
-
-                        </a>
+                        {
+                            content.report.status.includes('Approved')
+                                ?
+                                <a
+                                    title="Show Generated Pdf"
+                                    className="hover:text-red-400"
+                                    href={`${process.env.REACT_APP_API_URL}/getPdf/${content.report._id}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    <i className="far fa-file-pdf text-3xl "></i>
+                                </a>
+                                : null
+                        }
                     </div>
                 </div>
                 <table className="text-left w-full mt-4 bg-white text-lg shadow-xl">
