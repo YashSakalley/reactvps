@@ -7,7 +7,7 @@ import Axios from 'axios'
 
 export default function Chart({ status }) {
     const data = {
-        labels: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+        labels: ['JAN', 'FEB', 'MAR', 'ARP', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
         datasets: [
             {
                 label: 'Reports in 2020',
@@ -58,7 +58,7 @@ export default function Chart({ status }) {
         datasets: [
             {
                 label: 'REPORT STATUS',
-                data: [status.Approved, status.pending, status.rejected],
+                data: [2, 5, 1],
                 backgroundColor: [
                     '#01a900',
                     '#ffea6b',

@@ -7,7 +7,8 @@ export default function Content({ id }) {
     const initialContent = {
         report: {
             answers: ['', '', '', '', '', '', ''],
-            questions: ['', '', '', '', '', '', '']
+            questions: ['', '', '', '', '', '', ''],
+            media_files: []
         },
         user: {}
     }
@@ -146,7 +147,16 @@ export default function Content({ id }) {
                     <h1 className="text-xl">
                         Here you can use our various analytics tools
                     </h1>
-                    <IoMedia index={1} />
+                    {
+                        content.report.media_files ?
+                            content.report.media_files.map((media, i) => {
+                                return <IoMedia key={i} index={1} src={media} />
+                            })
+                            :
+                            <div className="mt-4 text-xl text-gray-600">
+                                No evidence media uploaded by the complainant
+                            </div>
+                    }
                 </div>
             </div>
         </main>
