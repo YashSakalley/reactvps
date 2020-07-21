@@ -5,6 +5,7 @@ import { Pie } from 'react-chartjs-2'
 import { Doughnut } from 'react-chartjs-2'
 import Axios from 'axios'
 
+// 30, 15, 10, 12, 30, 15
 export default function Chart({ status }) {
     const data = {
         labels: ['JAN', 'FEB', 'MAR', 'ARP', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
@@ -39,7 +40,7 @@ export default function Chart({ status }) {
         datasets: [
             {
                 label: 'CRIME REPORTED',
-                data: [30, 15, 10, 12, 30, 15],
+                data: [status.cb, status.hp, status.theft, status.mur, status.viol, status.oth],
                 backgroundColor: [
                     '#0e8bab',
                     '#b89ae4',
@@ -58,7 +59,7 @@ export default function Chart({ status }) {
         datasets: [
             {
                 label: 'REPORT STATUS',
-                data: [2, 5, 1],
+                data: [status.approved, status.pending, status.rejected],
                 backgroundColor: [
                     '#01a900',
                     '#ffea6b',

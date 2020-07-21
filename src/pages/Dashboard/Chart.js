@@ -8,40 +8,20 @@ import Axios from 'axios'
 export default function Dashboard() {
     const [sideBarOpen, setSideBarOpen] = useState(false)
 
-    let status = [0, 0, 0]
-
-    const [statusProp, setStatusProp] = useState({
-        'Approved': 0,
-        'pending': 0,
-        'rejected': 0
-    })
-
+    const [status, setStatus] = useState({})
     useEffect(() => {
         console.log('Mounting');
-        Axios.get('/reports')
+        Axios.get('/reports/info/count')
             .then((res) => {
                 if (res.data.status === 'success') {
-                    let reports = res.data.reports
-                    reports.forEach(report => {
-                        if (report.status.includes('Approved')) {
-                            status[0] += 1
-                        } else if (report.status.includes('Rejected')) {
-                            status[1] += 1
-                        } else {
-                            status[2] += 1
-                        }
-                    });
+                    console.log(res.data);
+                    setStatus(res.data.count)
                 }
             })
             .catch((err) => {
                 console.log(err)
             })
-        console.log(status);
-        setStatusProp({
-            Approved: status[0],
-            pending: status[1],
-            rejected: status[2]
-        })
+
     }, [])
 
     return (
@@ -57,7 +37,7 @@ export default function Dashboard() {
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Nav sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} />
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-                    <Chart status={statusProp} />
+                    <Chart status={status} />
                 </main>
             </div>
 
