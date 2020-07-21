@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
+import Cookies from 'js-cookie'
 
 export default function Nav({ sideBarOpen, setSideBarOpen }) {
 
     const [dropDownOpen, setDropDownOpen] = useState(false)
+
+    const onLogout = () => {
+        Cookies.remove('user')
+        Cookies.remove('token')
+        Cookies.remove('role')
+    }
 
     return (
 
@@ -59,6 +66,7 @@ export default function Nav({ sideBarOpen, setSideBarOpen }) {
                         <a href="/#"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a>
                         <a href="/#"
+                            onClick={onLogout}
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
                     </div>
                 </div>

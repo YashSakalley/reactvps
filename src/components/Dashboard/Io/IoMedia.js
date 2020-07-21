@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Axios from 'axios'
 import loadingText from '../../../assets/text_loading.gif'
+import loadingAudio from '../../../assets/audio_loading.gif'
+import loadingFaces from '../../../assets/face_loading.gif'
 
 import analyseText from './AnalyseText'
 import analyseAudio from './AnalyseAudio'
@@ -45,6 +47,15 @@ export default function IoMedia({ index, src }) {
         }
     }
 
+    let loadingGif
+    if (task === 'text') {
+        loadingGif = loadingText
+    } else if (task === 'audio') {
+        loadingGif = loadingAudio
+    } else if (task === 'faces') {
+        loadingGif = loadingFaces
+    }
+
     return (
         <>
             <div className="mt-8 flex flex-wrap">
@@ -56,7 +67,7 @@ export default function IoMedia({ index, src }) {
                             className={`fixed z-20 flex text-center justify-center items-center inset-0 text-white bg-black bg-opacity-75 transition-opacity 'block'}`}>
                             <div className="">
                                 <div>
-                                    <img width="500" height="500" src={loadingText} alt="Loading gif here" />
+                                    <img width="500" height="500" src={loadingGif} alt="Loading gif here" />
                                 </div>
                                 <h2 className="text-xl m-4"> Analysing. Please Wait . . . </h2>
                             </div>
@@ -94,20 +105,20 @@ export default function IoMedia({ index, src }) {
             <div className="text-right mb-8">
                 <button
                     onClick={() => analyse('text')}
-                    className="hover:bg-gray-600 transition ease-in-out duration-700 hover:text-white border-gray-600 border-solid rounded border-2 p-4">
-                    <i class="fas fa-font mr-2"></i>
+                    className="hover:bg-gray-600 hover:text-white border-gray-600 border-solid rounded border-2 p-4">
+                    <i className="fas fa-font mr-2"></i>
                     ANALYZE TEXT
                 </button>
                 <button
                     onClick={() => analyse('faces')}
-                    className="hover:bg-gray-600 transition ease-in-out duration-700 hover:text-white border-gray-600 border-solid rounded border-2 p-4 ml-4">
-                    <i class="fas fa-user mr-2"></i>
+                    className="hover:bg-gray-600 hover:text-white border-gray-600 border-solid rounded border-2 p-4 ml-4">
+                    <i className="fas fa-user mr-2"></i>
                     SCAN FACES
                 </button>
                 <button
                     onClick={() => analyse('audio')}
-                    className="hover:bg-gray-600 transition ease-in-out duration-700 hover:text-white border-gray-600 border-solid rounded border-2  p-4 ml-4" >
-                    <i class="fas fa-microphone mr-2"></i>
+                    className="hover:bg-gray-600 hover:text-white border-gray-600 border-solid rounded border-2  p-4 ml-4" >
+                    <i className="fas fa-microphone mr-2"></i>
                     ANALYSE AUDIO
                 </button >
             </div>
@@ -124,7 +135,7 @@ export default function IoMedia({ index, src }) {
                                     :
                                     <span className="float-right p-2 rounded bg-green-300">Success</span>
                             }
-RESULT: <br /> <br />
+                            RESULT: <br /> <br />
                             {result}
                         </div >
                     </>

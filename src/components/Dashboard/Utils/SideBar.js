@@ -1,16 +1,34 @@
 import React from 'react'
 import { useParams, NavLink } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 export default function SideBar({ sideBarOpen, setSideBarOpen }) {
     const role = useParams().role
+    const onLogout = () => {
+        Cookies.remove('user')
+        Cookies.remove('token')
+        Cookies.remove('role')
+    }
+
+    let roleLabel
+    if (role === 'io') {
+        roleLabel = 'Investigation Officer'
+    } else if (role === 'sho') {
+        roleLabel = 'Station Head Officer'
+    } else if (role === 'sp') {
+        roleLabel = 'Superintendent of Police'
+    } else {
+        roleLabel = 'Invalid URL'
+    }
+
     return (
         <div
             className={`fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 ${sideBarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'}`}
         >
             <div className="flex items-center justify-center mt-8">
-                <div className="items-center">
+                <div className="items-center flex flex-col">
                     <img src="https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/10743111741548234985-512.png" className="w-26 h-32" alt="" />
-                    <div className="my-2 text-white text-xl text-center border-2 border-white p-2">{role.toUpperCase()}</div>
+                    <div className="my-2 text-white text-xl text-center border-2 border-white p-2">{roleLabel}</div>
                 </div>
             </div>
 
@@ -78,6 +96,7 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
                 </NavLink>
 
                 <NavLink
+                    onClick={onLogout}
                     exact
                     activeClassName="flex items-center mt-4 py-2 px-6 block border-l-4 bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100"
                     to=""
