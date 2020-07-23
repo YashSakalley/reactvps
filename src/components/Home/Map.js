@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react'
 
-function MapComponent({ google, setValue }) {
+function MapComponent({ google, setValue, finish }) {
 
     const set = (key, value) => {
         setValue(key, value)
@@ -46,13 +46,18 @@ function MapComponent({ google, setValue }) {
                     .then((data) => {
                         console.log('Phone', data.result.formatted_phone_number);
                         set('phone', data.result.formatted_phone_number)
+                        finish()
                     });
             })
-            .catch(() => console.log("Can’t access response. Blocked by browser?"))
+            .catch(() => {
+                console.log("Can’t access response. Blocked by browser?")
+                finish()
+            })
     }
 
     const locationNotReceived = (positionError) => {
         console.log(positionError);
+        finish()
     }
 
     useEffect(() => {
@@ -60,6 +65,7 @@ function MapComponent({ google, setValue }) {
             navigator.geolocation.getCurrentPosition(getPosition, locationNotReceived);
         } else {
             alert('Geolocation is not supported in your browser');
+            finish()
         }
 
     }, [])
@@ -85,6 +91,7 @@ function MapComponent({ google, setValue }) {
                 activeMarker: null
             })
         }
+        finish()
     }
     return (
         <Map

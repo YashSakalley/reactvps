@@ -11,19 +11,19 @@ export default function CrimePage({ submit }) {
 
     const crimes = [
         {
-            img: 'https://www.unicef.org/romania/sites/unicef.org.romania/files/styles/two_column/public/UNICEF%20CyberbullyingSID_2020_8_0.jpg?itok=e0hF1UyH',
+            img: 'https://d1l21ng1r9w8na.cloudfront.net/article/images/800x800/dimg/dreamstime_l_102390457.jpg',
             crime: 'CYBER BULLYING'
         },
         {
-            img: 'https://news.miami.edu/life/_assets/images/images-stories/2019/03/phishingattheu-940x529.jpg',
+            img: 'https://www.cdotrends.com/sites/default/files/iStock-1164097820.jpg',
             crime: 'HACKING OR PHISHING'
         },
         {
-            img: 'https://www.debt.org/wp-content/uploads/2012/05/Identity-Theft.gif',
+            img: 'https://static.vecteezy.com/system/resources/previews/000/133/834/non_2x/identity-theft-vector.jpg',
             crime: 'THEFT'
         },
         {
-            img: 'https://english.cdn.zeenews.com/sites/default/files/styles/zm_700x400/public/2020/06/20/867731-murder-delhi.gif',
+            img: 'https://ak.picdn.net/shutterstock/videos/17777635/thumb/10.jpg',
             crime: 'MURDER'
         },
         {
@@ -41,16 +41,20 @@ export default function CrimePage({ submit }) {
             <div
                 className="flex-row justify-center p-4 md:p-16 h-screen"
                 style={{
-                    backgroundImage: "url('https://www.itl.cat/pngfile/big/165-1658630_material-wallpapers-material-design.jpg')",
+                    backgroundImage: "url('https://c0.wallpaperflare.com/preview/985/338/321/trees-nature-forest-moon.jpg')",
                     backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover'
+                    backgroundSize: 'cover',
                 }}>
-                <div className="w-full bg-white shadow-lg h-full p-5">
+                <div className="w-full bg-white shadow-lg h-full p-5 rounded-lg" style={{
+                    backgroundImage: "url('https://wallpaperplay.com/walls/full/a/e/6/33398.jpg')",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                }} >
                     <div className="text-black text-4xl ">BEFORE WE GET STARTED ...</div>
-                    <div className="text-black text-2xl my-2">PLEASE SELECT AN OPTION MOST RELEVENT TO YOUR SITUATION</div>
+                    <div className="text-3xl mt-4 italic lowercase">PLEASE SELECT AN OPTION MOST RELEVENT TO YOUR SITUATION</div>
 
                     <div className="bg-gray-600 h-32 w-full"></div>
-                    <div className="relative flex flex-wrap h-64 -mt-24 p-5">
+                    <div className="relative flex flex-wrap h-64 -mt-24 sm:p-5 p-16">
                         {
                             crimes.map(({ img, crime }) => (
                                 <Crime

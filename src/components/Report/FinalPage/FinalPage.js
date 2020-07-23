@@ -53,6 +53,7 @@ export default function FinalPage({ chatForm, mediaForm, crime }) {
                     status === "success"
                         ? <>
                             <h5>Unique Id: {reportId}</h5>
+                            <p>Your report has been passed through the CCTNS bridge</p>
                             <p>Keep this unique id in a safe place if you want to know the status of your report</p>
                             <p>Alternatively, you can use your aadhaar credentials to view status</p>
                         </>

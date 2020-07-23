@@ -53,8 +53,8 @@ export default function Content({ id }) {
 
             {/* Notes Box */}
             <div
-                className={`${showNotes ? 'block' : 'hidden'} rounded-lg bg-white shadow-xl fixed bottom-0 right-0 w-64 h-64 mr-12 mb-24`}>
-                <div className="bg-gray-900 text-white text-xl p-2">NOTES</div>
+                className={`${showNotes ? 'block' : 'hidden'} rounded-lg bg-white shadow-xl fixed bottom-0 right-0 w-64 h-64 mr-12 mb-32`}>
+                <div className="bg-gray-900 text-white text-xl p-2 rounded-lg">NOTES</div>
                 <div className="p-2">
                     <textarea className="bg-gray-100 w-full h-32 p-2 focus:outline-none"
                         placeholder="Write here !"></textarea>

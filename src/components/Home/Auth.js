@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 import Cookies from 'js-cookie'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 export default function Auth() {
 
@@ -117,8 +117,8 @@ export default function Auth() {
                         AADHAAR LOGIN
                     </div>
                 </div>
-                <div className="py-8">
-                    <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 ">
+                <div className="mt-8 mb-4">
+                    <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-4 sm:mx-24 ">
                         <div className="hidden lg:block lg:w-1/2 bg-cover" style={{ backgroundImage: "url('https://martechtoday.com/wp-content/uploads/2018/08/AI1920_f0dksn.png')" }}></div>
                         <div className="w-full p-8 lg:w-1/2">
                             <div className="flex justify-center">
@@ -130,8 +130,9 @@ export default function Auth() {
                                 <a href="/" className="text-xl text-center text-gray-500 uppercase">LOGIN USING AADHAAR</a>
                                 <span className="border-b w-1/5 lg:w-1/4"></span>
                             </div>
-                            <div className="px-32">
+                            <div className="sm:px-32 px-4">
 
+                                {/* Uid Input */}
                                 <div className="mt-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2"></label>
                                     <input
@@ -152,7 +153,7 @@ export default function Auth() {
                                     </button>
                                 </div>
 
-
+                                {/* OTP Input */}
                                 <div className="mt-8">
                                     <div className={`${!isOtpDisabled ? 'block' : 'hidden'} text-xl text-green-500`}>
                                         OTP send to {phone}
@@ -179,7 +180,14 @@ export default function Auth() {
                                 </div>
 
                             </div>
+
+                            {/* Additional Info text */}
                             <div className="mt-4" style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
+                            <div className="mt-4 text-blue-500 hover:text-blue-700 text-center">
+                                <Link to="/loginWithoutUid">
+                                    Don't have an aadhaar available? Click here
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

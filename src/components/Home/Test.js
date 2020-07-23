@@ -17,23 +17,35 @@ const Test = () => {
         }
     }
 
+    const [isLoading, setIsLoading] = useState(false)
+    const onFinishLoading = () => {
+        setIsLoading(false)
+    }
+
     return (
         <div id="nearby-station">
             <div
                 style={{
-                    background: "url('https://i.pinimg.com/originals/5b/41/f7/5b41f7a94afcb7fdb9d3a0c8addda85e.jpg')",
+                    background: "url('https://wallpaperset.com/w/full/4/8/6/487528.jpg')",
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat'
-                }}>
-                <div className="mx-4 py-4 sm:py-24 sm:mx-16 h-full">
-                    <div className="flex flex-wrap bg-white rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 h-full">
+                }} className="sm:h-screen">
+                <div className="mx-4 py-4 sm:py-16 sm:mx-16 h-full">
+                    <div className="flex flex-wrap bg-white rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 h-full" >
 
                         {/* first half below  */}
-                        <div className="w-full relative sm:w-1/2 lg:block lg:w-1/2 bg-cover p-5">
+                        <div className="w-full relative sm:w-1/2 lg:block lg:w-1/2 bg-cover p-5"
+                            style={{
+                                background: "url('https://thumbs.dreamstime.com/b/isometric-location-map-points-white-background-vector-95132813.jpg')",
+                                backgroundSize: 'cover',
+                                backgroundRepeat: 'no-repeat'
+                            }}>
                             {
                                 showMap
                                     ?
-                                    <Map setValue={set} />
+                                    <Map
+                                        setValue={set}
+                                        finish={onFinishLoading} />
                                     : null
                             }
                         </div>
@@ -50,12 +62,23 @@ const Test = () => {
                                 Your browser will request you for the location,
                                 please do select allow option to give us permission
                                 </div>
-                            <button
-                                onClick={() => setShowMap(true)}
-                                className="mt-6 p-4 bg-gray-900 text-white hover:bg-gray-500">
-                                FIND Nearby Police Station
+                            <div>
+                                <button
+                                    onClick={() => { setShowMap(true); setIsLoading(true) }}
+                                    className="mt-6 p-4 bg-gray-900 text-white hover:bg-gray-500">
+                                    FIND Nearby Police Station
                                 </button>
-                            <div className="mt-8 bg-white p-5 shadow-lg">
+                                {
+                                    isLoading
+                                        ?
+                                        <span className="ml-4 text-3xl text-teal-700">
+                                            <i className='fas fa-circle-notch fa-spin'></i>
+                                        </span>
+                                        : null
+                                }
+
+                            </div>
+                            <div className="mt-8 bg-white p-5 shadow-lg sm:h-64 overflow-auto">
                                 <div className="text-2xl font-bold">DETAILS OBTAINED</div>
                                 <table className="mt-6 text-left w-full text-xl">
                                     <tbody className="flex flex-col">

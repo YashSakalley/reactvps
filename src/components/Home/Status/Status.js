@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import axios from 'axios'
+import StatusResult from './StatusResult'
 
 export default function Status() {
 
@@ -39,7 +40,7 @@ export default function Status() {
     return (
         <>
             <div style={{ backgroundImage: "url('https://i.imgur.com/aB4Om3L.png')", backgroundSize: 'cover' }}>
-                <div id="login-section"
+                <div id="status-section"
                     style={{ background: 'linear-gradient(45deg, #0f121b, #223996)' }}
                     className="bg-black font-black text-white text-2xl mx-12 p-5 border-l-8 border-purple-500">
                     <div>
@@ -80,21 +81,7 @@ export default function Status() {
                     {
                         result
                             ?
-                            <div className="flex justify-between bg-white rounded-lg shadow-lg overflow-hidden m-2 p-5 sm:mx-24 ">
-                                <div> STATUS: {result} </div>
-                                {
-                                    result.includes('Approved')
-                                        ?
-                                        <a
-                                            title="Show Generated Pdf"
-                                            className="hover:text-red-400 float-right"
-                                            href={`${process.env.REACT_APP_API_URL}/getPdf/${form.reportId}`}
-                                            target="_blank">
-                                            <i className="far fa-file-pdf text-3xl float-right"></i>
-                                        </a>
-                                        : null
-                                }
-                            </div>
+                            <StatusResult result={result} reportId={form.reportId} />
                             : null
                     }
                 </div>

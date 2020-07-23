@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Axios from 'axios'
 import loadingText from '../../../assets/text_loading.gif'
 import loadingAudio from '../../../assets/audio_loading.gif'
 import loadingFaces from '../../../assets/face_loading.gif'
@@ -33,12 +32,39 @@ export default function IoMedia({ index, src }) {
 
         if (taskResult.status === 'success') {
             let displayResult
-            displayResult = taskResult.text.map(element => {
-                return <div>
-                    {element.text} <br />
+
+            if (task === 'text') {
+                displayResult = taskResult.text.map((element, i) => {
+                    return <div key={i}>
+                        {element.text} <br />
+                    </div>
+                });
+            } else if (task === 'faces') {
+                let path = taskResult.path.split('\\')[2]
+                let indexArray = []
+                for (let i = 1; i <= taskResult.total; i++) {
+                    indexArray.push(i)
+                }
+                let showResult = indexArray.map((i) => {
+                    return (
+                        <div key={i} className="m-2 w-1/6 p-2 border border-gray-500 hover:bg-teal-300 cursor-pointer text-center rounded">
+                            <img
+                                className="w-full"
+                                src={`${process.env.REACT_APP_API_URL}/getSuspectImg/${path}/${i}`}
+                                alt={`Suspect ${i}`} />
+                            <div className="pt-2">
+                                Person Name
+                            </div>
+                        </div>
+                    )
+                })
+                displayResult = <div className="flex flex-wrap">
+                    {showResult}
                 </div>
-            });
-            console.log(displayResult);
+            } else {
+                displayResult = 'Audio Result'
+            }
+
             setIsError(false)
             setResult(displayResult)
         } else {

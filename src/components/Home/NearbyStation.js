@@ -98,7 +98,7 @@ const NearbyStation = ({ google }) => {
             <div id="check">
                 <div
                     style={{
-                        background: "url('https://i.pinimg.com/originals/5b/41/f7/5b41f7a94afcb7fdb9d3a0c8addda85e.jpg')",
+                        background: "url('https://wallpaperset.com/w/full/4/8/6/487528.jpg')",
                         backgroundSize: 'cover',
                         backgroundRepeat: 'no-repeat'
                     }}>

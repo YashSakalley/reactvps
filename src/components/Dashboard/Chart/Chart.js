@@ -3,9 +3,7 @@ import { Line } from 'react-chartjs-2'
 import { Bar } from 'react-chartjs-2'
 import { Pie } from 'react-chartjs-2'
 import { Doughnut } from 'react-chartjs-2'
-import Axios from 'axios'
 
-// 30, 15, 10, 12, 30, 15
 export default function Chart({ status }) {
     const data = {
         labels: ['JAN', 'FEB', 'MAR', 'ARP', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
@@ -53,7 +51,6 @@ export default function Chart({ status }) {
         ]
     }
 
-    console.log('status', status);
     const data_status = {
         labels: ['Approved', 'pending', 'rejected'],
         datasets: [

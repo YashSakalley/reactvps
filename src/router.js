@@ -9,6 +9,7 @@ import OfficerReport from './pages/Dashboard/Report'
 import Loading from './components/Loading/Loading'
 import Canvas from './components/Canvas'
 import Chart from './pages/Dashboard/Chart'
+import WithoutAadhaar from './components/Home/WithoutAadhaar'
 
 
 export default function AppRouter() {
@@ -37,6 +38,10 @@ export default function AppRouter() {
 
             <Route path="/dashboard/:role">
                 <Dashboard />
+            </Route>
+
+            <Route path="/loginWithoutUid">
+                <WithoutAadhaar />
             </Route>
 
             <Route path="/login/:role">
