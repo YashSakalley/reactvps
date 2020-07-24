@@ -6,6 +6,7 @@ const Test = () => {
     const [PSname, setPSName] = useState('')
     const [PSlocation, setPSlocation] = useState('')
     const [PSphone, setPSphone] = useState('')
+    const [task, setTask] = useState('')
 
     const set = (key, value) => {
         if (key === 'phone') {
@@ -25,16 +26,17 @@ const Test = () => {
     return (
         <div id="nearby-station">
             <div
-                style={{
-                    background: "url('https://wallpaperset.com/w/full/4/8/6/487528.jpg')",
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat'
-                }} className="sm:h-screen">
+                // style={{
+                //     background: "url('https://wallpaperset.com/w/full/4/8/6/487528.jpg')",
+                //     backgroundSize: 'cover',
+                //     backgroundRepeat: 'no-repeat'
+                // }} 
+                className="sm:h-screen">
                 <div className="mx-4 py-4 sm:py-16 sm:mx-16 h-full">
-                    <div className="flex flex-wrap bg-white rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 h-full" >
+                    <div className="flex flex-wrap bg-white rounded-lg shadow-lg overflow-hidden mx-2 sm:mx-24 h-full" >
 
                         {/* first half below  */}
-                        <div className="w-full relative sm:w-1/2 lg:block lg:w-1/2 bg-cover p-5"
+                        <div className="w-full relative sm:w-1/2 lg:block lg:w-1/2 bg-cover"
                             style={{
                                 background: "url('https://thumbs.dreamstime.com/b/isometric-location-map-points-white-background-vector-95132813.jpg')",
                                 backgroundSize: 'cover',
@@ -44,6 +46,7 @@ const Test = () => {
                                 showMap
                                     ?
                                     <Map
+                                        task={task}
                                         setValue={set}
                                         finish={onFinishLoading} />
                                     : null
@@ -51,12 +54,12 @@ const Test = () => {
                         </div>
 
                         {/* second half below */}
-                        <div className="w-full p-8 lg:w-1/2 bg-gray-200">
+                        <div className="w-full p-8 lg:w-1/2 bg-gray-200 z-20">
                             <div className="flex justify-center text-4xl font-bold bg-white shadow-lg">
-                                NEARBY POLICE STATION
-                                </div>
+                                EMERGENCY SERVICES
+                            </div>
                             <div className="border-l-8 border-gray-900 mt-8 text-lg p-2 bg-yellow-200">
-                                #NOTE : Nearby police station feature works accurately in smartphones.
+                                #NOTE : Nearby feature works accurately in smartphones.
                                 </div>
                             <div className="border-l-8 border-gray-900 text-lg p-2 bg-white">
                                 Your browser will request you for the location,
@@ -64,9 +67,14 @@ const Test = () => {
                                 </div>
                             <div>
                                 <button
-                                    onClick={() => { setShowMap(true); setIsLoading(true) }}
-                                    className="mt-6 p-4 bg-gray-900 text-white hover:bg-gray-500">
-                                    FIND Nearby Police Station
+                                    onClick={() => { setShowMap(false); setShowMap(true); setIsLoading(true); setTask('ps') }}
+                                    className="focus:outline-none mt-6 p-4 border-4 border-orange-700 text-white hover:bg-orange-800 hover:text-white hover:border-orange-800 duration-200 bg-orange-700">
+                                    Find Nearby Police Station
+                                </button>
+                                <button
+                                    onClick={() => { setShowMap(false); setShowMap(true); setIsLoading(true); setTask('hos') }}
+                                    className="focus:outline-none mt-6 p-4 border-4 border-orange-700 hover:bg-orange-800 hover:text-white hover:border-orange-800 duration-200">
+                                    Find Nearby Hospital
                                 </button>
                                 {
                                     isLoading
@@ -83,16 +91,16 @@ const Test = () => {
                                 <table className="mt-6 text-left w-full text-xl">
                                     <tbody className="flex flex-col">
                                         <tr className="flex w-full mb-4">
-                                            <td className="w-1/2"> Name of police station:</td>
-                                            <td className="w-1/2"> {PSname} </td>
+                                            <td className="w-1/2">Name:</td>
+                                            <td className="w-1/2">{PSname}</td>
                                         </tr>
                                         <tr className="flex w-full mb-4">
-                                            <td className="w-1/2">location:</td>
-                                            <td className="w-1/2"> {PSlocation} </td>
+                                            <td className="w-1/2">Address:</td>
+                                            <td className="w-1/2">{PSlocation}</td>
                                         </tr>
                                         <tr className="flex w-full mb-4">
                                             <td className="w-1/2">Phone number:</td>
-                                            <td className="w-1/2"> {PSphone} </td>
+                                            <td className="w-1/2">{PSphone}</td>
                                         </tr>
                                     </tbody>
                                 </table>

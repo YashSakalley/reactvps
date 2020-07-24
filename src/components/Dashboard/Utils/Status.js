@@ -36,7 +36,7 @@ export default function Status({ pending, approved, rejected }) {
                                     className="h-16 w-22 text-white" alt="" />
                                 <div className="mx-5">
                                     <h4 className="text-2xl text-black font-black">{rejected}</h4>
-                                    <div className="text-gray-500 text-2xl">REJECTED FIR</div>
+                                    <div className="text-white text-2xl">REJECTED FIR</div>
                                 </div>
                             </div>
                         </div>

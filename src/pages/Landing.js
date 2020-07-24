@@ -15,12 +15,11 @@ export default function Landing() {
             <Nav />
             <Slider />
             <Quote
-                msg="A random Police Quote with some difficult to make sense text in it"
-                author="Author" />
+                msg="Evil is powerless if the good are unafraid."
+                author="Ronald Reagan" />
             <Auth />
             <Status />
             <Workflow />
-            <Test />
             <Footer />
         </div>
     )

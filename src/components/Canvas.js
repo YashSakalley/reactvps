@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 
-export default function Canvas() {
+export default function Canvas({ submit }) {
+    const [file, setFile] = useState(null)
+
     const canvas = useRef(null)
     // const ctx = canvas.current.getContext("2d");
     let ctx;
@@ -8,6 +10,19 @@ export default function Canvas() {
     useEffect(() => {
         ctx = canvas.current.getContext("2d")
     }, [])
+
+    const dataURLtoFile = (dataurl, filename) => {
+        const arr = dataurl.split(',')
+        const mime = arr[0].match(/:(.*?);/)[1]
+        const bstr = atob(arr[1])
+        let n = bstr.length
+        const u8arr = new Uint8Array(n)
+        while (n) {
+            u8arr[n - 1] = bstr.charCodeAt(n - 1)
+            n -= 1 // to make eslint happy
+        }
+        return new File([u8arr], filename, { type: mime })
+    }
 
     let painting = false;
     function startPosition(e) {
@@ -39,12 +54,10 @@ export default function Canvas() {
     }
 
     function onSave() {
-        var link = document.createElement('a');
-        console.log(link);
-        link.download = 'filename.png';
-        link.href = document.getElementById('canvas').toDataURL()
-        console.log(link.click);
-        link.click();
+        let link = document.getElementById('canvas').toDataURL('image/jpeg')
+        let imgFile = dataURLtoFile(link, 'image_id.jpg')
+        console.log('File', imgFile);
+        submit(imgFile)
     }
 
     function clearSign() {
@@ -53,7 +66,7 @@ export default function Canvas() {
 
     return (
         <div className="" onClick={(e) => e.preventDefault()}>
-            <div className="">
+            <div className="flex flex-col items-center">
                 <canvas ref={canvas}
                     onMouseDown={startPosition}
                     onMouseUp={finishedPosition}
@@ -61,8 +74,10 @@ export default function Canvas() {
                     id="canvas" className="bg-white opacity-100 border-2 border-black" width="500" height="500">
                 </canvas>
             </div>
-            <button className="p-4 bg-teal-500 text-lg text-white ml-8 mt-8" onClick={clearSign}>CLEAR</button>
-            <button className="p-4 bg-gray-900 text-lg text-white ml-4 mt-8" onClick={onSave}>SAVE</button>
+            <div className="text-center">
+                <button className="p-4 bg-teal-500 text-lg text-white ml-8 mt-8" onClick={clearSign}>CLEAR</button>
+                <button className="p-4 bg-gray-900 text-lg text-white ml-4 mt-8" onClick={onSave}>CONFIRM</button>
+            </div>
         </div>
     )
 }

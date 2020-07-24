@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Nav.module.css'; //using DropDown css from here
 import { Link } from 'react-router-dom';
+import Modal from '../../UI/Modal';
+import Test from '../Test';
 
 export default function Nav() {
+    const [showModal, setShowModal] = useState(false)
     return (
         <>
+            <Modal
+                style={{
+                    transform: showModal ? 'translateY(0vh)' : 'translateY(-100vh)',
+                    opacity: showModal ? '1' : '0'
+                }}
+                close={() => setShowModal(false)}>
+                <Test />
+            </Modal>
+
             <nav className="flex items-center p-3 flex-wrap z-10 absolute w-full">
                 <a href="/" className="p-2 mr-4 inline-flex items-center">
                     <svg
@@ -29,12 +41,11 @@ export default function Nav() {
                         >
                             <span>HOME</span>
                         </a>
-                        <a
-                            href="#nearby-station"
-                            className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
-                        >
-                            <span>NEARBY POLICE STATION</span>
-                        </a>
+                        <button
+                            onClick={() => setShowModal(true)}
+                            className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
+                            <span>EMERGENCY SERVICES</span>
+                        </button>
                         <a
                             href="#login-section"
                             className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"

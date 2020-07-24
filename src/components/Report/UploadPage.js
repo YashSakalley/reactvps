@@ -1,18 +1,25 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+
 import Canvas from '../Canvas'
+import Modal from '../UI/Modal'
+import Webcam from '../Webcam'
 
 export default function UploadPage({ submit }) {
     const [evidence, setEvidence] = useState(null)
     const [signature, setSignature] = useState(null)
+    const [imageId, setImageId] = useState(null)
+
     const [msg, setMsg] = useState(null)
 
     const [finalEvidence, setFinalEvidence] = useState(null)
     const [finalSignature, setFinalSignature] = useState(null)
+    const [finalImageId, setFinalImageId] = useState(null)
 
     const [canSubmit, setCanSubmit] = useState(false)
 
-    const [showCanvas, setShowCanvas] = useState(false)
+    const [showCanvas, setShowCanvas] = useState(true)
+    const [webcamModal, setWebcamModal] = useState(false)
 
     const onChangeHandler = (event) => {
         if (event.target.id === 'evidence') {
@@ -28,6 +35,7 @@ export default function UploadPage({ submit }) {
         console.log('Uploading');
         setMsg('Starting upload')
 
+        // Uploading evidence
         let evidenceData = new FormData()
         if (evidence) {
             setMsg('Uploading evidence')
@@ -43,8 +51,9 @@ export default function UploadPage({ submit }) {
                     setMsg('Error uploading evidence')
                 })
         }
-        let signatureData = new FormData()
 
+        // Uploading signature
+        let signatureData = new FormData()
         setMsg('Uploading signature')
         signatureData.append('file', signature)
         axios.post('/upload', signatureData)
@@ -53,11 +62,27 @@ export default function UploadPage({ submit }) {
                 console.log('signature', fileName)
                 setFinalSignature(fileName)
                 setMsg('Signature Uploaded. Click Finish to Continue...')
-                setCanSubmit(true)
             })
             .catch((err) => {
                 console.log(err)
                 setMsg('Error uploading signature')
+            })
+
+        // Uploading image
+        let imageIdData = new FormData()
+        setMsg('Uploading image')
+        imageIdData.append('file', imageId)
+        axios.post('/upload', imageIdData)
+            .then((res) => {
+                let fileName = res.data.file.filename
+                console.log('Image', fileName)
+                setFinalImageId(fileName)
+                setMsg('ImageId Uploaded. Click Finish to Continue...')
+                setCanSubmit(true)
+            })
+            .catch((err) => {
+                console.log(err)
+                setMsg('Error uploading image')
             })
 
     }
@@ -65,29 +90,54 @@ export default function UploadPage({ submit }) {
     const submitFiles = () => {
         submit({
             evidence: finalEvidence,
-            signature: finalSignature
+            signature: finalSignature,
+            image_id: finalImageId
         })
-        console.log(finalEvidence, finalSignature);
+        console.log(finalEvidence, finalSignature, finalImageId);
     }
 
     return (
-        <div style={{
-            backgroundImage: "url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f7702d6e-c194-4cf5-bee2-7177082d8e4a/d5eyfb2-4ae49ebc-e8a3-4e3a-b3ef-ba2d1fc3e9e1.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvZjc3MDJkNmUtYzE5NC00Y2Y1LWJlZTItNzE3NzA4MmQ4ZTRhXC9kNWV5ZmIyLTRhZTQ5ZWJjLWU4YTMtNGUzYS1iM2VmLWJhMmQxZmMzZTllMS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.yVoidfiHJFqumIZBlTsn5BS1PegOfbQmQH83QEYdSz8')",
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center'
-        }}
+        <div
+            style={{
+                backgroundImage: "url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f7702d6e-c194-4cf5-bee2-7177082d8e4a/d5eyfb2-4ae49ebc-e8a3-4e3a-b3ef-ba2d1fc3e9e1.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvZjc3MDJkNmUtYzE5NC00Y2Y1LWJlZTItNzE3NzA4MmQ4ZTRhXC9kNWV5ZmIyLTRhZTQ5ZWJjLWU4YTMtNGUzYS1iM2VmLWJhMmQxZmMzZTllMS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.yVoidfiHJFqumIZBlTsn5BS1PegOfbQmQH83QEYdSz8')",
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center'
+            }}
             className="sm:h-screen">
-            {
+
+            <Modal
+                style={{
+                    transform: webcamModal || showCanvas ? 'translateY(0vh)' : 'translateY(-100vh)',
+                    opacity: webcamModal || showCanvas ? '1' : '0'
+                }}
+                close={() => { setWebcamModal(false); setShowCanvas(false) }}>
+                {
+                    showCanvas
+                        ? <Canvas submit={(file) => { setSignature(file); setShowCanvas(false) }} />
+                        : null
+                }
+                {
+                    webcamModal
+                        ?
+                        <Webcam submit={(file) => { setImageId(file); setWebcamModal(false) }} />
+                        : null
+                }
+            </Modal>
+
+            {/* {
                 showCanvas
                     ?
-                    <div className="w-full h-full bg-gray-600 opacity-75 fixed">
+                    <div className="w-full h-full bg-gray-600 fixed">
                         <div className="flex justify-center mt-16">
                             <div>
                                 <div className="h-8 text-right">
                                     <button className="p-2 hover:bg-red-400"
                                         onClick={() => setShowCanvas(false)}>
-                                        <i className="fa fa-times"></i>
+                                        <img
+                                            className="w-8 h-8"
+                                            src="https://www.metiista.com/wp-content/themes/metiista/img/icons/png/cross-large-0.png"
+                                            alt="CLOSE" />
                                     </button>
                                 </div>
                                 <Canvas />
@@ -95,9 +145,9 @@ export default function UploadPage({ submit }) {
                         </div>
                     </div>
                     : null
-            }
-            <div className="py-5 px-5 md:py-24 md:px-16">
-                <div className="flex bg-gray-300 rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 ">
+            } */}
+            <div className="py-5 px-5 md:py-6 md:px-16">
+                <div className="flex bg-gray-300 rounded-lg shadow-lg overflow-hidden mx-2 sm:mx-24 ">
                     <div className="hidden lg:block lg:w-1/2 bg-cover"
                         style={{
                             background: "url('https://cutewallpaper.org/21/forensic-wallpaper/Biochemistry-Wallpaper-67+-images-.jpg')",
@@ -106,8 +156,11 @@ export default function UploadPage({ submit }) {
                         }}>
                     </div>
                     <div className="w-full p-8 lg:w-1/2">
-                        <div className="w-full text-center text-xl font-black bg-white p-2 shadow-lg">UPLOAD EVIDENCES
-                        (OPTIONAL)</div>
+
+                        {/* Evidence Upload */}
+                        <div className="w-full text-center text-xl font-black bg-white p-2 shadow-lg">
+                            UPLOAD EVIDENCES (OPTIONAL)
+                        </div>
                         <div className="w-full flex">
                             <div className="w-1/2 mt-4 bg-white p-2 shadow-lg">Please upload photo or video file of this
                             incident. These files will
@@ -126,8 +179,11 @@ export default function UploadPage({ submit }) {
                             </div>
                         </div>
                         <div className="bg-gray-400 h-1 w-full mt-5"></div>
-                        <div className="w-full text-center text-xl font-black bg-white p-2 shadow-lg mt-8">UPLOAD YOUR SIGNATURE
-                    </div>
+
+                        {/* Signature Upload */}
+                        <div className="w-full text-center text-xl font-black bg-white p-2 shadow-lg mt-8">
+                            UPLOAD YOUR SIGNATURE
+                        </div>
                         <div className="w-full flex">
                             <div className="w-1/2 mt-4 bg-white p-2 shadow-lg">
                                 For authentication we need your signature. You
@@ -150,6 +206,28 @@ export default function UploadPage({ submit }) {
                             </div>
                         </div>
                         <div className="bg-gray-400 h-1 w-full mt-5"></div>
+
+                        {/* Webcam Capture */}
+                        <div className="w-full text-center text-xl font-black bg-white p-2 shadow-lg mt-8">
+                            CAPTURE IMAGE ID
+                        </div>
+                        <div className="w-full flex">
+                            <div className="w-1/2 mt-4 bg-white p-2 shadow-lg">
+                                We need your photo for image verification. For this your photo will be captured via your webcam.
+                            </div>
+                            <div className="w-1/2 p-5">
+                                <button
+                                    onClick={() => { setWebcamModal(true) }}
+                                    className="block bg-blue-500 rounded-lg p-2 text-white mt-4 w-1/2">
+                                    TAKE PHOTO
+                                </button>
+                                <div className="mt-4">{
+                                    imageId ? 'Image Captured' : 'Image not captured'
+                                }</div>
+                            </div>
+                        </div>
+                        <div className="bg-gray-400 h-1 w-full mt-5"></div>
+
                         {
                             msg
                                 ?

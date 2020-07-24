@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import Axios from 'axios'
 
 import Nav from '../../components/Dashboard/Utils/Nav'
 import Status from '../../components/Dashboard/Utils/Status'
@@ -8,6 +9,30 @@ import Table from '../../components/Dashboard/Utils/Table'
 
 export default function Dashboard() {
     const [sideBarOpen, setSideBarOpen] = useState(false)
+    const [count, setCount] = useState({
+        approved: 0,
+        rejected: 0,
+        pending: 0
+    })
+
+    useEffect(() => {
+        Axios.get('/reports/info/count')
+            .then(res => {
+                if (res.data.status === 'success') {
+                    let { approved, pending, rejected } = res.data.count
+                    console.log(approved, pending, rejected);
+                    setCount({
+                        approved: approved,
+                        rejected: rejected,
+                        pending: pending
+                    })
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }, [])
 
     return (
         <div className="flex h-screen bg-gray-200 font-roboto">
@@ -23,9 +48,9 @@ export default function Dashboard() {
                 <Nav sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} />
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <Status
-                        pending='4'
-                        approved='3'
-                        rejected='2' />
+                        pending={count.pending}
+                        approved={count.approved}
+                        rejected={count.rejected} />
                     <Search />
                     <Table />
                 </main>
