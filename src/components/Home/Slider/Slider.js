@@ -18,10 +18,10 @@ export default function Slider() {
                 </div>
                 <div className="slider">
                     <figure className="figure">
-                        <div className="slide"><img src="https://cdn.hipwallpaper.com/i/56/1/adDCWc.jpg" alt="" /></div>
-                        <div className="slide"><img src="https://images8.alphacoders.com/914/914689.png" alt="" /></div>
-                        <div className="slide"><img src="http://demo3.agethemes.com/joomla/at-police/images/demo/slideshow/slidea.jpg" alt="" /></div>
+                        <div className="slide"><img src="https://i.dlpng.com/static/png/6771347_preview.png" alt="" /></div>
+                        <div className="slide"><img src="https://www.static-contents.youth4work.com/university/Documents/Colleges/newsEvent/f8140c17-eb62-4434-a33b-b8d8db5b75d6.jpg" alt="" /></div>
                         <div className="slide"><img src="https://wallpaperaccess.com/full/124952.jpg" alt="" /></div>
+                        <div className="slide"><img src="https://cdn.hipwallpaper.com/i/56/1/adDCWc.jpg" alt="" /></div>
                     </figure>
                 </div>
             </div>

@@ -18,7 +18,7 @@ export default function UploadPage({ submit }) {
 
     const [canSubmit, setCanSubmit] = useState(false)
 
-    const [showCanvas, setShowCanvas] = useState(true)
+    const [showCanvas, setShowCanvas] = useState(false)
     const [webcamModal, setWebcamModal] = useState(false)
 
     const onChangeHandler = (event) => {
@@ -56,7 +56,7 @@ export default function UploadPage({ submit }) {
         let signatureData = new FormData()
         setMsg('Uploading signature')
         signatureData.append('file', signature)
-        axios.post('/upload', signatureData)
+        await axios.post('/upload', signatureData)
             .then((res) => {
                 let fileName = res.data.file.filename
                 console.log('signature', fileName)
@@ -72,7 +72,7 @@ export default function UploadPage({ submit }) {
         let imageIdData = new FormData()
         setMsg('Uploading image')
         imageIdData.append('file', imageId)
-        axios.post('/upload', imageIdData)
+        await axios.post('/upload', imageIdData)
             .then((res) => {
                 let fileName = res.data.file.filename
                 console.log('Image', fileName)
@@ -112,11 +112,15 @@ export default function UploadPage({ submit }) {
                     opacity: webcamModal || showCanvas ? '1' : '0'
                 }}
                 close={() => { setWebcamModal(false); setShowCanvas(false) }}>
+
+                {/* Signature Modal */}
                 {
                     showCanvas
                         ? <Canvas submit={(file) => { setSignature(file); setShowCanvas(false) }} />
                         : null
                 }
+
+                {/* Webcam Modal */}
                 {
                     webcamModal
                         ?
@@ -125,27 +129,6 @@ export default function UploadPage({ submit }) {
                 }
             </Modal>
 
-            {/* {
-                showCanvas
-                    ?
-                    <div className="w-full h-full bg-gray-600 fixed">
-                        <div className="flex justify-center mt-16">
-                            <div>
-                                <div className="h-8 text-right">
-                                    <button className="p-2 hover:bg-red-400"
-                                        onClick={() => setShowCanvas(false)}>
-                                        <img
-                                            className="w-8 h-8"
-                                            src="https://www.metiista.com/wp-content/themes/metiista/img/icons/png/cross-large-0.png"
-                                            alt="CLOSE" />
-                                    </button>
-                                </div>
-                                <Canvas />
-                            </div>
-                        </div>
-                    </div>
-                    : null
-            } */}
             <div className="py-5 px-5 md:py-6 md:px-16">
                 <div className="flex bg-gray-300 rounded-lg shadow-lg overflow-hidden mx-2 sm:mx-24 ">
                     <div className="hidden lg:block lg:w-1/2 bg-cover"
