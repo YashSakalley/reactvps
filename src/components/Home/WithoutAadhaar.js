@@ -23,7 +23,7 @@ export default function WithoutAadhaar() {
     const onSubmitForm = (e) => {
         e.preventDefault()
         console.log('Without aadhaar submitted');
-        Axios.post('/user/wihoutAadhaar', form)
+        Axios.post('/user/withoutAadhaar', form)
             .then((res) => {
                 console.log(res);
                 if (res.data.status === 'success') {

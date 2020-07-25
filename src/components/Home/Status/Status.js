@@ -21,11 +21,12 @@ export default function Status() {
 
         axios.get(`/reports/${form.reportId}`)
             .then((response) => {
+                console.log(response);
                 if (response.data.status === 'success') {
                     setMsg('Found')
                     setResult(response.data.report.status)
                 } else {
-                    setMsg(response.data.msg)
+                    setMsg('Invalid report id')
                     console.log(response);
                 }
             })
@@ -75,7 +76,7 @@ export default function Status() {
                                     SUBMIT
                                 </button>
                             </div>
-                            <div style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
+                            <div className="h-4" style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
                         </div>
                     </div>
                     {

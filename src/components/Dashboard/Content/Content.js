@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import ContentCell from './ContentCell'
 import Canvas from '../../Canvas'
 import Axios from 'axios'
+import Modal from '../../UI/Modal'
 
 export default function Content({ id }) {
 
@@ -191,6 +192,21 @@ export default function Content({ id }) {
 
     return (
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+            <Modal
+                style={{
+                    transform: showCanvas ? 'translateY(0vh)' : 'translateY(-100vh)',
+                    opacity: showCanvas ? '1' : '0'
+                }}
+                close={() => { setShowCanvas(false) }}>
+
+                {/* Signature Modal */}
+                {
+                    showCanvas
+                        ? <Canvas submit={(file) => { setSignature(file); setShowCanvas(false) }} />
+                        : null
+                }
+
+            </Modal>
             <div className="container px-6 pt-8 bg-gray-200">
                 {
                     showAcceptModal
@@ -230,19 +246,6 @@ export default function Content({ id }) {
                                         : null
                                 }
                             </div>
-                            {
-                                showCanvas
-                                    ?
-                                    <div className="absolute test-right">
-                                        <div className="text-right">
-                                            <button className="bg-red-400 p-2" onClick={() => setShowCanvas(false)}>
-                                                <i className="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                        <Canvas />
-                                    </div>
-                                    : null
-                            }
                         </div>
                         : null
                 }

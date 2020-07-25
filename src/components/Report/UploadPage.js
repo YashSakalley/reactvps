@@ -221,7 +221,7 @@ export default function UploadPage({ submit }) {
                         {
                             !canSubmit
                                 ?
-                                signature === null
+                                (imageId === null) || (signature === null)
                                     ?
                                     <button
                                         className="bg-green-600 p-2 text-white mt-2 w-full cursor-not-allowed opacity-50"

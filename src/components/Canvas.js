@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 
 export default function Canvas({ submit }) {
-    const [file, setFile] = useState(null)
 
     const canvas = useRef(null)
     // const ctx = canvas.current.getContext("2d");
@@ -54,7 +53,7 @@ export default function Canvas({ submit }) {
     }
 
     function onSave() {
-        let link = document.getElementById('canvas').toDataURL('image/jpeg')
+        let link = document.getElementById('canvas').toDataURL()
         let imgFile = dataURLtoFile(link, 'image_id.jpg')
         console.log('File', imgFile);
         submit(imgFile)
