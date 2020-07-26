@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-
 import axios from 'axios'
+
+import wallpaper from '../../../assets/landing_wallpaper.jpg'
 import StatusResult from './StatusResult'
 
 export default function Status() {
@@ -40,7 +41,11 @@ export default function Status() {
 
     return (
         <>
-            <div style={{ backgroundImage: "url('https://i.imgur.com/aB4Om3L.png')", backgroundSize: 'cover' }}>
+            <div
+                style={{
+                    backgroundImage: `url(${wallpaper})`,
+                    backgroundSize: 'cover'
+                }}>
                 <div id="status-section"
                     style={{ background: 'linear-gradient(45deg, #0f121b, #223996)' }}
                     className="bg-black font-black text-white text-2xl mx-12 p-5 border-l-8 border-purple-500">

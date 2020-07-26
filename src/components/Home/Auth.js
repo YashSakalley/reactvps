@@ -3,6 +3,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useHistory, Link } from 'react-router-dom'
 
+import wallpaper from '../../assets/landing_wallpaper.jpg'
+
 export default function Auth() {
 
     const [form, setForm] = useState({
@@ -109,88 +111,91 @@ export default function Auth() {
     }
 
     return (
-        <>
-            <div style={{ backgroundImage: "url('https://external-preview.redd.it/btq3MWGxjKZFzuASimEuCb0PyvKuHAy1eHEmSWtF5fQ.jpg?auto=webp&s=2735c13f57c7b901336437489322694533d1d3dd')", backgroundSize: 'cover' }} className="h-screen">
-                <div id="login-section" className="bg-black font-black text-white text-2xl sm:mx-12 p-5 border-l-8 border-purple-500" style={{ background: 'linear-gradient(45deg, black, gray)' }}>
-                    <div>
-                        AADHAAR LOGIN
-                    </div>
+        <div
+            style={{
+                backgroundImage: `url(${wallpaper})`,
+                backgroundSize: 'cover'
+            }}
+            className="h-screen">
+            <div id="login-section" className="bg-black font-black text-white text-2xl sm:mx-12 p-5 border-l-8 border-purple-500" style={{ background: 'linear-gradient(45deg, black, gray)' }}>
+                <div>
+                    AADHAAR LOGIN
                 </div>
-                <div className="mt-8 mb-4">
-                    <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-4 sm:mx-24 ">
-                        <div className="hidden lg:block lg:w-1/2 bg-cover" style={{ backgroundImage: "url('https://martechtoday.com/wp-content/uploads/2018/08/AI1920_f0dksn.png')" }}></div>
-                        <div className="w-full p-8 lg:w-1/2">
-                            <div className="flex justify-center">
-                                <img src="https://seeklogo.com/images/A/aadhaar-logo-5FCB1D69EB-seeklogo.com.png" className="w-34 h-32" alt="" />
-                            </div>
-                            <div className="mt-4 flex items-center justify-between">
+            </div>
+            <div className="mt-8 mb-4">
+                <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-4 sm:mx-24 ">
+                    <div className="hidden lg:block lg:w-1/2 bg-cover" style={{ backgroundImage: "url('https://martechtoday.com/wp-content/uploads/2018/08/AI1920_f0dksn.png')" }}></div>
+                    <div className="w-full p-8 lg:w-1/2">
+                        <div className="flex justify-center">
+                            <img src="https://seeklogo.com/images/A/aadhaar-logo-5FCB1D69EB-seeklogo.com.png" className="w-34 h-32" alt="" />
+                        </div>
+                        <div className="mt-4 flex items-center justify-between">
 
-                                <span className="border-b w-1/5 lg:w-1/4"></span>
-                                <a href="/" className="text-xl text-center text-gray-500 uppercase">LOGIN USING AADHAAR</a>
-                                <span className="border-b w-1/5 lg:w-1/4"></span>
-                            </div>
-                            <div className="sm:px-32 px-4">
+                            <span className="border-b w-1/5 lg:w-1/4"></span>
+                            <a href="/" className="text-xl text-center text-gray-500 uppercase">LOGIN USING AADHAAR</a>
+                            <span className="border-b w-1/5 lg:w-1/4"></span>
+                        </div>
+                        <div className="sm:px-32 px-4">
 
-                                {/* Uid Input */}
-                                <div className="mt-4">
+                            {/* Uid Input */}
+                            <div className="mt-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2"></label>
+                                <input
+                                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                    type="text"
+                                    name="uid"
+                                    onChange={inputChangedHandler}
+                                    value={form.uid}
+                                    disabled={isUidDisabled}
+                                />
+                            </div>
+                            <div className="mt-4">
+                                <button
+                                    className={`w-full text-white font-bold py-2 px-4 rounded ${isUidDisabled ? 'bg-gray-600 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'}`}
+                                    onClick={uidSubmitHandler}
+                                    disabled={isUidDisabled}>
+                                    GENERATE OTP
+                                    </button>
+                            </div>
+
+                            {/* OTP Input */}
+                            <div className="mt-8">
+                                <div className={`h-4 text-xl text-green-500`}>
+                                    {isOtpDisabled ? null : `OTP send to ${phone}`}
+                                </div>
+                                <div className="mt-4 flex justify-between">
                                     <label className="block text-gray-700 text-sm font-bold mb-2"></label>
-                                    <input
-                                        className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                                        type="text"
-                                        name="uid"
-                                        onChange={inputChangedHandler}
-                                        value={form.uid}
-                                        disabled={isUidDisabled}
-                                    />
                                 </div>
-                                <div className="mt-4">
-                                    <button
-                                        className={`w-full text-white font-bold py-2 px-4 rounded ${isUidDisabled ? 'bg-gray-600 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'}`}
-                                        onClick={uidSubmitHandler}
-                                        disabled={isUidDisabled}>
-                                        GENERATE OTP
+                                <input
+                                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                    type="text"
+                                    name="otp"
+                                    onChange={inputChangedHandler}
+                                    value={form.otp}
+                                    disabled={isOtpDisabled}
+                                />
+                            </div>
+                            <div className="mt-4">
+                                <button
+                                    className={`w-full text-white font-bold py-2 px-4 rounded ${isOtpDisabled ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'}`}
+                                    onClick={otpSubmitHandler}
+                                    disabled={isOtpDisabled}>
+                                    SUBMIT OTP
                                     </button>
-                                </div>
-
-                                {/* OTP Input */}
-                                <div className="mt-8">
-                                    <div className={`h-4 text-xl text-green-500`}>
-                                        {isOtpDisabled ? null : `OTP send to ${phone}`}
-                                    </div>
-                                    <div className="mt-4 flex justify-between">
-                                        <label className="block text-gray-700 text-sm font-bold mb-2"></label>
-                                    </div>
-                                    <input
-                                        className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                                        type="text"
-                                        name="otp"
-                                        onChange={inputChangedHandler}
-                                        value={form.otp}
-                                        disabled={isOtpDisabled}
-                                    />
-                                </div>
-                                <div className="mt-4">
-                                    <button
-                                        className={`w-full text-white font-bold py-2 px-4 rounded ${isOtpDisabled ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'}`}
-                                        onClick={otpSubmitHandler}
-                                        disabled={isOtpDisabled}>
-                                        SUBMIT OTP
-                                    </button>
-                                </div>
-
                             </div>
 
-                            {/* Additional Info text */}
-                            <div className="mt-4 h-4" style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
-                            <div className="mt-4 text-blue-500 hover:text-blue-700 text-center">
-                                <Link to="/loginWithoutUid">
-                                    Don't have an aadhaar available? Click here
+                        </div>
+
+                        {/* Additional Info text */}
+                        <div className="mt-4 h-4" style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
+                        <div className="mt-4 text-blue-500 hover:text-blue-700 text-center">
+                            <Link to="/loginWithoutUid">
+                                Don't have an aadhaar available? Click here
                                 </Link>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };

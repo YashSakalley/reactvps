@@ -1,8 +1,16 @@
 import React from 'react'
 
+import wallpaper from '../../assets/landing_wallpaper.jpg'
+
 export default function workflow() {
     return (
-        <div className="sm:h-screen" style={{ backgroundImage: "url('https://wallpaperaccess.com/full/1157091.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div
+            className="sm:h-screen"
+            style={{
+                backgroundImage: `url(${wallpaper})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+            }}>
             <div id="login-section" className="bg-black font-black text-white text-2xl mx-12 p-5 border-l-8 border-purple-500" style={{ background: 'linear-gradient(45deg, black, gray)' }}>
                 <div>
                     HOW IT WORKS
