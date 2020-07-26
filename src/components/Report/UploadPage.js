@@ -129,34 +129,35 @@ export default function UploadPage({ submit }) {
                 }
             </Modal>
 
-            <div className="py-5 px-5 md:py-6 md:px-16">
+            <div className="py-5 px-5 md:py-6 md:px-8">
                 <div className="flex bg-gray-300 rounded-lg shadow-lg overflow-hidden mx-2 sm:mx-24 ">
                     <div className="hidden lg:block lg:w-1/2 bg-cover"
                         style={{
-                            background: "url('https://cutewallpaper.org/21/forensic-wallpaper/Biochemistry-Wallpaper-67+-images-.jpg')",
+                            background: "url('https://www.syneidis.com/wp-content/uploads/2018/12/antivirus-01.jpg')",
                             backgroundSize: 'cover',
-                            backgroundRepeat: 'no-repeat'
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center'
                         }}>
                     </div>
-                    <div className="w-full p-8 lg:w-1/2">
+                    <div className="w-full p-5 lg:w-1/2">
 
                         {/* Evidence Upload */}
-                        <div className="w-full text-center text-xl font-black bg-white p-2 shadow-lg">
+                        <div className="w-full text-center text-xl font-black bg-gray-900 p-2 shadow-lg text-white">
                             UPLOAD EVIDENCES (OPTIONAL)
                         </div>
                         <div className="w-full flex">
-                            <div className="w-1/2 mt-4 bg-white p-2 shadow-lg">Please upload photo or video file of this
+                            <div className="w-1/2 bg-white p-3 shadow-lg italic">Please upload photo or video file of this
                             incident. These files will
                             help us to analyse the incident more efficiently</div>
-                            <div className="w-1/2 p-5">
+                            <div className="w-1/2 mt-4 ml-4 bg-white shadow-lg">
                                 <input
                                     id="evidence"
                                     name="evidence"
                                     type="file"
                                     className="hidden"
                                     onChange={onChangeHandler} />
-                                <label htmlFor="evidence" className="cursor-pointer bg-gray-500 text-white p-2 rounded-lg">UPLOAD EVIDENCE</label>
-                                <div className="mt-4">{
+                                <label htmlFor="evidence" className="cursor-pointer bg-purple-700 text-white p-2 hover:bg-purple-900">UPLOAD EVIDENCE</label>
+                                <div className="mt-4 bg-yellow-200 px-2">{
                                     evidence ? evidence.name : 'No evidence file uploaded'
                                 }</div>
                             </div>
@@ -164,47 +165,58 @@ export default function UploadPage({ submit }) {
                         <div className="bg-gray-400 h-1 w-full mt-5"></div>
 
                         {/* Signature Upload */}
-                        <div className="w-full text-center text-xl font-black bg-white p-2 shadow-lg mt-8">
+                        <div className="w-full text-center text-xl font-black bg-gray-900 p-2 shadow-lg text-white mt-2">
                             UPLOAD YOUR SIGNATURE
                         </div>
                         <div className="w-full flex">
-                            <div className="w-1/2 mt-4 bg-white p-2 shadow-lg">
+                            <div className="w-1/2 bg-white p-3 shadow-lg italic">
                                 For authentication we need your signature. You
                                 can either upload an image file or use our OCR interface to draw one on the screen. </div>
-                            <div className="w-1/2 p-5">
+                            <div className="w-1/2 mt-4 ml-4 bg-white">
                                 <input
                                     id="signature"
                                     type="file"
                                     className="hidden"
                                     onChange={onChangeHandler} />
-                                <label htmlFor="signature" className="cursor-pointer bg-teal-500 text-white p-2 rounded-lg">UPLOAD SIGNATURE</label>
-                                <button
-                                    onClick={() => setShowCanvas(true)}
-                                    className="block bg-blue-500 rounded-lg p-2 text-white mt-4 w-1/2">
-                                    DRAW
-                                </button>
-                                <div className="mt-4">{
-                                    signature ? signature.name : 'No signature file uploaded'
+                                {
+                                    signature
+                                        ? null
+                                        : <>
+                                            <label
+                                                htmlFor="signature"
+                                                className="cursor-pointer bg-teal-400 hover:bg-teal-600 text-white p-2">
+                                                UPLOAD SIGNATURE
+                                            </label>
+                                            <button
+                                                onClick={() => setShowCanvas(true)}
+                                                className="block bg-indigo-700 hover:bg-indigo-900 text-lg italic p-1 text-white mt-4 w-1/2">
+                                                Draw
+                                            </button>
+                                        </>
+                                }
+
+                                <div className="mt-3 bg-yellow-200 px-2">{
+                                    signature ? `Uploaded ${signature.name}` : 'No signature file uploaded'
                                 }</div>
                             </div>
                         </div>
                         <div className="bg-gray-400 h-1 w-full mt-5"></div>
 
                         {/* Webcam Capture */}
-                        <div className="w-full text-center text-xl font-black bg-white p-2 shadow-lg mt-8">
+                        <div className="w-full text-center text-xl font-black bg-gray-900 p-2 shadow-lg text-white mt-2">
                             CAPTURE IMAGE ID
                         </div>
                         <div className="w-full flex">
-                            <div className="w-1/2 mt-4 bg-white p-2 shadow-lg">
+                            <div className="w-1/2 bg-white p-3 shadow-lg italic">
                                 We need your photo for image verification. For this your photo will be captured via your webcam.
                             </div>
-                            <div className="w-1/2 p-5">
+                            <div className="w-1/2 mt-2 ml-4 bg-white">
                                 <button
                                     onClick={() => { setWebcamModal(true) }}
-                                    className="block bg-blue-500 rounded-lg p-2 text-white mt-4 w-1/2">
+                                    className={`${imageId ? 'hidden' : ''} block bg-gray-700 hover:bg-gray-900 p-2 text-white w-1/2 flex`}>
                                     TAKE PHOTO
                                 </button>
-                                <div className="mt-4">{
+                                <div className="mt-3 bg-yellow-200 px-2">{
                                     imageId ? 'Image Captured' : 'Image not captured'
                                 }</div>
                             </div>
@@ -240,8 +252,6 @@ export default function UploadPage({ submit }) {
                     </div>
                 </div>
             </div>
-
-
         </div>
     )
 }

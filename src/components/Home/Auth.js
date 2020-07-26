@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-
 import Cookies from 'js-cookie'
 import { useHistory, Link } from 'react-router-dom'
 
@@ -155,8 +154,8 @@ export default function Auth() {
 
                                 {/* OTP Input */}
                                 <div className="mt-8">
-                                    <div className={`${!isOtpDisabled ? 'block' : 'hidden'} text-xl text-green-500`}>
-                                        OTP send to {phone}
+                                    <div className={`h-4 text-xl text-green-500`}>
+                                        {isOtpDisabled ? null : `OTP send to ${phone}`}
                                     </div>
                                     <div className="mt-4 flex justify-between">
                                         <label className="block text-gray-700 text-sm font-bold mb-2"></label>
@@ -182,7 +181,7 @@ export default function Auth() {
                             </div>
 
                             {/* Additional Info text */}
-                            <div className="mt-4" style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
+                            <div className="mt-4 h-4" style={{ textAlign: 'center', color: 'red' }}>{msg ? msg : null}</div>
                             <div className="mt-4 text-blue-500 hover:text-blue-700 text-center">
                                 <Link to="/loginWithoutUid">
                                     Don't have an aadhaar available? Click here

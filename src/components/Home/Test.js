@@ -24,16 +24,20 @@ const Test = () => {
     }
 
     return (
-        <div id="nearby-station">
+        <div id="nearby-station"
+            style={{
+                position: 'absolute',
+                left: '50%',
+                width: '90vw',
+                transform: 'translate(-50%, 0%)',
+                marginTop: '50px'
+            }}
+            className="sm:mt-0"
+        >
             <div
-                // style={{
-                //     background: "url('https://wallpaperset.com/w/full/4/8/6/487528.jpg')",
-                //     backgroundSize: 'cover',
-                //     backgroundRepeat: 'no-repeat'
-                // }} 
-                className="sm:h-screen">
-                <div className="mx-4 py-4 sm:py-16 sm:mx-16 h-full">
-                    <div className="flex flex-wrap bg-white rounded-lg shadow-lg overflow-hidden mx-2 sm:mx-24 h-full" >
+                className="">
+                <div className="">
+                    <div className="flex flex-wrap bg-white rounded-lg shadow-lg overflow-hidden h-full" >
 
                         {/* first half below  */}
                         <div className="w-full relative sm:w-1/2 lg:block lg:w-1/2 bg-cover"
