@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import loadingText from '../../../assets/text_loading.gif'
 import loadingAudio from '../../../assets/audio_loading.gif'
 import loadingFaces from '../../../assets/face_loading.gif'
@@ -53,7 +54,7 @@ export default function IoMedia({ index, src }) {
                                 src={`${process.env.REACT_APP_API_URL}/getSuspectImg/${path}/${i}`}
                                 alt={`Suspect ${i}`} />
                             <div className="pt-2">
-                                Person Name
+                                Person-{i}
                             </div>
                         </div>
                     )
@@ -120,7 +121,7 @@ export default function IoMedia({ index, src }) {
                                 </tr>
                                 <tr className="flex w-full mb-4">
                                     <td className="w-1/2"> PROPERTY:</td>
-                                    <td className="w-1/2"> XYZ</td>
+                                    <td className="w-1/2"> Image evidence</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -128,6 +129,7 @@ export default function IoMedia({ index, src }) {
                 </div>
             </div>
 
+            {/* Buttons */}
             <div className="text-right mb-8">
                 <button
                     onClick={() => analyse('text')}
@@ -141,12 +143,13 @@ export default function IoMedia({ index, src }) {
                     <i className="fas fa-user mr-2"></i>
                     SCAN FACES
                 </button>
-                <button
+                {/* Experimental Features */}
+                {/* <button
                     onClick={() => analyse('audio')}
                     className="hover:bg-gray-600 hover:text-white border-gray-600 border-solid rounded border-2  p-4 ml-4" >
                     <i className="fas fa-microphone mr-2"></i>
                     ANALYSE AUDIO
-                </button >
+                </button > */}
             </div>
 
             {

@@ -2,6 +2,8 @@ import React from 'react'
 import { useParams, NavLink } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
+import police_officer_dashboard from '../../../assets/police_officer_dashboard.png'
+
 export default function SideBar({ sideBarOpen, setSideBarOpen }) {
     const role = useParams().role
     const onLogout = () => {
@@ -27,7 +29,7 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
         >
             <div className="flex items-center justify-center mt-8">
                 <div className="items-center flex flex-col">
-                    <img src="https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/10743111741548234985-512.png" className="w-26 h-32" alt="" />
+                    <img src={police_officer_dashboard} className="w-26 h-32" alt="" />
                     <div className="my-2 text-white text-xl text-center border-2 border-white p-2">{roleLabel}</div>
                 </div>
             </div>

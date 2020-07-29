@@ -4,6 +4,8 @@ import Cookies from 'js-cookie'
 import { useHistory, Link } from 'react-router-dom'
 
 import wallpaper from '../../assets/landing_wallpaper.jpg'
+import aadhaar from '../../assets/aadhaar.png'
+import brain from '../../assets/brain.png'
 
 export default function Auth() {
 
@@ -124,13 +126,16 @@ export default function Auth() {
             </div>
             <div className="mt-8 mb-4">
                 <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-4 sm:mx-24 ">
-                    <div className="hidden lg:block lg:w-1/2 bg-cover" style={{ backgroundImage: "url('https://martechtoday.com/wp-content/uploads/2018/08/AI1920_f0dksn.png')" }}></div>
+                    <div className="hidden lg:block lg:w-1/2 bg-cover"
+                        style={{
+                            backgroundImage: `url(${brain})`
+                        }}>
+                    </div>
                     <div className="w-full p-8 lg:w-1/2">
                         <div className="flex justify-center">
-                            <img src="https://seeklogo.com/images/A/aadhaar-logo-5FCB1D69EB-seeklogo.com.png" className="w-34 h-32" alt="" />
+                            <img src={aadhaar} className="w-34 h-32" alt="" />
                         </div>
                         <div className="mt-4 flex items-center justify-between">
-
                             <span className="border-b w-1/5 lg:w-1/4"></span>
                             <a href="/" className="text-xl text-center text-gray-500 uppercase">LOGIN USING AADHAAR</a>
                             <span className="border-b w-1/5 lg:w-1/4"></span>
@@ -191,7 +196,7 @@ export default function Auth() {
                         <div className="mt-4 text-blue-500 hover:text-blue-700 text-center">
                             <Link to="/loginWithoutUid">
                                 Don't have an aadhaar available? Click here
-                                </Link>
+                            </Link>
                         </div>
                     </div>
                 </div>

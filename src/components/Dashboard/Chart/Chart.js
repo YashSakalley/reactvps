@@ -68,7 +68,7 @@ export default function Chart({ status }) {
 
     return (
         <div className="bg-gray-300 pt-4">
-            <div className="sm:mx-32 flex flex-wrap">
+            <div className="flex flex-wrap">
                 <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 mb-4 bg-white p-5 shadow-xl">
                     <Line className="w-full h-full" data={data} />
                 </div>
@@ -76,7 +76,7 @@ export default function Chart({ status }) {
                     <Bar data={data} />
                 </div>
             </div>
-            <div className=" sm:mx-32 mt-2 flex flex-wrap">
+            <div className="mt-2 flex flex-wrap">
                 <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 mb-4 bg-white p-5 shadow-xl">
                     <Pie data={data_crime_type} />
                 </div>

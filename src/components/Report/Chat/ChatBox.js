@@ -9,7 +9,7 @@ import Video from './Video'
 
 export default function ChatBox({ crime, submit }) {
     const [state, setState] = useState({
-        questions: [{ question: 'init', suggestions: [], label: '' }],
+        questions: [{ question: 'Error connecting database', suggestions: [], label: '' }],
         answers: []
     })
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)

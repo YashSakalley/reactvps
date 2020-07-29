@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-import wallpaper from '../../../assets/landing_wallpaper.jpg'
 import StatusResult from './StatusResult'
+
+import wallpaper from '../../../assets/landing_wallpaper.jpg'
+import circuit from '../../../assets/circuit.jpg'
+import doc from '../../../assets/doc.png'
 
 export default function Status() {
 
@@ -55,10 +58,14 @@ export default function Status() {
                 </div>
                 <div className="py-6">
                     <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 ">
-                        <div className="hidden lg:block lg:w-1/2 bg-cover" style={{ backgroundImage: "url('https://svitla.com/uploads/0/2135-database_management_software.jpg')" }}></div>
+                        <div className="hidden lg:block lg:w-1/2 bg-cover"
+                            style={{
+                                backgroundImage: `url(${circuit})`
+                            }}></div>
                         <div className="w-full p-8 lg:w-1/2">
                             <div className="flex justify-center">
-                                <img src="https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/512/Docs-icon.png" className="w-34 h-32" alt="Check Status" />
+                                <img src={doc}
+                                    className="w-34 h-32" alt="Check Status" />
                             </div>
                             <div className="mt-4 flex items-center justify-between">
                                 <span className="border-b w-1/5 lg:w-1/4"></span>

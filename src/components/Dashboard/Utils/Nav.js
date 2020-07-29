@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Cookies from 'js-cookie'
 
+import police_officer_small from '../../../assets/police_officer_small.jpg'
+
 export default function Nav({ sideBarOpen, setSideBarOpen }) {
 
     const [dropDownOpen, setDropDownOpen] = useState(false)
@@ -52,7 +54,7 @@ export default function Nav({ sideBarOpen, setSideBarOpen }) {
                         onClick={() => setDropDownOpen(!dropDownOpen)}
                         className="relative z-10 block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
                         <img className="h-full w-full object-cover"
-                            src="https://img.pngio.com/police-icon-png-418418-free-icons-library-police-icon-png-256_256.jpg"
+                            src={police_officer_small}
                             alt="Your avatar" />
                     </button>
 

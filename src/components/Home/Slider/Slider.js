@@ -19,12 +19,11 @@ export default function Slider() {
                         bottom: '2rem',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        color: '#cec3b9',
                         letterSpacing: '4px',
                         fontWeight: '700',
                         background: 'rgba(0,0,0,0.6)'
                     }}
-                    className="invisible md:visible absolute text-center uppercase">
+                    className="invisible md:visible absolute text-center text-white uppercase">
 
                     <div className="p-6 text-xl "> Want to file an fir? </div>
                     <a href="/#login-section" className="p-4 hover:bg-orange-900 duration-200 bg-orange-700">click here</a>

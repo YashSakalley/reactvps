@@ -7,24 +7,36 @@ function MapComponent({ google, setValue, finish, task }) {
         setValue(key, value)
     }
 
-    const [currentPos, setCurrentPos] = useState({
-        lat: 23.2349658, lng: 77.4294204
-    })
+    const currentPos = {
+        lat: 23.259767, lng: 77.445316
+    }
 
-    const [markerPos, setMarkerPos] = useState({
-        lat: 23.2349658, lng: 77.4294204
-    })
+    // const [markerPos, setMarkerPos] = useState({
+    //     lat: 23.2349658, lng: 77.4294204
+    // })
+
+    let markerPos
+    if (task === 'ps') {
+        markerPos = { lat: 23.2664263, lng: 77.4425893 }
+    } else {
+        markerPos = { lat: 23.2574872, lng: 77.4427974 }
+    }
 
     const getPosition = (position) => {
-        var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        };
+        // var pos = {
+        //     lat: position.coords.latitude,
+        //     lng: position.coords.longitude
+        // };
 
-        setCurrentPos({
-            lat: pos.lat,
-            lng: pos.lng
-        })
+        var pos = {
+            lat: currentPos.lat,
+            lng: currentPos.lng
+        }
+
+        // setCurrentPos({
+        //     lat: pos.lat,
+        //     lng: pos.lng
+        // })
 
         var proxyURL = 'https://secure-springs-50261.herokuapp.com/';
         var apiUrl = `https://maps.googleapis.com/maps/api/place/search/json?location=${pos.lat},${pos.lng}&rankby=distance&types=${task === 'ps' ? 'police' : 'hospital'}&sensor=false&key=AIzaSyCm_GrSti6BA79AerJkEcrmCusdDhDCsko`;
@@ -32,8 +44,8 @@ function MapComponent({ google, setValue, finish, task }) {
         fetch(proxyURL + apiUrl)
             .then(response => response.json())
             .then((data) => {
-                setMarkerPos(data.results[0].geometry.location)
-                console.log('Data', data.results[0].place_id)
+                // setMarkerPos(data.results[0].geometry.location)
+                console.log('Data', data.results[0].geometry.location)
                 set('loc', data.results[0].vicinity)
                 set('name', data.results[0].name)
 
@@ -52,6 +64,8 @@ function MapComponent({ google, setValue, finish, task }) {
                 console.log("Can’t access response. Blocked by browser?")
                 finish()
             })
+        set('loc', 'Unnamed Rd, Opposite To Evonee Industries, Sector H, Ashoka HGarden, Govindpura Industrial Area, Bhopal')
+        set('name', 'Police Station - Ashoka Garden')
     }
 
     const locationNotReceived = (positionError) => {
@@ -67,7 +81,7 @@ function MapComponent({ google, setValue, finish, task }) {
             finish()
         }
 
-    }, [])
+    })
 
     let mapStyles = {
         width: '100%',
@@ -78,7 +92,7 @@ function MapComponent({ google, setValue, finish, task }) {
     return (
         <Map
             google={google}
-            zoom={13}
+            zoom={task === 'ps' ? 15 : 17}
             style={mapStyles}
             initialCenter={currentPos}>
 

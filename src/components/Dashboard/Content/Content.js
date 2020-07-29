@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import Cookies from 'js-cookie'
+
 import ContentCell from './ContentCell'
-import Canvas from '../../Canvas'
-import Axios from 'axios'
 import Modal from '../../UI/Modal'
+import Canvas from '../../Canvas'
+
+import back from '../../../assets/back.png'
 
 export default function Content({ id }) {
 
@@ -251,7 +253,7 @@ export default function Content({ id }) {
                 }
                 <div className="flex justify-between items-center">
                     <button onClick={onBackHandler} className="text-white h-full"><img className=""
-                        src="https://img.icons8.com/fluent/48/000000/back.png" alt="" /></button>
+                        src={back} alt="" /></button>
                     <h1 className="text-3xl">DETAILED REPORT</h1>
 
                     <div>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import IoMedia from './IoMedia'
 
+import down from '../../../assets/down.png'
+
 export default function Content({ id }) {
 
     const initialContent = {
@@ -75,7 +77,7 @@ export default function Content({ id }) {
                         onClick={() => setShowDetails(!showDetails)}
                         className={`${showDetails ? 'bg-gray-900' : ''} mt-16 border-l-8 border-black bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_1 flex`}>
                         REPORT DETAILS
-                    <img src="https://media.keevervineyards.com/content/uploads/downButton.png" id="down_ico"
+                    <img src={down} id="down_ico"
                             className={`${showDetails ? 'block' : 'hidden'} absolute right-0 mr-12 w-8`} alt="" />
                     </div>
 

@@ -1,5 +1,9 @@
 import React from 'react'
 
+import pendingImg from '../../../assets/pending.webp'
+import approvedImg from '../../../assets/approved.webp'
+import rejectedImg from '../../../assets/rejected.webp'
+
 export default function Status({ pending, approved, rejected }) {
     return (
         <>
@@ -10,7 +14,7 @@ export default function Status({ pending, approved, rejected }) {
                     <div className="flex flex-wrap -mx-6">
                         <div className="w-full px-6 sm:w-1/2 xl:w-1/3">
                             <div className="flex items-center px-5 py-6 shadow-sm rounded-md bg-yellow-400">
-                                <img src="https://cdn2.iconfinder.com/data/icons/delivery-flat-1/36/pending_delayed_slow_delivery_delivery_temporary-512.png"
+                                <img src={pendingImg}
                                     className="h-16 w-22 text-white" alt="" />
                                 <div className="mx-5">
                                     <h4 className="text-2xl text-black font-black">{pending}</h4>
@@ -21,7 +25,7 @@ export default function Status({ pending, approved, rejected }) {
 
                         <div className="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
                             <div className="flex items-center px-5 py-6 shadow-sm rounded-md bg-green-300">
-                                <img src="https://cdn2.iconfinder.com/data/icons/ios-7-style-metro-ui-icons/512/MetroUI_Security_Approved.png"
+                                <img src={approvedImg}
                                     className="h-16 w-22 text-white" alt="" />
                                 <div className="mx-5">
                                     <h4 className="text-2xl text-black font-black">{approved}</h4>
@@ -32,7 +36,7 @@ export default function Status({ pending, approved, rejected }) {
 
                         <div className="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
                             <div className="flex items-center px-5 py-6 shadow-sm rounded-md bg-red-400">
-                                <img src="https://cdn2.iconfinder.com/data/icons/business-406/60/business-flat-023-declined-email-512.png"
+                                <img src={rejectedImg}
                                     className="h-16 w-22 text-white" alt="" />
                                 <div className="mx-5">
                                     <h4 className="text-2xl text-black font-black">{rejected}</h4>

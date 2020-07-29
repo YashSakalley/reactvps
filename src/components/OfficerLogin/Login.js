@@ -3,6 +3,10 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useHistory, useParams } from 'react-router-dom'
 
+import login_wallpaper from '../../assets/login_wallpaper.jpg'
+import police_officer from '../../assets/police_officer.webp'
+import police_logo from '../../assets/police_logo.png'
+
 export default function Login() {
 
     const role = useParams().role
@@ -56,14 +60,23 @@ export default function Login() {
     }
 
     return (
-        <div style={{ backgroundImage: "url('https://i.pinimg.com/originals/5b/41/f7/5b41f7a94afcb7fdb9d3a0c8addda85e.jpg')", backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }} className="h-screen">
+        <div style={{
+            backgroundImage: `url(${login_wallpaper})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+        }} className="h-screen">
             <div className="py-24 px-16">
                 <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 ">
                     <div className="hidden lg:block lg:w-1/2 bg-cover"
-                        style={{ backgroundImage: "url('https://static.vecteezy.com/system/resources/thumbnails/000/242/730/original/police-officer-avatar-illustration.jpg')", backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }} ></div>
+                        style={{
+                            backgroundImage: `url(${police_officer})`,
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat'
+                        }} ></div>
                     <div className="w-full p-8 lg:w-1/2">
                         <div className="flex justify-center">
-                            <img src="https://images.vexels.com/media/users/3/158397/isolated/preview/e5d4579c3400a6c604ede2357e7b6de9-badge-police-silhouette-by-vexels.png" className="w-40 h-36" alt="" />
+                            <img src={police_logo}
+                                className="w-40 h-36" alt="" />
                         </div>
                         <div className="mt-4 flex items-center justify-between">
                             <span className="border-b w-1/5 lg:w-1/4"></span>
