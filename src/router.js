@@ -10,6 +10,9 @@ import Loading from './components/Loading/Loading'
 import Canvas from './components/Canvas'
 import Chart from './pages/Dashboard/Chart'
 import WithoutAadhaar from './components/Home/WithoutAadhaar'
+import Volunteer from './pages/Volunteer'
+import VolLogin from './components/Volunteer/VolLogin'
+import VolContent from './components/Volunteer/VolContent'
 
 
 export default function AppRouter() {
@@ -22,6 +25,18 @@ export default function AppRouter() {
 
             <Route path='/loading'>
                 <Loading />
+            </Route>
+
+            <Route path="/volunteer/login">
+                <VolLogin />
+            </Route>
+
+            <Route path='/volunteer/:requestId'>
+                <VolContent />
+            </Route>
+
+            <Route path='/volunteer'>
+                <Volunteer />
             </Route>
 
             <Route path="/submitReport">

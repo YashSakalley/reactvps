@@ -6,6 +6,8 @@ import { useHistory, Link } from 'react-router-dom'
 import wallpaper from '../../assets/landing_wallpaper.jpg'
 import aadhaar from '../../assets/aadhaar.png'
 import brain from '../../assets/brain.png'
+import Modal from '../UI/Modal'
+import VolModal from '../Volunteer/VolModal'
 
 export default function Auth() {
 
@@ -18,6 +20,8 @@ export default function Auth() {
 
     const [isUidDisabled, setIsUidDisabled] = useState(false)
     const [isOtpDisabled, setIsOtpDisabled] = useState(true)
+
+    const [showVolModal, setShowVolModal] = useState(false)
 
     const history = useHistory();
 
@@ -119,6 +123,16 @@ export default function Auth() {
                 backgroundSize: 'cover'
             }}
             className="h-screen">
+
+            <Modal
+                style={{
+                    transform: showVolModal ? 'translateY(0vh)' : 'translateY(-100vh)',
+                    opacity: showVolModal ? '1' : '0'
+                }}
+                close={() => setShowVolModal(false)}>
+                <VolModal />
+            </Modal>
+
             <div id="login-section" className="bg-black font-black text-white text-2xl sm:mx-12 p-5 border-l-8 border-purple-500" style={{ background: 'linear-gradient(45deg, black, gray)' }}>
                 <div>
                     AADHAAR LOGIN
@@ -197,6 +211,10 @@ export default function Auth() {
                             <Link to="/loginWithoutUid">
                                 Don't have an aadhaar available? Click here
                             </Link>
+                            <div className="">OR</div>
+                            <div className="cursor-pointer" onClick={() => setShowVolModal(true)}>
+                                Want facilitator support? Click here
+                            </div>
                         </div>
                     </div>
                 </div>

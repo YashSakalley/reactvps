@@ -24,7 +24,19 @@ export default function UploadPage({ submit }) {
     const onChangeHandler = (event) => {
         if (event.target.id === 'evidence') {
             console.log('Changing evidence');
-            setEvidence(event.target.files[0])
+            setEvidence(event.target.files)
+            // console.log('Changing evidence');
+            // let files = []
+
+            // for (let i = 0; i < event.target.files.length; i++) {
+            //     files.push(event.target.files[i])
+            // }
+            // console.log(files);
+            // let files = event.target.files
+            // setEvidence(files)
+            // console.log(files);
+            // // console.log('evidence', evidence);
+            // // console.log(event.target.files)
         } else {
             console.log('Changing signature');
             setSignature(event.target.files[0])
@@ -151,11 +163,13 @@ export default function UploadPage({ submit }) {
                             help us to analyse the incident more efficiently</div>
                             <div className="w-1/2 mt-4 ml-4 bg-white shadow-lg">
                                 <input
+                                    multiple
                                     id="evidence"
                                     name="evidence"
                                     type="file"
                                     className="hidden"
-                                    onChange={onChangeHandler} />
+                                    onChange={onChangeHandler}
+                                />
                                 <label htmlFor="evidence" className="cursor-pointer bg-purple-700 text-white p-2 hover:bg-purple-900">UPLOAD EVIDENCE</label>
                                 <div className="mt-4 bg-yellow-200 px-2">{
                                     evidence ? evidence.name : 'No evidence file uploaded'

@@ -8,6 +8,7 @@ import Modal from '../../UI/Modal'
 import Canvas from '../../Canvas'
 
 import back from '../../../assets/back.png'
+import pdfImg from '../../../assets/pdf.png'
 
 export default function Content({ id }) {
 
@@ -252,8 +253,14 @@ export default function Content({ id }) {
                         : null
                 }
                 <div className="flex justify-between items-center">
-                    <button onClick={onBackHandler} className="text-white h-full"><img className=""
-                        src={back} alt="" /></button>
+                    <button
+                        onClick={onBackHandler}
+                        className="text-white h-full">
+                        <img
+                            className=""
+                            src={back}
+                            alt="" />
+                    </button>
                     <h1 className="text-3xl">DETAILED REPORT</h1>
 
                     <div>
@@ -266,7 +273,10 @@ export default function Content({ id }) {
                                     href={`${process.env.REACT_APP_API_URL}/getPdf/${content.report._id}`}
                                     target="_blank"
                                     rel="noopener noreferrer">
-                                    <i className="far fa-file-pdf text-3xl "></i>
+                                    {/* <i className="far fa-file-pdf text-3xl "></i> */}
+                                    <img src={pdfImg}
+                                        className="rounded duration-200 w-16 h-16 hover:bg-red-500"
+                                        alt="" />
                                 </a>
                                 : null
                         }

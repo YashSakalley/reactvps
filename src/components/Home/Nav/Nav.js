@@ -65,6 +65,8 @@ export default function Nav() {
                                     <Link to="/login/sho">SHO</Link>
                                     <Link to="/login/sp">SP</Link>
                                     <Link to="/login/io">IO</Link>
+                                    <hr/>
+                                    <Link to="/volunteer">FACILITATOR</Link>
                                 </div>
                             </div>
                         </div>

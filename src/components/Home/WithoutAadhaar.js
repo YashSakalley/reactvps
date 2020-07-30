@@ -6,11 +6,15 @@ import Cookies from 'js-cookie'
 export default function WithoutAadhaar() {
     let history = useHistory()
 
+    const [idProof, setIdProof] = useState(null)
+    const [msg, setMsg] = useState(null)
+
     const [form, setForm] = useState({
         name: '',
         phone: '',
         email: '',
-        reason: ''
+        reason: '',
+        id_proof: null
     })
 
     const onInputChanged = (e) => {
@@ -18,6 +22,29 @@ export default function WithoutAadhaar() {
             ...form,
             [e.target.id]: e.target.value
         })
+    }
+
+    const onUploadFile = (e) => {
+        e.preventDefault()
+        let data = new FormData()
+        data.append('file', idProof)
+        Axios.post('/upload', data)
+            .then((res) => {
+                if (res.data.status === 'success') {
+                    setForm({
+                        ...form,
+                        id_proof: res.data.file.filename
+                    })
+                    setMsg('Upload successfully completed. Please submit the form')
+                } else {
+                    setMsg('Error Uploading')
+                }
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+                setMsg('Server Error')
+            })
     }
 
     const onSubmitForm = (e) => {
@@ -117,10 +144,27 @@ export default function WithoutAadhaar() {
                                         required />
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <label htmlFor="id_proof">Please upload a document for id verification</label>
+                                </td>
+                                <td>
+                                    <input
+                                        className="m-4 p-4 rounded border-gray-300 border"
+                                        type="file"
+                                        id="reason"
+                                        onChange={(e) => setIdProof(e.target.files[0])}
+                                        required />
+                                </td>
+                                <td>
+                                    <button onClick={onUploadFile}>UPLOAD</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
                     <button className="border rounded bg-teal-700 p-2 pr-4 pl-4 uppercase text-white">Submit</button>
+                    <div className="m-2 text-red-600 h-4">{msg}</div>
                 </form>
             </div>
         </>

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import pdfImg from '../../../assets/pdf.png'
+
 export default function StatusResult({ result, reportId }) {
 
     const pending = <div className="ml-4 mr-4 border-2 border-yellow-300 rounded p-4">
@@ -70,7 +72,10 @@ export default function StatusResult({ result, reportId }) {
                             href={`${process.env.REACT_APP_API_URL}/getPdf/${reportId}`}
                             target="_blank"
                             rel="noopener noreferrer">
-                            <i className="far fa-file-pdf text-3xl float-right"></i>
+                            {/* <i className="far fa-file-pdf text-3xl float-right"></i> */}
+                            <img src={pdfImg}
+                                className="rounded duration-200 w-16 h-16 hover:bg-red-500"
+                                alt="" />
                         </a>
                         : null
                 }
