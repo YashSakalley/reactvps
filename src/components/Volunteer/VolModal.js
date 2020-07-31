@@ -6,7 +6,7 @@ import Map from '../Home/Map'
 
 import check from '../../assets/check.gif'
 
-function VolModal({ google }) {
+function VolModal({ close }) {
 
     const [isLoading, setIsLoading] = useState(false)
     const [status, setStatus] = useState(null)
@@ -36,7 +36,7 @@ function VolModal({ google }) {
     }
 
     const declineService = () => {
-
+        close()
     }
 
     return (
@@ -140,7 +140,12 @@ function VolModal({ google }) {
                                                 DECLINE
                                             </button>
                                         </>
-                                        : null
+                                        : <div className="text-xl">
+                                            <h1 className="text-2xl uppercase font-bold">Facilitator Details</h1> <br />
+                                            Name: Shashank Nigam <br />
+                                            Phone: 7974961262 <br />
+                                            Ashoka Garden Thana <br />
+                                        </div>
                                 }
                             </div>
                         </div>

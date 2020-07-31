@@ -84,7 +84,18 @@ export default function ChatControls({ submit }) {
                     </button>
                 </div>
             </div>
-            <p className="m-8 text-black bg-white">{transcript}</p>
+            {
+                transcript
+                    ?
+                    <>
+                        <p className="m-4 h-40 w-1/3 p-2 overflow-y-auto absolute bottom-0 p-2 m-2 rounded left-0 text-black bg-white">
+                            <div className="m-2 p-2 bg-red-300 text-sm rounded border border-gray-500">Click on the microphone to stop listening</div>
+                            {transcript}
+                        </p>
+                    </>
+                    : null
+            }
+
         </>
     )
 }

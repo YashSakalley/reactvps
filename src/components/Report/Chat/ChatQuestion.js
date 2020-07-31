@@ -3,6 +3,8 @@ import Axios from 'axios'
 
 import AnalyseText from '../../Dashboard/Io/AnalyseText'
 
+import loadingGif from '../../../assets/text_loading.gif'
+
 export default function ChatMessage({ ind, suggestions, children, submit }) {
     const LAST_QUESTION = 5
 
@@ -10,13 +12,12 @@ export default function ChatMessage({ ind, suggestions, children, submit }) {
         console.log(children)
     }
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     const [showSuggestions, setShowSuggestions] = useState(true)
 
-    const [textResult, setTextResult] = useState('')
-
     const onSelectSuggestion = (suggestion) => {
+        console.log('sug', suggestion);
         submit(suggestion)
         setShowSuggestions(false)
     }
@@ -43,12 +44,28 @@ export default function ChatMessage({ ind, suggestions, children, submit }) {
             return line.text
         })
         setIsLoading(false)
-        setTextResult(displayResult)
-        onSelectSuggestion(textResult)
+        console.log('sugSend', displayResult);
+        onSelectSuggestion(displayResult)
     }
 
     return (
         <div className="flex flex-row justify-start">
+            {
+                isLoading
+                    ?
+                    <div
+                        style={{ backdropFilter: 'blur(3.8px)' }}
+                        className={`fixed z-20 flex text-center justify-center items-center inset-0 text-white bg-black bg-opacity-75 transition-opacity 'block'}`}>
+                        <div className="">
+                            <div>
+                                <img width="500" height="500" src={loadingGif} alt="Loading gif here" />
+                            </div>
+                            <h2 className="text-xl m-4"> Analysing. Please Wait . . . </h2>
+                        </div>
+
+                    </div>
+                    : null
+            }
             <div className="w-12 h-8 relative flex flex-shrink-0 mr-4">
                 <img className="shadow-md rounded-full w-full h-full object-cover"
                     src="https://i.pinimg.com/originals/08/ce/ec/08ceec29ee450339ea678bcd2204fedf.png"
@@ -96,12 +113,12 @@ export default function ChatMessage({ ind, suggestions, children, submit }) {
                             ?
                             <>
                                 <p
-                                    className="p-3 rounded-lg bg-gray-700 max-w-xs lg:max-w-md text-white mx-2 cursor-pointer">
+                                    className="p-3 rounded-lg bg-teal-700 max-w-xs lg:max-w-md text-white mx-2 cursor-pointer">
                                     <label htmlFor="file" className="cursor-pointer">
                                         Upload file from computer
                                 </label>
                                     <input type="file" id="file" className="hidden" onChange={onImageUpload} />
-                                </p>
+                                </p> <br />
                                 {isLoading ? 'Analysing text. Please Wait' : null}
                             </>
                             : null

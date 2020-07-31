@@ -130,7 +130,7 @@ export default function Auth() {
                     opacity: showVolModal ? '1' : '0'
                 }}
                 close={() => setShowVolModal(false)}>
-                <VolModal />
+                <VolModal close={() => setShowVolModal(false)} />
             </Modal>
 
             <div id="login-section" className="bg-black font-black text-white text-2xl sm:mx-12 p-5 border-l-8 border-purple-500" style={{ background: 'linear-gradient(45deg, black, gray)' }}>

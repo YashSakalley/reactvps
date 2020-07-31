@@ -164,7 +164,7 @@ export default function ChatBox({ crime, submit }) {
                         state.answers.map((answer, i) => {
                             return <div key={i}>
 
-                                <ChatAnswer>
+                                <ChatAnswer ind={i}>
                                     {answer}
                                 </ChatAnswer>
                                 <br />
