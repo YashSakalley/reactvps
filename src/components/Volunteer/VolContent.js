@@ -169,34 +169,37 @@ export default function Volunteer() {
 
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Nav sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} />
+
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-
-                    <table className="w-full mt-4 bg-white text-lg shadow-xl">
-                        <tbody className="bg-grey-light m-4 w-full">
-                            <ContentCell id="Phone" value={content.phone} />
-                            <ContentCell id="Location" value="Bhopal" />
-                            <ContentCell id="Status" value={content.status} />
-                        </tbody>
-                    </table>
-
-                    <div className="flex justify-around">
+                    <div className="bg-gray-300 p-5">
+                        <table className="w-full mt-4 text-lg shadow-xl bg-white">
+                            <tbody className="bg-grey-light w-full">
+                                <ContentCell id="Phone" value={content.phone} />
+                                <ContentCell id="Location" value="Bhopal" />
+                                <ContentCell id="Status" value={content.status} />
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="flex justify-center">
 
                         <div>
                             {
                                 content.status === 'Approved'
                                     ?
-                                    <div className="m-2 text-xl">
-                                        This request has been approved. <br /> Please fill the following form as a witness to file a complaint
+                                    <div className="bg-blue-500 text-white font-bold text-xl p-5 italic">
+                                        This request has been approved. Please fill the following form as a witness to file a complaint
                                     </div>
                                     :
-                                    <>
-                                        <span>Click accept to proceed</span> <br />
+
+                                    <div className="bg-white flex p-5 shadow-xl rounded-lg">
+                                        <span className="text-2xl mt-6 italic">Click accept to proceed</span> <br />
                                         <button
                                             onClick={onAcceptHandler}
-                                            className="bg-teal-600 p-4 pt-2 pb-2 m-4 text-white">
+                                            className="bg-green-500 p-4 px-8 text-xl m-4 text-white hover:bg-green-700">
                                             ACCEPT
                                         </button>
-                                    </>
+                                    </div>
+
                             }
                         </div>
                     </div>
@@ -204,207 +207,209 @@ export default function Volunteer() {
                     {
                         content.status === 'Approved'
                             ?
-                            <form onSubmit={onFormSubmit} className="p-4">
-                                <table>
-                                    <tbody className="m-4">
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                <label htmlFor="crime">
-                                                    Select crime
+                            <div className="sm:p-8">
+                                <form onSubmit={onFormSubmit} className="p-8 bg-white text-lg shadow-xl rounded-lg">
+                                    <table>
+                                        <tbody className="m-4">
+                                            <tr className="m-4 p-4">
+                                                <td>
+                                                    <label htmlFor="crime">
+                                                        Select crime
                                         </label>
-                                            </td>
-                                            <td>
-                                                <select
-                                                    id="crime"
-                                                    onChange={onChangeHandler}
-                                                    className="m-4 p-4 rounded border-gray-300 border">
-                                                    <option value="">SELECT</option>
-                                                    <option value="CYBER BULLYING">CYBER BULLYING</option>
-                                                    <option value="HACKING OR PHISHING">HACKING OR PHISHING</option>
-                                                    <option value="THEFT">THEFT</option>
-                                                    <option value="MURDER">MURDER</option>
-                                                    <option value="VIOLENCE">VIOLENCE</option>
-                                                    <option value="OTHER">OTHER</option>
-                                                </select>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <select
+                                                        id="crime"
+                                                        onChange={onChangeHandler}
+                                                        className="m-4 p-4 rounded border-gray-300 border">
+                                                        <option value="">SELECT</option>
+                                                        <option value="CYBER BULLYING">CYBER BULLYING</option>
+                                                        <option value="HACKING OR PHISHING">HACKING OR PHISHING</option>
+                                                        <option value="THEFT">THEFT</option>
+                                                        <option value="MURDER">MURDER</option>
+                                                        <option value="VIOLENCE">VIOLENCE</option>
+                                                        <option value="OTHER">OTHER</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
 
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                <label htmlFor="sub">
-                                                    Enter subject for your report
+                                            <tr className="m-4 p-4">
+                                                <td>
+                                                    <label htmlFor="sub">
+                                                        Enter subject for your report
                                         </label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    onChange={onChangeHandler}
-                                                    className="m-4 p-4 rounded border-gray-300 border"
-                                                    type="text"
-                                                    id="sub"
-                                                    placeholder="Report Subject" />
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        onChange={onChangeHandler}
+                                                        className="m-4 p-4 w-full bg-gray-200 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        type="text"
+                                                        id="sub"
+                                                        placeholder="Report Subject" />
+                                                </td>
+                                            </tr>
 
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                <label htmlFor="place">
-                                                    Enter place of crime
+                                            <tr className="m-4 p-4">
+                                                <td>
+                                                    <label htmlFor="place">
+                                                        Enter place of crime
                                         </label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    onChange={onChangeHandler}
-                                                    className="m-4 p-4 rounded border-gray-300 border"
-                                                    type="text"
-                                                    id="place"
-                                                    placeholder="Place of crime" />
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        onChange={onChangeHandler}
+                                                        className="m-4 p-4 w-full bg-gray-200 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        type="text"
+                                                        id="place"
+                                                        placeholder="Place of crime" />
+                                                </td>
+                                            </tr>
 
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                <label htmlFor="time">
-                                                    Enter time and date of incident
+                                            <tr className="m-4 p-4">
+                                                <td>
+                                                    <label htmlFor="time">
+                                                        Enter time and date of incident
                                         </label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    onChange={onChangeHandler}
-                                                    className="m-4 p-4 rounded border-gray-300 border"
-                                                    type="time"
-                                                    id="time"
-                                                    placeholder="Report Subject" />
-                                                <input
-                                                    onChange={onChangeHandler}
-                                                    className="m-4 p-4 rounded border-gray-300 border"
-                                                    type="date"
-                                                    id="date"
-                                                    placeholder="Report Subject" />
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        onChange={onChangeHandler}
+                                                        className="m-4 p-4 rounded border-gray-300 border"
+                                                        type="time"
+                                                        id="time"
+                                                        placeholder="Report Subject" />
+                                                    <input
+                                                        onChange={onChangeHandler}
+                                                        className="m-4 p-4 rounded border-gray-300 border"
+                                                        type="date"
+                                                        id="date"
+                                                        placeholder="Report Subject" />
+                                                </td>
+                                            </tr>
 
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                <label htmlFor="property">
-                                                    Was there any property damaged or stolen
+                                            <tr className="m-4 p-4">
+                                                <td>
+                                                    <label htmlFor="property">
+                                                        Was there any property damaged or stolen
                                         </label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    onChange={onChangeHandler}
-                                                    className="m-4 p-4 rounded border-gray-300 border"
-                                                    type="text"
-                                                    id="property"
-                                                    placeholder="Property information" />
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        onChange={onChangeHandler}
+                                                        className="m-4 p-4 w-full bg-gray-200 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        type="text"
+                                                        id="property"
+                                                        placeholder="Property information" />
+                                                </td>
+                                            </tr>
 
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                <label htmlFor="description_of_accussed">
-                                                    What did the accused look like in his/her appearance
+                                            <tr className="m-4 p-4">
+                                                <td>
+                                                    <label htmlFor="description_of_accussed">
+                                                        What did the accused look like in his/her appearance
                                         </label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    onChange={onChangeHandler}
-                                                    className="m-4 p-4 rounded border-gray-300 border"
-                                                    type="text"
-                                                    id="description_of_accussed"
-                                                    placeholder="Description of accused" />
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        onChange={onChangeHandler}
+                                                        className="m-4 p-4 w-full bg-gray-200 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        type="text"
+                                                        id="description_of_accussed"
+                                                        placeholder="Description of accused" />
+                                                </td>
+                                            </tr>
 
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                <label htmlFor="witness_details">
-                                                    Were there any witness for the crime
+                                            <tr className="m-4 p-4">
+                                                <td>
+                                                    <label htmlFor="witness_details">
+                                                        Were there any witness for the crime
                                         </label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    onChange={onChangeHandler}
-                                                    className="m-4 p-4 rounded border-gray-300 border"
-                                                    type="text"
-                                                    id="witness_details"
-                                                    placeholder="Witness Details" />
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        onChange={onChangeHandler}
+                                                        className="m-4 p-4 w-full bg-gray-200 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        type="text"
+                                                        id="witness_details"
+                                                        placeholder="Witness Details" />
+                                                </td>
+                                            </tr>
 
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                <label htmlFor="complaint">
-                                                    Brief description
+                                            <tr className="m-4 p-4">
+                                                <td>
+                                                    <label htmlFor="complaint">
+                                                        Brief description
                                         </label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    onChange={onChangeHandler}
-                                                    className="m-4 p-4 rounded border-gray-300 border"
-                                                    type="text"
-                                                    id="complaint"
-                                                    placeholder="Description" />
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        onChange={onChangeHandler}
+                                                        className="m-4 p-4 w-full bg-gray-200 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500"
+                                                        type="text"
+                                                        id="complaint"
+                                                        placeholder="Description" />
+                                                </td>
+                                            </tr>
 
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                Complainant's signature
+                                            <tr className="">
+                                                <td>
+                                                    Complainant's signature
                                             </td>
-                                            <td className="flex items-center">
+                                                <td className="flex items-center">
 
-                                                {signatureUploaded
-                                                    ? <div><i className="m-4 text-green-600 fas fa-check-circle"></i></div>
-                                                    :
-                                                    <>
-                                                        <div
-                                                            className="m-2 bg-green-500 text-white p-4 cursor-pointer"
-                                                            onClick={(e) => { e.preventDefault(); setShowCanvas(true); }}>
-                                                            DRAW SIGNATURE
+                                                    {signatureUploaded
+                                                        ? <div><i className="m-4 text-green-600 fas fa-check-circle"></i></div>
+                                                        :
+                                                        <>
+                                                            <div
+                                                                className="m-4 bg-indigo-500 text-xl text-white p-4 cursor-pointer hover:bg-indigo-700 italic"
+                                                                onClick={(e) => { e.preventDefault(); setShowCanvas(true); }}>
+                                                                Draw signature
                                                         </div>
-                                                        {signature ? <div
-                                                            className="m-2 bg-teal-500 text-white p-4 cursor-pointer"
-                                                            onClick={onUploadSignature}>
-                                                            UPLOAD
+                                                            {signature ? <div
+                                                                className="m-4 bg-teal-500 text-white p-4 cursor-pointer"
+                                                                onClick={onUploadSignature}>
+                                                                UPLOAD
                                                         </div> : null}
-                                                    </>
-                                                }
-                                            </td>
-                                        </tr>
+                                                        </>
+                                                    }
+                                                </td>
+                                            </tr>
 
-                                        <tr className="m-4 p-4">
-                                            <td>
-                                                Complainant's image id
+                                            <tr className="mt-4 p-4">
+                                                <td>
+                                                    Complainant's image id
                                             </td>
-                                            <td className="flex items-center">
+                                                <td className="flex items-center">
 
-                                                {imageIdUploaded
-                                                    ? <div><i className="m-4 text-green-600 fas fa-check-circle"></i></div>
-                                                    :
-                                                    <>
-                                                        <div
-                                                            className="m-2 bg-green-500 text-white p-4 cursor-pointer"
-                                                            onClick={(e) => { e.preventDefault(); setWebcamModal(true); }}>
-                                                            TAKE PHOTO
+                                                    {imageIdUploaded
+                                                        ? <div><i className="m-4 text-green-600 fas fa-check-circle"></i></div>
+                                                        :
+                                                        <>
+                                                            <div
+                                                                className="italic m-4 bg-purple-500  text-xl text-white p-4 cursor-pointer hover:bg-purple-700"
+                                                                onClick={(e) => { e.preventDefault(); setWebcamModal(true); }}>
+                                                                Take photo
                                                         </div>
-                                                        {imageId ? <div
-                                                            className="m-2 bg-teal-500 text-white p-4 cursor-pointer"
-                                                            onClick={onUploadImageId}>
-                                                            UPLOAD
+                                                            {imageId ? <div
+                                                                className="m-4 bg-teal-500 text-white p-4 cursor-pointer"
+                                                                onClick={onUploadImageId}>
+                                                                UPLOAD
                                                     </div> : null}
-                                                    </>
-                                                }
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <button
-                                    onClick={onFormSubmit}
-                                    className="bg-teal-600 p-4 pt-2 pb-2 mt-4 text-white">
-                                    SUBMIT
+                                                        </>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button
+                                        onClick={onFormSubmit}
+                                        className="bg-green-500 p-4 px-8 text-xl mt-4 text-white hover:bg-green-600">
+                                        SUBMIT
                                 </button>
 
-                            </form>
+                                </form>
+                            </div>
                             : null
                     }
 
@@ -413,4 +418,4 @@ export default function Volunteer() {
 
         </div >
     )
-} 
+}

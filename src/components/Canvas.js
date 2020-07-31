@@ -70,7 +70,10 @@ export default function Canvas({ submit }) {
                     onMouseDown={startPosition}
                     onMouseUp={finishedPosition}
                     onMouseMove={draw}
-                    id="canvas" className="bg-white opacity-100 border-2 border-black" width="500" height="500">
+                    style={{
+                        boxShadow: '0 0 0.3rem 0.6rem #4f4b4b'
+                    }}
+                    id="canvas" className="mt-4 bg-white opacity-100" width="500" height="500">
                 </canvas>
             </div>
             <div className="text-center">

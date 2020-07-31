@@ -3,22 +3,45 @@ import axios from 'axios'
 import IoMedia from './IoMedia'
 
 import down from '../../../assets/down.png'
+import left from '../../../assets/left.png'
 
 export default function Content({ id }) {
 
     const initialContent = {
         report: {
+            _id: '',
             answers: ['', '', '', '', '', '', ''],
             questions: ['', '', '', '', '', '', ''],
-            media_files: []
+            media_files: [],
+            work: []
         },
         user: {}
     }
     const [content, setContent] = useState(initialContent)
 
     const [showDetails, setShowDetails] = useState(false)
-    const [showAnalytics, setShowAnalytics] = useState(true)
+    const [showAnalytics, setShowAnalytics] = useState(false)
+    const [showUpdate, setShowUpdate] = useState(false)
+
     const [showNotes, setShowNotes] = useState(false)
+
+    const [work, setWork] = useState('')
+    const [msg, setMsg] = useState(null)
+
+    const onSubmitWork = () => {
+        if (work === '') 
+            return
+        setMsg('Saving')
+        axios.put(`/reports/work/${content.report._id}`, work)
+        .then((res) => {
+            console.log(res);
+            setMsg('Saved')
+        })
+        .catch((err) => {
+            console.log(err);
+            setMsg('Error saving')
+        })
+    }
 
     let d = new Date(content.report.time)
     d = d.toString()
@@ -77,8 +100,8 @@ export default function Content({ id }) {
                         onClick={() => setShowDetails(!showDetails)}
                         className={`${showDetails ? 'bg-gray-900' : ''} mt-16 border-l-8 border-black bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_1 flex`}>
                         REPORT DETAILS
-                    <img src={down} id="down_ico"
-                            className={`${showDetails ? 'block' : 'hidden'} absolute right-0 mr-12 w-8`} alt="" />
+                    <img src={showDetails ? left : down} id="down_ico"
+                            className={`absolute right-0 mr-8 w-8`} alt="" />
                     </div>
 
                     {/* Report Details Content */}
@@ -137,28 +160,63 @@ export default function Content({ id }) {
                         </table>
                     </div>
                 </div>
-                {/* Resource Analysis Header */}
-                <div
-                    onClick={() => setShowAnalytics(!showAnalytics)}
-                    className={`${showAnalytics ? 'bg-gray-900' : ''} border-l-8 border-black mt-4 bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_2`}>
-                    RESOURCE ANALYZE
+
+                <div className="relative">
+                    {/* Resource Analysis Header */}
+                    <div
+                        onClick={() => setShowAnalytics(!showAnalytics)}
+                        className={`${showAnalytics ? 'bg-gray-900' : ''} border-l-8 border-black mt-4 bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_2`}>
+                        RESOURCE ANALYZE
+                    
+                    </div>
+
+                    {/* Resource Analysis Content */}
+                    <div className={`${showAnalytics ? 'block' : 'hidden'} p-5 bg-white`} id="panel_2">
+                        <h1 className="text-xl">
+                            Here you can use our various analytics tools
+                    </h1>
+                        {
+                            content.report.media_files ?
+                                content.report.media_files.map((media, i) => {
+                                    return <IoMedia key={i} index={1} src={media} />
+                                })
+                                :
+                                <div className="mt-4 text-xl text-gray-600">
+                                    No evidence media uploaded by the complainant
+                            </div>
+                        }
+                    </div>
                 </div>
 
-                {/* Resource Analysis Content */}
-                <div className={`${showAnalytics ? 'block' : 'hidden'} p-5 bg-white`} id="panel_2">
+                {/* Update Status Header */}
+                <div
+                    onClick={() => setShowUpdate(!showUpdate)}
+                    className={`${showUpdate ? 'bg-gray-900' : ''} mt-16 border-l-8 border-black bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_1 flex`}>
+                    UPDATE STATUS
+                    <img src={showUpdate ? left : down} id="down_ico"
+                        className={`absolute right-0 mr-12 w-8`} alt="" />
+                </div>
+
+                {/* Update Status Content */}
+                <div className={`${showUpdate ? 'block' : 'hidden'} p-5 bg-white`} id="panel_2">
                     <h1 className="text-xl">
-                        Here you can use our various analytics tools
+                        Enter the work done on the report and click submit
                     </h1>
-                    {
-                        content.report.media_files ?
-                            content.report.media_files.map((media, i) => {
-                                return <IoMedia key={i} index={1} src={media} />
-                            })
-                            :
-                            <div className="mt-4 text-xl text-gray-600">
-                                No evidence media uploaded by the complainant
+                    <div>
+                        <input onChange={(e) => setWork(e.target.value)} type="text" placeholder="Work"/>
+                        <button onClick={onSubmitWork}>Submit</button>
+                        <p>{msg}</p>
+                    </div>
+                    <h2>Previous Work</h2>
+                    <div>
+                        {
+                        content.report.work.map((w, i) => {
+                            return <div>
+                                <span>{i}</span> <span>{w}</span>
                             </div>
-                    }
+                        })
+                        }
+                    </div>
                 </div>
             </div>
         </main>

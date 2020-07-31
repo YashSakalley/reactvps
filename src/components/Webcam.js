@@ -76,7 +76,7 @@ export default function Webcam({ submit }) {
 
                 <button
                     onClick={onSubmit}
-                    className="mt-4 bg-blue-500 p-2 text-xl text-white"
+                    className="mt-4 ml-4 bg-blue-500 p-2 text-xl text-white"
                     disabled={!canSubmit}>
                     CONFIRM
                 </button>
