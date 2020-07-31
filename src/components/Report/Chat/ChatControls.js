@@ -42,26 +42,22 @@ export default function ChatControls({ submit }) {
     return (
         <>
             <div className="chat-footer flex-none">
-                <div className="flex flex-row items-center p-4 mx-2">
+                <div className="flex flex-row items-center p-4 ">
                     <button type="button"
-                        className="flex flex-shrink-0 focus:outline-none mx-2 block text-blue-600 hover:text-blue-700 w-6 h-6">
+                        className="flex flex-shrink-0 focus:outline-none mx-2 block text-blue-600 hover:text-blue-700 w-12 h-full">
 
                         {
                             !isListening
                                 ?
-                                <svg
+                                <img src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-coloricon-1/21/56-512.png"
                                     onClick={startSpeech}
-                                    viewBox="0 0 20 20" className="w-full h-full fill-current">
-                                    <path
-                                        d="M9,18 L9,16.9379599 C5.05368842,16.4447356 2,13.0713165 2,9 L4,9 L4,9.00181488 C4,12.3172241 6.6862915,15 10,15 C13.3069658,15 16,12.314521 16,9.00181488 L16,9 L18,9 C18,13.0790094 14.9395595,16.4450043 11,16.9378859 L11,18 L14,18 L14,20 L6,20 L6,18 L9,18 L9,18 Z M6,4.00650452 C6,1.79377317 7.79535615,0 10,0 C12.209139,0 14,1.79394555 14,4.00650452 L14,8.99349548 C14,11.2062268 12.2046438,13 10,13 C7.790861,13 6,11.2060545 6,8.99349548 L6,4.00650452 L6,4.00650452 Z" />
-                                </svg>
+                                    alt=""
+                                />
                                 :
-                                <svg
+                                <img src="https://www.sibmbengaluru.edu.in/wp-content/plugins/gallery-album/assets/img/load11.gif"
                                     onClick={stopSpeech}
-                                    viewBox="0 0 20 20" className="bg-green-500 rounded w-full h-full fill-current">
-                                    <path
-                                        d="M9,18 L9,16.9379599 C5.05368842,16.4447356 2,13.0713165 2,9 L4,9 L4,9.00181488 C4,12.3172241 6.6862915,15 10,15 C13.3069658,15 16,12.314521 16,9.00181488 L16,9 L18,9 C18,13.0790094 14.9395595,16.4450043 11,16.9378859 L11,18 L14,18 L14,20 L6,20 L6,18 L9,18 L9,18 Z M6,4.00650452 C6,1.79377317 7.79535615,0 10,0 C12.209139,0 14,1.79394555 14,4.00650452 L14,8.99349548 C14,11.2062268 12.2046438,13 10,13 C7.790861,13 6,11.2060545 6,8.99349548 L6,4.00650452 L6,4.00650452 Z" />
-                                </svg>
+                                    alt=""
+                                />
                         }
 
                     </button>
@@ -88,9 +84,12 @@ export default function ChatControls({ submit }) {
                 transcript
                     ?
                     <>
-                        <p className="m-4 h-40 w-1/3 p-2 overflow-y-auto absolute bottom-0 p-2 m-2 rounded left-0 text-black bg-white">
-                            <div className="m-2 p-2 bg-red-300 text-sm rounded border border-gray-500">Click on the microphone to stop listening</div>
-                            {transcript}
+                        <p className="m-4 h-40 w-1/3 overflow-y-auto absolute bottom-0 ml-24 rounded-lg left-0 text-black bg-white">
+                            <div className=" p-4 bg-gray-700 text-center text-white text-lg rounded-lg font-bold">
+                                Click on the microphone to stop listening</div>
+                            <div className="p-4">
+                                {transcript}
+                            </div>
                         </p>
                     </>
                     : null

@@ -32,10 +32,12 @@ export default function Content({ id }) {
         if (work === '') 
             return
         setMsg('Saving')
-        axios.put(`/reports/work/${content.report._id}`, work)
+        axios.put(`/reports/work/${content.report._id}`, {work: work})
         .then((res) => {
             console.log(res);
             setMsg('Saved')
+            let location = window.location
+            location.reload()
         })
         .catch((err) => {
             console.log(err);
@@ -211,7 +213,7 @@ export default function Content({ id }) {
                     <div>
                         {
                         content.report.work.map((w, i) => {
-                            return <div>
+                            return <div key={i}>
                                 <span>{i}</span> <span>{w}</span>
                             </div>
                         })
