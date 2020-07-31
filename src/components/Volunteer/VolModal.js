@@ -131,12 +131,12 @@ function VolModal({ google }) {
                                         <>
                                             <button
                                                 onClick={requestService}
-                                                className="focus:outline-none mt-10 p-4 border-4 border-teal-700 text-white hover:bg-teal-800 hover:text-white hover:border-teal-800 duration-200 bg-teal-700">
+                                                className="focus:outline-none mt-2 p-4 border-4 border-teal-700 text-white hover:bg-teal-800 hover:text-white hover:border-teal-800 duration-200 bg-teal-700">
                                                 REQUEST
                                             </button>
                                             <button
                                                 onClick={declineService}
-                                                className="focus:outline-none mt-10 p-4 border-4 border-teal-700 hover:bg-teal-800 hover:text-white hover:border-teal-800 duration-200">
+                                                className="focus:outline-none mt-2 p-4 border-4 border-teal-700 hover:bg-teal-800 hover:text-white hover:border-teal-800 duration-200">
                                                 DECLINE
                                             </button>
                                         </>

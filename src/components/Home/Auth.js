@@ -145,7 +145,7 @@ export default function Auth() {
                             backgroundImage: `url(${brain})`
                         }}>
                     </div>
-                    <div className="w-full p-8 lg:w-1/2">
+                    <div className="w-full p-4 lg:w-1/2">
                         <div className="flex justify-center">
                             <img src={aadhaar} className="w-34 h-32" alt="" />
                         </div>
@@ -179,8 +179,14 @@ export default function Auth() {
 
                             {/* OTP Input */}
                             <div className="mt-8">
-                                <div className={`h-4 text-xl text-green-500`}>
-                                    {isOtpDisabled ? null : `OTP send to ${phone}`}
+                                <div className={`h-4 text-xl text-green-500 flex`}>
+                                    {isOtpDisabled ? null :
+                                        <>
+
+                                            <div> OTP send to {phone} </div>
+
+                                        </>
+                                    }
                                 </div>
                                 <div className="mt-4 flex justify-between">
                                     <label className="block text-gray-700 text-sm font-bold mb-2"></label>

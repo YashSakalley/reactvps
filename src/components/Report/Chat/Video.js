@@ -7,7 +7,6 @@ export default function Video({ start, mid, end }) {
         if (currentTime >= end - 1) {
             e.target.currentTime = mid;
         }
-        console.log(currentTime);
     }
     console.log('Start', start, 'end', end);
     return (

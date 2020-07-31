@@ -7,8 +7,8 @@ import FinalPage from '../components/Report/FinalPage/FinalPage'
 
 export default function Report() {
     const [currentPage, setCurrentPage] = useState({
-        crimePage: true,
-        chatPage: false,
+        crimePage: false,
+        chatPage: true,
         uploadPage: false,
         finalPage: false
     })

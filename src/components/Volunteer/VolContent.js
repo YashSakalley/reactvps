@@ -123,7 +123,8 @@ export default function Volunteer() {
             questions: ['sub', 'place', 'time', 'property', 'description_of_accussed', 'witness_details', 'complaint'],
             user_id: 'Not Available',
             signature: signature,
-            image_id: image_id
+            image_id: image_id,
+            is_facilitator_filled: true
         }
         Axios.post('/reports', formData)
             .then((res) => {

@@ -137,11 +137,11 @@ export default function StatusResult({ result, reportId }) {
                             <>
                                 {pending}
                                 <div className="text-center text-xl text-teal-800 font-bold">
-                                    <i class="fas fa-arrow-down"></i>
+                                    <i className="fas fa-arrow-down"></i>
                                 </div>
                                 {rejectedSho}
                                 <div className="text-center text-xl text-teal-800 font-bold">
-                                    <i class="fas fa-arrow-down"></i>
+                                    <i className="fas fa-arrow-down"></i>
                                 </div>
                                 {rejectedSp}
                             </>

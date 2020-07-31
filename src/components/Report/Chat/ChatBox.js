@@ -127,20 +127,19 @@ export default function ChatBox({ crime, submit }) {
                                 <p
                                     className="px-6 py-3 rounded-t-full rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">
                                     Hello! there
-                            </p>
+                                </p>
                             </div>
                             <div className="flex items-center">
                                 <p className="px-6 py-3 rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">
                                     Use the input field down below
-                            </p>
+                                </p>
                             </div>
                             <div className="flex items-center">
                                 <p
                                     className="px-6 py-3 rounded-b-full rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">
                                     Please provide the answer as best as you can
-                            </p>
+                                </p>
                             </div>
-
                         </div>
                     </div>
 
@@ -172,6 +171,7 @@ export default function ChatBox({ crime, submit }) {
                                 {
                                     i < state.questions.length - 1 ?
                                         <ChatQuestion
+                                            ind={i}
                                             suggestions={state.questions[i + 1].suggestions}
                                             submit={onSubmitAnswer}>
                                             {state.questions[i + 1].question}

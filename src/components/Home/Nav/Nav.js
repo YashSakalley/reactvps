@@ -62,11 +62,11 @@ export default function Nav() {
                             <div className={styles.dropdown}>
                                 <button className={`${styles.dropbtn} rounded-tl-lg rounded-tr-lg`}>OFFICERS LOGIN </button>
                                 <div className={styles.dropdownContent}>
-                                    <Link to="/login/sho">SHO</Link>
-                                    <Link to="/login/sp">SP</Link>
-                                    <Link to="/login/io">IO</Link>
+                                    <Link to="/login/sho">STATION HEAD OFFICER</Link>
+                                    <Link to="/login/sp">SUPERINTENDENT OF POLICE</Link>
+                                    <Link to="/login/io">INVESTIGATION OFFICER</Link>
                                     <hr/>
-                                    <Link to="/volunteer">FACILITATOR</Link>
+                                    <Link to="/volunteer/login">FACILITATOR</Link>
                                 </div>
                             </div>
                         </div>

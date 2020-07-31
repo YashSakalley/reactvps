@@ -1,12 +1,50 @@
 import React, { useState } from 'react'
+import Axios from 'axios'
 
-export default function ChatMessage({ suggestions, children, submit }) {
+import AnalyseText from '../../Dashboard/Io/AnalyseText'
+
+export default function ChatMessage({ ind, suggestions, children, submit }) {
+    const LAST_QUESTION = 5
+
+    if (ind === LAST_QUESTION) {
+        console.log(children)
+    }
+
+    const [isLoading, setIsLoading] = useState(true)
 
     const [showSuggestions, setShowSuggestions] = useState(true)
+
+    const [textResult, setTextResult] = useState('')
 
     const onSelectSuggestion = (suggestion) => {
         submit(suggestion)
         setShowSuggestions(false)
+    }
+
+    const onImageUpload = async (e) => {
+        setIsLoading(true)
+        let result
+        let data = new FormData()
+        data.append('file', e.target.files[0])
+        console.log('Imag up');
+        await Axios.post('/upload', data)
+            .then(async (res) => {
+                console.log(res);
+                if (res.data.status === 'success') {
+                    result = await AnalyseText(res.data.file.filename)
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        let displayResult = ""
+        result.text.map((line) => {
+            displayResult += line.text
+            return line.text
+        })
+        setIsLoading(false)
+        setTextResult(displayResult)
+        onSelectSuggestion(textResult)
     }
 
     return (
@@ -23,6 +61,24 @@ export default function ChatMessage({ suggestions, children, submit }) {
                         {children}
                     </p>
                 </div>
+
+                {ind === LAST_QUESTION ?
+                    <>
+                        <div className="flex items-center">
+                            <p className="px-6 py-3 rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">
+                                You can either upload an image or use the box below
+                            </p>
+                        </div>
+                        <div className="flex items-center">
+                            <p
+                                className="px-6 py-3 rounded-b-full rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">
+                                Our OCR will extract text from your image file
+                            </p>
+                        </div>
+                    </>
+
+                    : null}
+
                 <div className="flex items-center">
                     {
                         showSuggestions ?
@@ -35,6 +91,22 @@ export default function ChatMessage({ suggestions, children, submit }) {
                             ))
                             : null
                     }
+                    {
+                        ind === LAST_QUESTION
+                            ?
+                            <>
+                                <p
+                                    className="p-3 rounded-lg bg-gray-700 max-w-xs lg:max-w-md text-white mx-2 cursor-pointer">
+                                    <label htmlFor="file" className="cursor-pointer">
+                                        Upload file from computer
+                                </label>
+                                    <input type="file" id="file" className="hidden" onChange={onImageUpload} />
+                                </p>
+                                {isLoading ? 'Analysing text. Please Wait' : null}
+                            </>
+                            : null
+                    }
+
                 </div>
             </div>
         </div>
