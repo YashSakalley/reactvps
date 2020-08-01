@@ -24,19 +24,7 @@ export default function UploadPage({ submit }) {
     const onChangeHandler = (event) => {
         if (event.target.id === 'evidence') {
             console.log('Changing evidence');
-            setEvidence(event.target.files)
-            // console.log('Changing evidence');
-            // let files = []
-
-            // for (let i = 0; i < event.target.files.length; i++) {
-            //     files.push(event.target.files[i])
-            // }
-            // console.log(files);
-            // let files = event.target.files
-            // setEvidence(files)
-            // console.log(files);
-            // // console.log('evidence', evidence);
-            // // console.log(event.target.files)
+            setEvidence(event.target.files[0])
         } else {
             console.log('Changing signature');
             setSignature(event.target.files[0])
@@ -74,6 +62,7 @@ export default function UploadPage({ submit }) {
                 console.log('signature', fileName)
                 setFinalSignature(fileName)
                 setMsg('Signature Uploaded. Click Finish to Continue...')
+                setCanSubmit(true)
             })
             .catch((err) => {
                 console.log(err)
@@ -217,6 +206,7 @@ export default function UploadPage({ submit }) {
                         <div className="bg-gray-400 h-1 w-full mt-5"></div>
 
                         {/* Webcam Capture */}
+
                         <div className="w-full text-center text-xl font-black bg-gray-900 p-2 shadow-lg text-white mt-2">
                             CAPTURE IMAGE ID
                         </div>

@@ -217,10 +217,13 @@ export default function Auth() {
                             <Link to="/loginWithoutUid">
                                 Don't have an aadhaar available? Click here
                             </Link>
+
+
                             <div className="">OR</div>
                             <div className="cursor-pointer" onClick={() => setShowVolModal(true)}>
                                 Want facilitator support? Click here
                             </div>
+
                         </div>
                     </div>
                 </div>

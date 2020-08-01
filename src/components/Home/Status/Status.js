@@ -15,6 +15,7 @@ export default function Status() {
 
     const [msg, setMsg] = useState(false)
     const [result, setResult] = useState(false)
+    const [work, setWork] = useState([])
 
     const changeHandler = (e) => {
         setform({ reportId: e.target.value })
@@ -29,6 +30,7 @@ export default function Status() {
                 if (response.data.status === 'success') {
                     setMsg('Found')
                     setResult(response.data.report.status)
+                    setWork(response.data.report.work)
                 } else {
                     setMsg('Invalid report id')
                     console.log(response);
@@ -94,7 +96,10 @@ export default function Status() {
                     {
                         result
                             ?
-                            <StatusResult result={result} reportId={form.reportId} />
+                            <StatusResult
+                                work={work}
+                                result={result}
+                                reportId={form.reportId} />
                             : null
                     }
                 </div>

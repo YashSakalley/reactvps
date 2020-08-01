@@ -41,11 +41,16 @@ export default function Nav() {
                         >
                             <span>HOME</span>
                         </a>
-                        <button
-                            onClick={() => setShowModal(true)}
-                            className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
-                            <span>EMERGENCY SERVICES</span>
-                        </button>
+
+
+                        <div className="">
+
+                            <button
+                                onClick={() => setShowModal(true)}
+                                className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
+                                <span>EMERGENCY SERVICES</span>
+                            </button>
+                        </div>
                         <a
                             href="#login-section"
                             className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
@@ -62,11 +67,14 @@ export default function Nav() {
                             <div className={styles.dropdown}>
                                 <button className={`${styles.dropbtn} rounded-tl-lg rounded-tr-lg`}>OFFICERS LOGIN </button>
                                 <div className={styles.dropdownContent}>
-                                    <Link to="/login/sho">STATION HEAD OFFICER</Link>
+                                    <Link to="/login/sho">STATION HOUSE OFFICER</Link>
                                     <Link to="/login/sp">SUPERINTENDENT OF POLICE</Link>
                                     <Link to="/login/io">INVESTIGATION OFFICER</Link>
-                                    <hr/>
-                                    <Link to="/volunteer/login">FACILITATOR</Link>
+
+                                    <div className="">
+                                        <hr />
+                                        <Link to="/volunteer/login" className="">FACILITATOR</Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>

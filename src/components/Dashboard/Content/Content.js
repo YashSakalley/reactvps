@@ -36,6 +36,7 @@ export default function Content({ id }) {
 
         axios.get(`/reports/${id}`)
             .then((res) => {
+                console.log('content', res);
                 if (res.data.status === 'success') {
                     setContent({
                         report: res.data.report,
@@ -75,7 +76,7 @@ export default function Content({ id }) {
 
         let officerRole
         if (role === 'sho') {
-            officerRole = 'Station Head Officer'
+            officerRole = 'Station House Officer'
         } else if (role === 'sp') {
             officerRole = 'Superintendent Of Police'
         } else {

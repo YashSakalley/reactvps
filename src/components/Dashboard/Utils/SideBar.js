@@ -16,7 +16,7 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
     if (role === 'io') {
         roleLabel = 'Investigation Officer'
     } else if (role === 'sho') {
-        roleLabel = 'Station Head Officer'
+        roleLabel = 'Station House Officer'
     } else if (role === 'sp') {
         roleLabel = 'Superintendent of Police'
     } else {

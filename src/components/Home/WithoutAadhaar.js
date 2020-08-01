@@ -10,7 +10,7 @@ export default function WithoutAadhaar() {
     const [msg, setMsg] = useState(null)
 
     const [form, setForm] = useState({
-        name: '',
+        first_name: '',
         phone: '',
         email: '',
         reason: '',
@@ -92,9 +92,9 @@ export default function WithoutAadhaar() {
                                     <input
                                         className="m-4 p-4 rounded border-gray-300 border"
                                         type="text"
-                                        id="name"
+                                        id="first_name"
                                         onChange={onInputChanged}
-                                        value={form.name}
+                                        value={form.first_name}
                                         placeholder="Name"
                                         required />
                                 </td>

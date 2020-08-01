@@ -58,12 +58,12 @@ export default function Volunteer() {
     const [webcamModal, setWebcamModal] = useState(false)
 
     const onAcceptHandler = () => {
-        Axios.put(`/volunteer/request/${requestId}`, { status: 'Approved' })
+        Axios.put(`/volunteer/request/${requestId}`, { status: 'In Progress' })
             .then((res) => {
                 console.log(res);
                 setContent({
                     ...content,
-                    status: 'Approved'
+                    status: 'In Progress'
                 })
             })
             .catch((err) => {
@@ -119,9 +119,9 @@ export default function Volunteer() {
         let { sub, place, time, date, crime, property, description_of_accussed, witness_details, complaint, signature, image_id } = form
         let formData = {
             crime: crime,
-            answers: [sub, place, time + date, property, description_of_accussed, witness_details, complaint],
+            answers: [sub, place, time + ' ' + date, property, description_of_accussed, witness_details, complaint],
             questions: ['sub', 'place', 'time', 'property', 'description_of_accussed', 'witness_details', 'complaint'],
-            user_id: 'Not Available',
+            user_id: '5f252325103d153fdc20c99b',
             signature: signature,
             image_id: image_id,
             is_facilitator_filled: true
@@ -129,10 +129,38 @@ export default function Volunteer() {
         Axios.post('/reports', formData)
             .then((res) => {
                 console.log(res);
+                setContent({
+                    ...content,
+                    status: 'Completed'
+                })
             })
             .catch((err) => {
                 console.log(err);
             })
+    }
+
+
+    let boxContent
+    if (content.status === 'In Progress') {
+        boxContent =
+            <div className="bg-blue-500 text-white font-bold text-xl p-5 italic">
+                This request has been approved. Please fill the following form as a witness to file a complaint
+            </div>
+    } else if (content.status === 'Completed') {
+        boxContent =
+            <div>
+                The report was submitted to the Station House Officer
+        </div>
+    } else {
+        boxContent =
+            <div className="bg-white flex p-5 shadow-xl rounded-lg">
+                <span className="text-2xl mt-6 italic">Click accept to proceed</span> <br />
+                <button
+                    onClick={onAcceptHandler}
+                    className="bg-green-500 p-4 px-8 text-xl m-4 text-white hover:bg-green-700">
+                    ACCEPT
+                </button>
+            </div>
     }
 
     return (
@@ -160,6 +188,7 @@ export default function Volunteer() {
                         : null
                 }
             </Modal>
+
             <div
                 onClick={() => { setSideBarOpen(false) }}
                 className={`fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden ${sideBarOpen ? 'block' : 'hidden'}`}>
@@ -183,29 +212,12 @@ export default function Volunteer() {
                     <div className="flex justify-center">
 
                         <div>
-                            {
-                                content.status === 'Approved'
-                                    ?
-                                    <div className="bg-blue-500 text-white font-bold text-xl p-5 italic">
-                                        This request has been approved. Please fill the following form as a witness to file a complaint
-                                    </div>
-                                    :
-
-                                    <div className="bg-white flex p-5 shadow-xl rounded-lg">
-                                        <span className="text-2xl mt-6 italic">Click accept to proceed</span> <br />
-                                        <button
-                                            onClick={onAcceptHandler}
-                                            className="bg-green-500 p-4 px-8 text-xl m-4 text-white hover:bg-green-700">
-                                            ACCEPT
-                                        </button>
-                                    </div>
-
-                            }
+                            {boxContent}
                         </div>
-                    </div>
 
+                    </div>
                     {
-                        content.status === 'Approved'
+                        content.status === 'In Progress'
                             ?
                             <div className="sm:p-8">
                                 <form onSubmit={onFormSubmit} className="p-8 bg-white text-lg shadow-xl rounded-lg">

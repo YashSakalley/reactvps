@@ -7,7 +7,7 @@ export default function Auth(WrappedComponent) {
     class AuthHOC extends Component {
         render() {
             const token = Cookies.get('token')
-            return token === null ? <Redirect to='/#login' /> : <WrappedComponent />
+            return token === null ? <Redirect to='/#login-section' /> : <WrappedComponent />
         }
     }
     return withRouter(AuthHOC);

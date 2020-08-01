@@ -2,7 +2,7 @@ import React from 'react'
 
 import pdfImg from '../../../assets/pdf.png'
 
-export default function StatusResult({ result, reportId }) {
+export default function StatusResult({ work, result, reportId }) {
 
     const pending = <div className="ml-4 mr-4 border-2 border-yellow-300 rounded p-4">
         <div className="">
@@ -19,10 +19,10 @@ export default function StatusResult({ result, reportId }) {
         <div>
             <div className="mb-2 text-green-900">
                 <span className="">
-                    Approved by Station Head Officer
+                    Approved by Station House Officer
                 </span>
             </div>
-            <div className="text-gray-700">Your report has been approved by the Station head Officer and is currently undergoing investigation</div>
+            <div className="text-gray-700">Your report has been approved by the Station House Officer and is currently undergoing investigation</div>
         </div>
     </div>
 
@@ -30,10 +30,10 @@ export default function StatusResult({ result, reportId }) {
         <div>
             <div className="mb-2 text-red-900">
                 <span className="">
-                    Rejected by Station Head Officer
+                    Rejected by Station House Officer
                 </span>
             </div>
-            <div className="text-gray-700">Your report was rejected by Station Head Officer and is now passed to the Superintendent of Police for review</div>
+            <div className="text-gray-700">Your report was rejected by Station House Officer and is now passed to the Superintendent of Police for review</div>
         </div>
     </div>
 
@@ -148,6 +148,14 @@ export default function StatusResult({ result, reportId }) {
                             : null
                     }
                 </div>
+                <h2 className="text-center text-3xl uppercase m-4">Work Done</h2>
+                {
+                    work.map((w, i) => {
+                        return <div className="m-4" key={i}>
+                            <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
+                        </div>
+                    })
+                }
             </div>
         </div>
     )

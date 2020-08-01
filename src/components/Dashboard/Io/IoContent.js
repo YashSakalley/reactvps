@@ -21,7 +21,7 @@ export default function Content({ id }) {
 
     const [showDetails, setShowDetails] = useState(false)
     const [showAnalytics, setShowAnalytics] = useState(false)
-    const [showUpdate, setShowUpdate] = useState(false)
+    const [showUpdate, setShowUpdate] = useState(true)
 
     const [showNotes, setShowNotes] = useState(false)
 
@@ -73,14 +73,14 @@ export default function Content({ id }) {
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
 
             {/* Notes Box Button*/}
-            <div className="fixed bottom-0 right-0 w-16 h-16 mr-12 mb-8 cursor-pointer"
+            <div className="fixed bottom-0 z-20 right-0 w-16 h-16 mr-12 mb-8 cursor-pointer"
                 onClick={() => setShowNotes(!showNotes)}>
                 <img src="https://devrolabs.com/image/tabnote.png" alt="" />
             </div>
 
             {/* Notes Box */}
             <div
-                className={`${showNotes ? 'block' : 'hidden'} rounded-lg bg-white shadow-xl fixed bottom-0 right-0 w-64 h-64 mr-12 mb-32`}>
+                className={`${showNotes ? 'block' : 'hidden'} z-20 rounded-lg bg-white shadow-xl fixed bottom-0 right-0 w-64 h-64 mr-12 mb-32`}>
                 <div className="bg-gray-900 text-white text-xl p-2 rounded-lg">NOTES</div>
                 <div className="p-2">
                     <textarea className="bg-gray-100 w-full h-32 p-2 focus:outline-none"
@@ -167,6 +167,7 @@ export default function Content({ id }) {
                     {/* Resource Analysis Header */}
                     <div
                         onClick={() => setShowAnalytics(!showAnalytics)}
+                       
                         className={`${showAnalytics ? 'bg-gray-900' : ''} border-l-8 border-black mt-4 bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_2`}>
                         RESOURCE ANALYZE
                     
@@ -193,6 +194,7 @@ export default function Content({ id }) {
                 {/* Update Status Header */}
                 <div
                     onClick={() => setShowUpdate(!showUpdate)}
+                    
                     className={`${showUpdate ? 'bg-gray-900' : ''} mt-16 border-l-8 border-black bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_1 flex`}>
                     UPDATE STATUS
                     <img src={showUpdate ? left : down} id="down_ico"
@@ -204,17 +206,23 @@ export default function Content({ id }) {
                     <h1 className="text-xl">
                         Enter the work done on the report and click submit
                     </h1>
-                    <div>
-                        <input onChange={(e) => setWork(e.target.value)} type="text" placeholder="Work"/>
-                        <button onClick={onSubmitWork}>Submit</button>
-                        <p>{msg}</p>
+                    <div className="mt-8">
+                        <input 
+                        className="border border-gray-600 m-2 mt-4 p-2 rounded"
+                        onChange={(e) => setWork(e.target.value)} 
+                        type="text" 
+                        placeholder="Work"/>
+                        <button 
+                        className="bg-green-400 rounded p-2 px-4 m-2"
+                        onClick={onSubmitWork}>Submit</button>
+                        <p className="text-red-600 m-4 text-xl">{msg}</p>
                     </div>
-                    <h2>Previous Work</h2>
-                    <div>
+                    <h2 className="m-2 text-2xl">Previous Work</h2>
+                    <div className="m-4">
                         {
                         content.report.work.map((w, i) => {
-                            return <div key={i}>
-                                <span>{i}</span> <span>{w}</span>
+                            return <div className="m-4" key={i}>
+                                <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
                             </div>
                         })
                         }
