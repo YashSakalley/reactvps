@@ -99,7 +99,7 @@ export default function Status() {
                             ?
                             <div className="bg-white flex-col lg:flex-row flex justify-between items-center rounded-lg shadow-lg overflow-hidden m-2 p-5 sm:mx-24">
                                 <div>
-                                    As your report is Rejected, you can review the report you provided to update the contents of the report
+                                    As your report is Rejected, you can review the report you provided, before it reaches the Superintendant of Police for review, to update the contents of the report
                                 </div>
                                 <Link
                                     className="uppercase mt-4 lg:m-2 bg-orange-400 px-4 p-2 rounded"

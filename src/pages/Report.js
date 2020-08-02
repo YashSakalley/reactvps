@@ -4,8 +4,9 @@ import ChatPage from '../components/Report/Chat/ChatPage'
 import CrimePage from '../components/Report/SelectCrime/CrimePage'
 import UploadPage from '../components/Report/UploadPage'
 import FinalPage from '../components/Report/FinalPage/FinalPage'
+import Auth from '../middlewares/Auth'
 
-export default function Report() {
+function Report() {
     const [currentPage, setCurrentPage] = useState({
         crimePage: true,
         chatPage: false,
@@ -78,3 +79,5 @@ export default function Report() {
         </>
     )
 }
+
+export default Auth(Report)

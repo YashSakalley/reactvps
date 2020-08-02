@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import Cookies from 'js-cookie'
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 import ContentCell from './ContentCell'
 import Modal from '../../UI/Modal'
@@ -163,7 +164,7 @@ export default function Content({ id }) {
             {
                 showTextBox
                     ?
-                    <div className="w-full">
+                    <div className="w-full mb-4">
                         <input
                             type="text"
                             className="text-xl outline-none w-full mt-4 p-4"
@@ -194,6 +195,24 @@ export default function Content({ id }) {
                     </>
             }
         </>
+
+    const [msgEntity, setMsgEntity] = useState(null)
+    const [entities, setEntities] = useState(null)
+    const onShowEntities = () => {
+        setMsgEntity('Please Wait')
+        axios.post('/entity', { desc: content.report.answers[6] })
+            .then((res) => {
+                console.log(res);
+                setEntities(res.data.entity)
+                setMsgEntity('')
+
+            })
+            .catch((err) => {
+                console.log(err);
+                setMsgEntity('Error Occurred')
+
+            })
+    }
 
     return (
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
@@ -319,6 +338,16 @@ export default function Content({ id }) {
                         </table>
                         : null
                 }
+                <div className="bg-white p-4 my-4">
+                    <h1 className="text-xl">View Entities</h1>
+                    <div className="m-2 text-red-600">{msgEntity}</div>
+                    <button
+                        onClick={onShowEntities}
+                        className={`m-2 p-2 px-4 bg-teal-500 rounded ${entities ? 'hidden' : ''}`}>
+                        Show
+                        </button>
+                    <div>{ReactHtmlParser(entities)}</div>
+                </div>
                 <div className="flex p-2">
                     {content.report.status === 'Pending'
                         ?

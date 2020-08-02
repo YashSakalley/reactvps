@@ -4,10 +4,11 @@ import { withRouter, Redirect } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 export default function Auth(WrappedComponent) {
+    console.log('Wrapper');
     class AuthHOC extends Component {
         render() {
             const token = Cookies.get('token')
-            return token === null ? <Redirect to='/#login-section' /> : <WrappedComponent />
+            return !token ? <Redirect to='/' /> : <WrappedComponent />
         }
     }
     return withRouter(AuthHOC);

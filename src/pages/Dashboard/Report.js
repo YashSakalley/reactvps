@@ -6,7 +6,9 @@ import { useParams } from 'react-router-dom'
 import Content from '../../components/Dashboard/Content/Content'
 import IoContent from '../../components/Dashboard/Io/IoContent'
 
-export default function Dashboard() {
+import Auth from '../../middlewares/Auth'
+
+function Dashboard() {
     const reportId = useParams().reportId
     const role = useParams().role
     const [sideBarOpen, setSideBarOpen] = useState(false)
@@ -33,4 +35,6 @@ export default function Dashboard() {
 
         </div >
     )
-} 
+}
+
+export default Auth(Dashboard)

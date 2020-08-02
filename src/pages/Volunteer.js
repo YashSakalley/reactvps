@@ -6,7 +6,9 @@ import SideBar from '../components/Volunteer/Utils/SideBar'
 import Search from '../components/Volunteer/Utils/Search'
 import Table from '../components/Volunteer/Utils/Table'
 
-export default function Volunteer() {
+import Auth from '../middlewares/Auth'
+
+function Volunteer() {
     const [sideBarOpen, setSideBarOpen] = useState(false)
 
     return (
@@ -30,4 +32,6 @@ export default function Volunteer() {
 
         </div >
     )
-} 
+}
+
+export default Auth(Volunteer)

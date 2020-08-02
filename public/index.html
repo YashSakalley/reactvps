@@ -24,6 +24,7 @@
       color: white;
       background: #2d3748;
       padding: 5px;
+      text-transform: uppercase;
     }
 
     .goog-te-gadget>span {
@@ -43,10 +44,44 @@
     async></script>
 
   <script type="text/javascript">
+
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
     }
+    setTimeout(handlingGadget, 500);
+
+    function handlingGadget() {
+      var el = document.getElementsByClassName("goog-te-gadget");
+      el = el[0];
+      var child = el.firstChild, nextChild;
+
+      while (child) {
+        nextChild = child.nextSibling;
+        if (child.nodeType == 3) {
+          el.removeChild(child);
+        }
+        child = nextChild;
+      }
+    }
+
   </script>
+
+  <!-- script for reponsive navbar -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      $(".nav-toggler").each(function (_, navToggler) {
+        var target = $(navToggler).data("target");
+        $(navToggler).on("click", function () {
+          $(target).animate({
+            height: "toggle"
+          });
+        });
+      });
+    });
+  </script>
+
 </body>
 
 </html>

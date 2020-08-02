@@ -7,7 +7,9 @@ import SideBar from '../../components/Dashboard/Utils/SideBar'
 import Search from '../../components/Dashboard/Utils/Search'
 import Table from '../../components/Dashboard/Utils/Table'
 
-export default function Dashboard() {
+import Auth from '../../middlewares/Auth'
+
+function Dashboard() {
     const [sideBarOpen, setSideBarOpen] = useState(false)
     const [count, setCount] = useState({
         approved: 0,
@@ -58,4 +60,6 @@ export default function Dashboard() {
 
         </div >
     )
-} 
+}
+
+export default Auth(Dashboard)

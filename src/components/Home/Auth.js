@@ -173,7 +173,7 @@ export default function Auth() {
                                     className={`w-full text-white font-bold py-2 px-4 rounded ${isUidDisabled ? 'bg-gray-600 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'}`}
                                     onClick={uidSubmitHandler}
                                     disabled={isUidDisabled}>
-                                    GENERATE OTP
+                                    Generate OTP
                                     </button>
                             </div>
 
@@ -205,7 +205,7 @@ export default function Auth() {
                                     className={`w-full text-white font-bold py-2 px-4 rounded ${isOtpDisabled ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'}`}
                                     onClick={otpSubmitHandler}
                                     disabled={isOtpDisabled}>
-                                    SUBMIT OTP
+                                    Submit OTP
                                     </button>
                             </div>
 
