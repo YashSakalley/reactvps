@@ -6,6 +6,7 @@ import StatusResult from './StatusResult'
 import wallpaper from '../../../assets/landing_wallpaper.jpg'
 import circuit from '../../../assets/circuit.jpg'
 import doc from '../../../assets/doc.png'
+import { Link } from 'react-router-dom'
 
 export default function Status() {
 
@@ -14,7 +15,7 @@ export default function Status() {
     })
 
     const [msg, setMsg] = useState(false)
-    const [result, setResult] = useState(false)
+    const [result, setResult] = useState('')
     const [work, setWork] = useState([])
 
     const changeHandler = (e) => {
@@ -94,7 +95,26 @@ export default function Status() {
                         </div>
                     </div>
                     {
-                        result
+                        result.includes('Rejected')
+                            ?
+                            <div className="bg-white flex-col lg:flex-row flex justify-between items-center rounded-lg shadow-lg overflow-hidden m-2 p-5 sm:mx-24">
+                                <div>
+                                    As your report is Rejected, you can review the report you provided to update the contents of the report
+                                </div>
+                                <Link
+                                    className="uppercase mt-4 lg:m-2 bg-orange-400 px-4 p-2 rounded"
+                                    to={`/editReport/${form.reportId}`}>
+                                    Update
+                                </Link>
+                            </div>
+                            :
+                            <div>
+                                Heloo
+                            </div>
+                    }
+                    {console.log(result)}
+                    {
+                        result !== ''
                             ?
                             <StatusResult
                                 work={work}
@@ -102,6 +122,7 @@ export default function Status() {
                                 reportId={form.reportId} />
                             : null
                     }
+
                 </div>
             </div>
         </>

@@ -166,7 +166,7 @@ export default function Content({ id }) {
                     <div className="w-full">
                         <input
                             type="text"
-                            className="h-64 w-full p-4"
+                            className="text-xl outline-none w-full mt-4 p-4"
                             value={rejectedReason}
                             placeholder="Reason for declining the report"
                             onChange={(event) => setRejectedReason(event.target.value)}

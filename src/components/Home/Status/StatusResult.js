@@ -109,7 +109,7 @@ export default function StatusResult({ work, result, reportId }) {
                             <>
                                 {pending}
                                 <div className="text-center text-xl text-teal-800 font-bold">
-                                    <i class="fas fa-arrow-down"></i>
+                                    <i className="fas fa-arrow-down"></i>
                                 </div>
                                 {rejectedSho}
                             </>
@@ -148,14 +148,23 @@ export default function StatusResult({ work, result, reportId }) {
                             : null
                     }
                 </div>
-                <h2 className="text-center text-3xl uppercase m-4">Work Done</h2>
+
                 {
-                    work.map((w, i) => {
-                        return <div className="m-4" key={i}>
-                            <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
-                        </div>
-                    })
+                    result.includes('Approved')
+                        ?
+                        <>
+                            <h2 className="text-center text-3xl uppercase m-4">Work Done</h2>
+                            {
+                                work.map((w, i) => {
+                                    return <div className="m-4" key={i}>
+                                        <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
+                                    </div>
+                                })
+                            }
+                        </>
+                        : null
                 }
+
             </div>
         </div>
     )

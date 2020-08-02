@@ -13,6 +13,7 @@ import WithoutAadhaar from './components/Home/WithoutAadhaar'
 import Volunteer from './pages/Volunteer'
 import VolLogin from './components/Volunteer/VolLogin'
 import VolContent from './components/Volunteer/VolContent'
+import EditReport from './pages/EditReport'
 
 
 export default function AppRouter() {
@@ -37,6 +38,10 @@ export default function AppRouter() {
 
             <Route path='/volunteer'>
                 <Volunteer />
+            </Route>
+
+            <Route path="/editReport/:reportId">
+                <EditReport />
             </Route>
 
             <Route path="/submitReport">

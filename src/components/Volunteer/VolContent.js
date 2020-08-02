@@ -139,7 +139,6 @@ export default function Volunteer() {
             })
     }
 
-
     let boxContent
     if (content.status === 'In Progress') {
         boxContent =
