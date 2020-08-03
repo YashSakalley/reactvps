@@ -20,7 +20,8 @@ function IPC_content({ ipcMsg, close }) {
     }, [])
 
     const onSubmit = () => {
-        localStorage.setItem('ipc', ipc)
+        console.log('ipc', ipc.toLocaleString().replace(' ', '.'));
+        localStorage.setItem('ipc', ipc.toString())
         close()
     }
 
@@ -56,20 +57,34 @@ function IPC_content({ ipcMsg, close }) {
                                 IPC DETAILS
                             </div>
                             <div className="mt-4 px-2 sm:px-5 shadow-xl h-64 bg-white">
-                                {
-                                    ipc.map((ip, i) => {
-                                        return <div className="flex m-2">
-                                            {ip[0]} {ip[1]} {ip[2]}
-                                        </div>
-                                    })
-                                }
+                                <table className="mt-4 text-left w-full text-xl">
+
+                                    <tbody className="flex flex-col w-full">
+                                        <tr className="flex w-full mb-4 bg-gray-800 text-white p-4">
+                                            <td className="w-1/3">CRIME</td>
+                                            <td className="w-1/3">IPC DETAILS</td>
+                                            <td className="w-1/3">CHAPTER</td>
+                                        </tr>
+                                        {
+                                            ipc.map((ip, i) => {
+                                                return <div className="flex m-2">
+                                                    <tr className="flex w-full mb-4">
+                                                        <td className="w-1/3">{ip[0]}</td>
+                                                        <td className="w-1/3 bg-teal-500 text-white p-2">{ip[1]}</td>
+                                                        <td className="w-1/3 bg-green-500 text-white p-2">{ip[2]}</td>
+                                                    </tr>
+                                                </div>
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
                             {msg}
                             <button
                                 onClick={onSubmit}
                                 className="bg-teal-600 m-4 p-4 text-white cursor-pointer">
                                 SUBMIT
-                                </button>
+                            </button>
                         </div>
                     </div>
                 </div>
