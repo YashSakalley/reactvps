@@ -2,7 +2,7 @@ import React from 'react'
 
 import pdfImg from '../../../assets/pdf.png'
 
-export default function StatusResult({ work, result, reportId }) {
+export default function StatusResult({ show, work, result, reportId }) {
 
     const pending = <div className="ml-4 mr-4 border-2 border-yellow-300 rounded p-4">
         <div className="">
@@ -155,12 +155,21 @@ export default function StatusResult({ work, result, reportId }) {
                         <>
                             <h2 className="text-center text-3xl uppercase m-4">Work Done</h2>
                             {
-                                work.map((w, i) => {
-                                    return <div className="m-4" key={i}>
-                                        <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
-                                    </div>
-                                })
+                                (work.length === 0) || (!show)
+                                    ?
+                                    <div>This information is currently not available</div>
+                                    :
+                                    <>
+                                        {
+                                            work.map((w, i) => {
+                                                return <div className="m-4" key={i}>
+                                                    <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
+                                                </div>
+                                            })
+                                        }
+                                    </>
                             }
+
                         </>
                         : null
                 }

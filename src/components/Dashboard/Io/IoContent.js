@@ -13,7 +13,8 @@ export default function Content({ id }) {
             answers: ['', '', '', '', '', '', ''],
             questions: ['', '', '', '', '', '', ''],
             media_files: [],
-            work: []
+            work: [],
+            private_work: []
         },
         user: {}
     }
@@ -22,17 +23,19 @@ export default function Content({ id }) {
     const [showDetails, setShowDetails] = useState(false)
     const [showAnalytics, setShowAnalytics] = useState(false)
     const [showUpdate, setShowUpdate] = useState(true)
+    const [showPrivateUpdate, setShowPrivateUpdate] = useState(false)
 
     const [showNotes, setShowNotes] = useState(false)
 
     const [work, setWork] = useState('')
     const [msg, setMsg] = useState(null)
+    const [publishMsg, setPublishMsg] = useState(null)
 
-    const onSubmitWork = () => {
+    const onSubmitWork = (vis) => {
         if (work === '') 
             return
         setMsg('Saving')
-        axios.put(`/reports/work/${content.report._id}`, {work: work})
+        axios.put(`/reports/work/${content.report._id}/${vis === 'public' ? 'public' : 'private'}`, {work: work})
         .then((res) => {
             console.log(res);
             setMsg('Saved')
@@ -42,6 +45,28 @@ export default function Content({ id }) {
         .catch((err) => {
             console.log(err);
             setMsg('Error saving')
+        })
+    }
+
+    const onPublishWork = () => {
+        axios.put(`/reports/show_work/${content.report._id}`)
+        .then((res) => {
+            setPublishMsg('Published Successfully')
+        })
+        .catch((err) => {
+            console.log(err);
+            setPublishMsg('Error occurred')
+        })
+    }
+
+    const onHideWork = () => {
+        axios.put(`/reports/hide_work/${content.report._id}`)
+        .then((res) => {
+            setPublishMsg('Hidden Successfully')
+        })
+        .catch((err) => {
+            console.log(err);
+            setPublishMsg('Error occurred')
         })
     }
 
@@ -196,13 +221,58 @@ export default function Content({ id }) {
                     onClick={() => setShowUpdate(!showUpdate)}
                     
                     className={`${showUpdate ? 'bg-gray-900' : ''} mt-16 border-l-8 border-black bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_1 flex`}>
-                    UPDATE STATUS
+                    UPDATE STATUS (PUBLIC)
                     <img src={showUpdate ? left : down} id="down_ico"
                         className={`absolute right-0 mr-12 w-8`} alt="" />
                 </div>
 
                 {/* Update Status Content */}
                 <div className={`${showUpdate ? 'block' : 'hidden'} p-5 bg-white`} id="panel_2">
+                    <h1 className="text-xl">
+                        Enter the work done on the report here. This information can be made public upon clicking publish. Do not enter any sensitive information here
+                    </h1>
+                    <div className="mt-8">
+                        <input 
+                        className="border border-gray-600 m-2 mt-4 p-2 rounded"
+                        onChange={(e) => setWork(e.target.value)} 
+                        type="text" 
+                        placeholder="Work"/>
+                        <button 
+                        className="bg-green-400 rounded p-2 px-4 m-2"
+                        onClick={() => onSubmitWork('public')}>Submit</button>
+                        <p className="text-red-600 m-4 text-xl">{msg}</p>
+                    </div>
+                    <h2 className="m-2 text-2xl">Previous Work</h2>
+                    <div className="m-4">
+                        {
+                        content.report.work.map((w, i) => {
+                            return <div className="m-4" key={i}>
+                                <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
+                            </div>
+                        })
+                        }
+                    </div>
+                    <div>
+                        <div className="flex">
+                        <button onClick={onPublishWork} className="p-2 px-4 rounded text-white bg-teal-600 m-2">PUBLISH</button>
+                        <button onClick={onHideWork} className="p-2 px-4 rounded text-white bg-teal-600 m-2">HIDE</button>
+                        </div>
+                        <p className="text-red-600 m-2">{publishMsg}</p>
+                    </div>
+                </div>
+
+                {/* Update Status Header (Private)*/}
+                <div
+                    onClick={() => setShowPrivateUpdate(!showPrivateUpdate)}
+                    
+                    className={`${showPrivateUpdate ? 'bg-gray-900' : ''} mt-16 border-l-8 border-black bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_1 flex`}>
+                    UPDATE STATUS
+                    <img src={showPrivateUpdate ? left : down} id="down_ico"
+                        className={`absolute right-0 mr-12 w-8`} alt="" />
+                </div>
+
+                {/* Update Status Content (Private)*/}
+                <div className={`${showPrivateUpdate ? 'block' : 'hidden'} p-5 bg-white`} id="panel_2">
                     <h1 className="text-xl">
                         Enter the work done on the report and click submit
                     </h1>
@@ -220,7 +290,7 @@ export default function Content({ id }) {
                     <h2 className="m-2 text-2xl">Previous Work</h2>
                     <div className="m-4">
                         {
-                        content.report.work.map((w, i) => {
+                        content.report.private_work.map((w, i) => {
                             return <div className="m-4" key={i}>
                                 <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
                             </div>
