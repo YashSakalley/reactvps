@@ -338,6 +338,8 @@ export default function Content({ id }) {
                         </table>
                         : null
                 }
+
+                {/* Entities */}
                 <div className="bg-white p-4 my-4">
                     <h1 className="text-xl">View Entities</h1>
                     <div className="m-2 text-red-600">{msgEntity}</div>

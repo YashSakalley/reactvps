@@ -14,6 +14,9 @@ import Volunteer from './pages/Volunteer'
 import VolLogin from './components/Volunteer/VolLogin'
 import VolContent from './components/Volunteer/VolContent'
 import EditReport from './pages/EditReport'
+import LegalContent from './components/Legal/LegalContent'
+import LegalLogin from './components/Legal/LegalLogin'
+import Legal from './pages/Legal'
 
 
 export default function AppRouter() {
@@ -26,6 +29,18 @@ export default function AppRouter() {
 
             <Route path='/loading'>
                 <Loading />
+            </Route>
+
+            <Route path="/legal/login">
+                <LegalLogin />
+            </Route>
+
+            <Route path='/legal/:reportId'>
+                <LegalContent />
+            </Route>
+
+            <Route path='/legal'>
+                <Legal />
             </Route>
 
             <Route path="/volunteer/login">
