@@ -13,6 +13,7 @@ export default function Table() {
     useEffect(() => {
         Axios.get('/reports')
             .then((res) => {
+                console.log(res);
                 let data;
                 if (res.data.status === 'success') {
                     if (role === 'sp') {
@@ -25,7 +26,10 @@ export default function Table() {
                         data = res.data.reports.filter((report) => (
                             report.status === 'Approved' ||
                             report.status === 'Approved by SHO' ||
-                            report.status === 'Approved by SP'
+                            report.status === 'Approved by SP' ||
+                            report.status === 'Approved by IO' ||
+                            report.status === 'Rejected by IO' ||
+                            report.status === 'Accepted by IO'
                         ))
                     } else if (role === 'sho') {
                         data = res.data.reports

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useParams, useHistory } from 'react-router-dom'
+
 import IoMedia from './IoMedia'
 
 import down from '../../../assets/down.png'
@@ -14,15 +16,20 @@ export default function Content({ id }) {
             questions: ['', '', '', '', '', '', ''],
             media_files: [],
             work: [],
-            private_work: []
+            private_work: [],
+            status: ''
         },
         user: {}
     }
+
+    let history = useHistory()
+    let role = useParams().role
+
     const [content, setContent] = useState(initialContent)
 
     const [showDetails, setShowDetails] = useState(false)
     const [showAnalytics, setShowAnalytics] = useState(false)
-    const [showUpdate, setShowUpdate] = useState(true)
+    const [showUpdate, setShowUpdate] = useState(false)
     const [showPrivateUpdate, setShowPrivateUpdate] = useState(false)
 
     const [showNotes, setShowNotes] = useState(false)
@@ -93,6 +100,67 @@ export default function Content({ id }) {
             })
 
     }, [])
+
+    const onDeclineHandler = () => {
+        axios.put(`/reports/${content.report._id}`, { status: `Rejected by ${role.toUpperCase()}`, reason: rejectedReason })
+            .then((res) => {
+                console.log(res)
+                history.goBack()
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    const onAcceptHandler = () => {
+        axios.put(`/reports/${content.report._id}`, { status: `Approved by ${role.toUpperCase()}` })
+            .then((res) => {
+                console.log(res)
+                history.goBack()
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    const [showTextBox, setShowTextBox] = useState(false)
+    const [rejectedReason, setRejectedReason] = useState('')
+    const controls =
+        <>
+            {
+                showTextBox
+                    ?
+                    <div className="w-full m-4">
+                        <input
+                            type="text"
+                            className="text-xl outline-none w-full mt-4 p-4"
+                            value={rejectedReason}
+                            placeholder="Reason for declining the report"
+                            onChange={(event) => setRejectedReason(event.target.value)}
+                        ></input>
+                        <br />
+                        <button
+                            onClick={() => { setShowTextBox(false) }}
+                            className="mt-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-blue-400 text-black-100 hover:bg-blue-600 hover:text-black-500">CANCEL
+                            </button>
+                        <button
+                            onClick={onDeclineHandler}
+                            className="mt-4 ml-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-red-600 border-red-600 text-gray-100 hover:bg-red-500 hover:border-red-500 hover:text-gray-100">DECLINE
+                        </button>
+                    </div>
+                    :
+                    <>
+                        <button
+                            onClick={onAcceptHandler}
+                            className="mt-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-green-600 border-green-600 text-gray-100 hover:bg-green-500 hover:text-gray-100">ACCEPT
+                        </button>
+                        <button
+                            onClick={() => { setShowTextBox(true) }}
+                            className="mt-4 ml-4 px-8 py-4 text-base leading-5 border font-medium shadow-sm transition ease-in-out duration-150 focus:outline-none focus:shadow-outline bg-red-600 border-red-600 text-gray-100 hover:bg-red-500 hover:border-red-500 hover:text-gray-100">DECLINE
+                        </button>
+                    </>
+            }
+        </>
 
     return (
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
@@ -229,7 +297,7 @@ export default function Content({ id }) {
                 {/* Update Status Content */}
                 <div className={`${showUpdate ? 'block' : 'hidden'} p-5 bg-white`} id="panel_2">
                     <h1 className="text-xl">
-                        Enter the work done on the report here. This information can be made public upon clicking publish. Do not enter any sensitive information here
+                        Enter the work done on the report here. This information can be made public upon clicking publish. Do not enter any sensitive information here. It will be available for the legal entity even without publishing
                     </h1>
                     <div className="mt-8">
                         <input 
@@ -266,7 +334,7 @@ export default function Content({ id }) {
                     onClick={() => setShowPrivateUpdate(!showPrivateUpdate)}
                     
                     className={`${showPrivateUpdate ? 'bg-gray-900' : ''} mt-16 border-l-8 border-black bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_1 flex`}>
-                    UPDATE STATUS
+                    UPDATE STATUS (PRIVATE)
                     <img src={showPrivateUpdate ? left : down} id="down_ico"
                         className={`absolute right-0 mr-12 w-8`} alt="" />
                 </div>
@@ -299,6 +367,16 @@ export default function Content({ id }) {
                     </div>
                 </div>
             </div>
+        
+           {
+               (content.report.status === 'Approved by IO' || content.report.status === 'Rejected by IO')
+               ? null
+               :
+                <div className="m-16 ml-6">
+                    {controls}
+                </div>
+           }
+            
         </main>
     )
 }

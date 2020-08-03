@@ -14,8 +14,7 @@ export default function Table() {
                 let data;
                 if (res.data.status === 'success') {
                     data = res.data.reports.filter((report) => (
-                        report.status === 'Rejected by SHO' ||
-                        report.status === 'Rejected by SP'
+                        report.status !== 'Pending'
                     ))
                 }
                 data.reverse()

@@ -19,7 +19,8 @@ export default function FinalPage({ chatForm, mediaForm, crime }) {
             user_id: Cookies.getJSON('user').user._id,
             media_files: mediaForm.evidence,
             signature: mediaForm.signature,
-            image_id: mediaForm.image_id
+            image_id: mediaForm.image_id,
+            ipc: localStorage.getItem('ipc')
         }
 
         axios.post('/reports', body)

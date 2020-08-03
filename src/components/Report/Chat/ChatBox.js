@@ -177,7 +177,10 @@ export default function ChatBox({ crime, submit }) {
                                             {state.questions[i + 1].question}
                                         </ChatQuestion>
                                         :
-                                        <FinishMsg submit={onFinishAnswer} />
+                                        <FinishMsg
+                                            ipcMsg={state.answers[currentQuestionIndex - 1]}
+                                            submit={onFinishAnswer}
+                                        />
                                 }
 
 
