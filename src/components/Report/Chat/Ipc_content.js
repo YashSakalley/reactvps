@@ -62,8 +62,8 @@ function IPC_content({ ipcMsg, close }) {
                                     <tbody className="flex flex-col w-full">
                                         <tr className="flex w-full mb-4 bg-gray-800 text-white p-4">
                                             <td className="w-1/3">CRIME</td>
-                                            <td className="w-1/3">IPC DETAILS</td>
-                                            <td className="w-1/3">CHAPTER</td>
+                                            <td className="w-1/3">IPC Chapter</td>
+                                            <td className="w-1/3">Sections</td>
                                         </tr>
                                         {
                                             ipc.map((ip, i) => {

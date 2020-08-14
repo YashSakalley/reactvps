@@ -19,7 +19,7 @@ export default function Login() {
 
     const [msg, setMsg] = useState(false)
     const [uploadMsg, setUploadMsg] = useState(false)
-    const [showModal, setShowModal] = useState(true)
+    const [showModal, setShowModal] = useState(false)
 
     const history = useHistory()
 

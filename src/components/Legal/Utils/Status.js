@@ -8,7 +8,7 @@ export default function Status() {
 
                 <div className="mt-4">
                     <div className="flex flex-wrap text-xl mx-6">
-                        These reports are in the rejected state. Please verify them after updation and send them to SHO if deemed right
+                        Please accept or decline the reports given here.
                     </div>
                 </div>
             </div>
