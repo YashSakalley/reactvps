@@ -83,7 +83,7 @@ export default function ChatBox({ crime, submit }) {
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [crime])
 
     useEffect(() => {
         let chatWindow = myRef.current

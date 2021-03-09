@@ -1,11 +1,10 @@
 import React from 'react'
-import { useParams, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 import police_officer_dashboard from '../../../assets/police_officer_dashboard.png'
 
-export default function SideBar({ sideBarOpen, setSideBarOpen }) {
-    const role = useParams().role
+const SideBar = ({ sideBarOpen, setSideBarOpen }) => {
     const onLogout = () => {
         Cookies.remove('user')
         Cookies.remove('token')
@@ -13,7 +12,6 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
     }
 
     let roleLabel = 'Facilitator'
-
 
     return (
         <div
@@ -69,3 +67,5 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
         </div>
     )
 }
+
+export default SideBar

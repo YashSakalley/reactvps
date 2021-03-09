@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 
 export default function EditReport() {
-    let reportId = useParams().reportId
+    const { reportId } = useParams()
     const [report, setReport] = useState({
         crime: '',
         image_id: '',
@@ -26,7 +26,7 @@ export default function EditReport() {
                 console.log(err);
             })
 
-    }, [])
+    }, [reportId])
 
     const onChangeHandler = (e) => {
         setReport({
@@ -44,7 +44,6 @@ export default function EditReport() {
         })
     }
 
-    let history = useHistory()
     const onFormSubmit = (e) => {
         e.preventDefault()
         setMsg('Updating...')

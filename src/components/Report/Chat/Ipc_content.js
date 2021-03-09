@@ -17,7 +17,7 @@ function IPC_content({ ipcMsg, close }) {
                 console.log(err);
                 setMsg('Error occured')
             })
-    }, [])
+    }, [ipcMsg])
 
     const onSubmit = () => {
         console.log('ipc', ipc.toLocaleString().replace(' ', '.'));

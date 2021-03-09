@@ -1,9 +1,8 @@
 import React from 'react'
+
 import ChatBox from './ChatBox'
 
-import wallpaper from '../../../assets/Slider/img4.jpg'
-
-export default function ChatPage({ crime, submit }) {
+const ChatPage = ({ crime, submit }) => {
     return (
         <div className="h-screen w-full flex antialiased text-gray-200 overflow-hidden p-14"
             style={{
@@ -18,3 +17,5 @@ export default function ChatPage({ crime, submit }) {
         </div >
     )
 }
+
+export default ChatPage

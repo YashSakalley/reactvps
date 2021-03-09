@@ -18,7 +18,6 @@ import LegalContent from './components/Legal/LegalContent'
 import LegalLogin from './components/Legal/LegalLogin'
 import Legal from './pages/Legal'
 
-
 export default function AppRouter() {
     return (
         <Switch>

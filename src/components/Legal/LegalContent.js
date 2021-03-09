@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import Axios from 'axios'
 import { useState } from 'react'
@@ -12,7 +12,7 @@ import ContentCell from '../Dashboard/Content/ContentCell'
 export default function LegalContent() {
 
     const [sideBarOpen, setSideBarOpen] = useState(false)
-    let reportId = useParams().reportId
+    const { reportId } = useParams()
     const [content, setContent] = useState({
         report: {
             _id: '',
@@ -37,22 +37,25 @@ export default function LegalContent() {
     let Time = d[4]
     let date = `${d[2]} ${d[1]} ${d[3]}`
 
-    useEffect(() => {
-        Axios.get(`/reports/${reportId}`)
-            .then((res) => {
-                console.log('content', res);
-                if (res.data.status === 'success') {
-                    setContent({
-                        report: res.data.report,
-                        user: res.data.user
-                    })
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    const fetchReports = useCallback(
+        async () => {
+            try {
+                const { data: { status, report, user } } = await Axios.get(`/reports/${reportId}`)
+                if (status !== 'success') throw new Error("Success not recieved")
+                setContent({
+                    report,
+                    user
+                })
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        [reportId]
+    )
 
-    }, [])
+    useEffect(() => {
+        fetchReports()
+    }, [fetchReports])
 
     const onDeclineHandler = () => {
         Axios.put(`/reports/${content.report._id}`, { status: `Rejected by Legal Authority`, reason: rejectedReason })

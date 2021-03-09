@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 
@@ -8,10 +8,9 @@ import ContentCell from '../Dashboard/Content/ContentCell'
 import Modal from '../UI/Modal'
 import Canvas from '../Canvas'
 import Webcam from '../Webcam'
-// import Map from '../Home/Map'
 
-export default function Volunteer() {
-    const requestId = useParams().requestId
+const Volunteer = () => {
+    const { requestId } = useParams()
     const [sideBarOpen, setSideBarOpen] = useState(false)
 
     const [signature, setSignature] = useState(null)
@@ -42,17 +41,22 @@ export default function Volunteer() {
         status: ''
     })
 
-    useEffect(() => {
-        Axios.get(`/volunteer/request/${requestId}`)
-            .then((res) => {
-                if (res.data.status === 'success') {
-                    setContent(res.data.request)
-                }
-            })
-            .catch((err) => {
+    const fetchVolunteer = useCallback(
+        async () => {
+            try {
+                const { data: { status, request } } = await Axios.get(`/volunteer/request/${requestId}`)
+                if (status !== "success") throw new Error("Success not recieved")
+                setContent(request)
+            } catch (err) {
                 console.log(err);
-            })
-    }, [])
+            }
+        },
+        [requestId]
+    )
+
+    useEffect(() => {
+        fetchVolunteer()
+    }, [fetchVolunteer])
 
     const [showCanvas, setShowCanvas] = useState(false)
     const [webcamModal, setWebcamModal] = useState(false)
@@ -430,3 +434,5 @@ export default function Volunteer() {
         </div >
     )
 }
+
+export default Volunteer

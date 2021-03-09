@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import axios from 'axios'
 
 import IoMedia from './IoMedia'
 
@@ -9,7 +9,7 @@ import left from '../../../assets/left.png'
 
 export default function Content({ id }) {
 
-    const initialContent = {
+    const initialContent = useMemo(() => ({
         report: {
             _id: '',
             answers: ['', '', '', '', '', '', ''],
@@ -20,7 +20,7 @@ export default function Content({ id }) {
             status: ''
         },
         user: {}
-    }
+    }), [])
 
     let history = useHistory()
     let role = useParams().role
@@ -38,43 +38,40 @@ export default function Content({ id }) {
     const [msg, setMsg] = useState(null)
     const [publishMsg, setPublishMsg] = useState(null)
 
-    const onSubmitWork = (vis) => {
+    const onSubmitWork = async (vis) => {
         if (work === '') 
             return
         setMsg('Saving')
-        axios.put(`/reports/work/${content.report._id}/${vis === 'public' ? 'public' : 'private'}`, {work: work})
-        .then((res) => {
+        try {
+            const res = await axios.put(`/reports/work/${content.report._id}/${vis === 'public' ? 'public' : 'private'}`, {work: work})
             console.log(res);
             setMsg('Saved')
             let location = window.location
             location.reload()
-        })
-        .catch((err) => {
+        } catch (err) {
             console.log(err);
             setMsg('Error saving')
-        })
+        }
     }
 
-    const onPublishWork = () => {
-        axios.put(`/reports/show_work/${content.report._id}`)
-        .then((res) => {
+    const onPublishWork = async () => {
+        try {
+            await axios.put(`/reports/show_work/${content.report._id}`)
             setPublishMsg('Published Successfully')
-        })
-        .catch((err) => {
+        } catch (err) {
             console.log(err);
             setPublishMsg('Error occurred')
-        })
+        }
     }
 
-    const onHideWork = () => {
-        axios.put(`/reports/hide_work/${content.report._id}`)
-        .then((res) => {
+    const onHideWork = async () => {
+        try {
+            await axios.put(`/reports/hide_work/${content.report._id}`)
             setPublishMsg('Hidden Successfully')
-        })
-        .catch((err) => {
+        } catch (err) {
             console.log(err);
             setPublishMsg('Error occurred')
-        })
+        }
     }
 
     let d = new Date(content.report.time)
@@ -83,44 +80,45 @@ export default function Content({ id }) {
     let Time = d[4]
     let date = `${d[2]} ${d[1]} ${d[3]}`
 
+    const fetchReport = useCallback(
+        async (id) => {
+            try {
+                const { data } = await axios.get(`/reports/${id}`)
+                if (data.status !== 'success') throw new Error("Error: Success not found")
+                const { report, user } = data
+                setContent({
+                    report,
+                    user
+                })
+            } catch (err) {
+                console.log(err)
+            }
+        },
+        []
+    )
+
     useEffect(() => {
+        fetchReport(id)
+    }, [fetchReport, id])
 
-        axios.get(`/reports/${id}`)
-            .then((res) => {
-                console.log(res)
-                if (res.data.status === 'success') {
-                    setContent({
-                        report: res.data.report,
-                        user: res.data.user
-                    })
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-
-    }, [])
-
-    const onDeclineHandler = () => {
-        axios.put(`/reports/${content.report._id}`, { status: `Rejected by ${role.toUpperCase()}`, reason: rejectedReason })
-            .then((res) => {
-                console.log(res)
-                history.goBack()
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    const onDeclineHandler = async () => {
+        try {
+            const res = await axios.put(`/reports/${content.report._id}`, { status: `Rejected by ${role.toUpperCase()}`, reason: rejectedReason })
+            console.log(res);
+            history.goBack()
+        } catch (err) {
+            console.log(err)
+        }
     }
 
-    const onAcceptHandler = () => {
-        axios.put(`/reports/${content.report._id}`, { status: `Approved by ${role.toUpperCase()}` })
-            .then((res) => {
-                console.log(res)
-                history.goBack()
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    const onAcceptHandler = async () => {
+        try {
+            const res = await axios.put(`/reports/${content.report._id}`, { status: `Approved by ${role.toUpperCase()}` })
+            console.log(res)
+            history.goBack()
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const [showTextBox, setShowTextBox] = useState(false)
@@ -260,7 +258,6 @@ export default function Content({ id }) {
                     {/* Resource Analysis Header */}
                     <div
                         onClick={() => setShowAnalytics(!showAnalytics)}
-                       
                         className={`${showAnalytics ? 'bg-gray-900' : ''} border-l-8 border-black mt-4 bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_2`}>
                         RESOURCE ANALYZE
                     
@@ -270,7 +267,7 @@ export default function Content({ id }) {
                     <div className={`${showAnalytics ? 'block' : 'hidden'} p-5 bg-white`} id="panel_2">
                         <h1 className="text-xl">
                             Here you can use our various analytics tools
-                    </h1>
+                        </h1>
                         {
                             content.report.media_files ?
                                 content.report.media_files.map((media, i) => {
@@ -287,7 +284,6 @@ export default function Content({ id }) {
                 {/* Update Status Header */}
                 <div
                     onClick={() => setShowUpdate(!showUpdate)}
-                    
                     className={`${showUpdate ? 'bg-gray-900' : ''} mt-16 border-l-8 border-black bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_1 flex`}>
                     UPDATE STATUS (PUBLIC)
                     <img src={showUpdate ? left : down} id="down_ico"
@@ -312,13 +308,11 @@ export default function Content({ id }) {
                     </div>
                     <h2 className="m-2 text-2xl">Previous Work</h2>
                     <div className="m-4">
-                        {
-                        content.report.work.map((w, i) => {
+                        {content.report.work.map((w, i) => {
                             return <div className="m-4" key={i}>
                                 <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
                             </div>
-                        })
-                        }
+                        })}
                     </div>
                     <div>
                         <div className="flex">
@@ -332,7 +326,6 @@ export default function Content({ id }) {
                 {/* Update Status Header (Private)*/}
                 <div
                     onClick={() => setShowPrivateUpdate(!showPrivateUpdate)}
-                    
                     className={`${showPrivateUpdate ? 'bg-gray-900' : ''} mt-16 border-l-8 border-black bg-gray-600 text-white text-2xl p-4 px-8 cursor-pointer accordion_1 flex`}>
                     UPDATE STATUS (PRIVATE)
                     <img src={showPrivateUpdate ? left : down} id="down_ico"
@@ -346,36 +339,32 @@ export default function Content({ id }) {
                     </h1>
                     <div className="mt-8">
                         <input 
-                        className="border border-gray-600 m-2 mt-4 p-2 rounded"
-                        onChange={(e) => setWork(e.target.value)} 
-                        type="text" 
-                        placeholder="Work"/>
+                            className="border border-gray-600 m-2 mt-4 p-2 rounded"
+                            onChange={(e) => setWork(e.target.value)} 
+                            type="text" 
+                            placeholder="Work"/>
                         <button 
-                        className="bg-green-400 rounded p-2 px-4 m-2"
-                        onClick={onSubmitWork}>Submit</button>
+                            className="bg-green-400 rounded p-2 px-4 m-2"
+                            onClick={onSubmitWork}>Submit</button>
                         <p className="text-red-600 m-4 text-xl">{msg}</p>
                     </div>
                     <h2 className="m-2 text-2xl">Previous Work</h2>
                     <div className="m-4">
-                        {
-                        content.report.private_work.map((w, i) => {
+                        {content.report.private_work.map((w, i) => {
                             return <div className="m-4" key={i}>
                                 <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
                             </div>
-                        })
-                        }
+                        })}
                     </div>
                 </div>
             </div>
-        
-           {
-               (content.report.status === 'Approved by IO' || content.report.status === 'Rejected by IO')
-               ? null
-               :
+
+            {(content.report.status === 'Approved by IO' || content.report.status === 'Rejected by IO')
+                ? null
+                :
                 <div className="m-16 ml-6">
                     {controls}
-                </div>
-           }
+                </div>}
             
         </main>
     )

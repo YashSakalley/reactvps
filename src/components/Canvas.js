@@ -1,9 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 
-export default function Canvas({ submit }) {
+const Canvas = ({ submit }) => {
 
     const canvas = useRef(null)
-    // const ctx = canvas.current.getContext("2d");
     let ctx;
 
     useEffect(() => {
@@ -24,16 +23,17 @@ export default function Canvas({ submit }) {
     }
 
     let painting = false;
-    function startPosition(e) {
+    const startPosition = (e) => {
         painting = true;
         draw(e);
     }
-    function finishedPosition() {
+
+    const finishedPosition = () => {
         painting = false;
         ctx.beginPath();
     }
 
-    function getMousePos(canvas, evt) {
+    const getMousePos = (canvas, evt) => {
         var rect = canvas.getBoundingClientRect();
         return {
             x: evt.clientX - rect.left,
@@ -41,7 +41,7 @@ export default function Canvas({ submit }) {
         };
     }
 
-    function draw(e) {
+    const draw = (e) => {
         if (!painting) return;
         var mousePos = getMousePos(canvas.current, e);
 
@@ -52,14 +52,14 @@ export default function Canvas({ submit }) {
         ctx.moveTo(mousePos.x, mousePos.y);
     }
 
-    function onSave() {
+    const onSave = () => {
         let link = document.getElementById('canvas').toDataURL()
         let imgFile = dataURLtoFile(link, 'image_id.jpg')
         console.log('File', imgFile);
         submit(imgFile)
     }
 
-    function clearSign() {
+    const clearSign = () => {
         ctx.clearRect(0, 0, canvas.current.width, canvas.current.height);
     }
 
@@ -83,3 +83,5 @@ export default function Canvas({ submit }) {
         </div>
     )
 }
+
+export default Canvas

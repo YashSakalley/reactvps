@@ -43,7 +43,7 @@ export default function FinalPage({ chatForm, mediaForm, crime }) {
                 setIsLoading(false)
             })
 
-    }, [])
+    }, [chatForm, mediaForm, crime])
 
     return (
         <>

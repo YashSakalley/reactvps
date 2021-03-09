@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 
 import ContentCell from './ContentCell'
 import Modal from '../../UI/Modal'
@@ -33,23 +33,26 @@ export default function Content({ id }) {
     let Time = d[4]
     let date = `${d[2]} ${d[1]} ${d[3]}`
 
-    useEffect(() => {
-
-        axios.get(`/reports/${id}`)
-            .then((res) => {
-                console.log('content', res);
-                if (res.data.status === 'success') {
+    const fetchReport = useCallback(
+        async () => {
+            try {
+                const { data: { status, report, user } } = await axios.get(`/reports/${id}`)
+                if (status === 'success') {
                     setContent({
-                        report: res.data.report,
-                        user: res.data.user
+                        report,
+                        user
                     })
                 }
-            })
-            .catch((err) => {
+            } catch (err) {
                 console.log(err)
-            })
+            }
 
-    }, [])
+        },
+        [id]
+    )
+    useEffect(() => {
+        fetchReport()
+    }, [fetchReport])
 
     const onBackHandler = () => {
         history.goBack()

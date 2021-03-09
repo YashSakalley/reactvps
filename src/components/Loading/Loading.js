@@ -12,6 +12,7 @@ export default function Loading() {
             clearInterval(interval)
         }
     })
+    
     return (
         <div className="loading-page">
             <div className="loading-box">

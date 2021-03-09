@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react'
 
 function MapComponent({ google, setValue, finish, task }) {
@@ -10,10 +10,6 @@ function MapComponent({ google, setValue, finish, task }) {
     const currentPos = {
         lat: 23.259767, lng: 77.445316
     }
-
-    // const [markerPos, setMarkerPos] = useState({
-    //     lat: 23.2349658, lng: 77.4294204
-    // })
 
     let markerPos
     if (task === 'ps') {

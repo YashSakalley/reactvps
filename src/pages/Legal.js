@@ -8,7 +8,7 @@ import Table from '../components/Legal/Utils/Table'
 
 import Auth from '../middlewares/Auth'
 
-function Legal() {
+const Legal = () => {
     const [sideBarOpen, setSideBarOpen] = useState(false)
 
     return (

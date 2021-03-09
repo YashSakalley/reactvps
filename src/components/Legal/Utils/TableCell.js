@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function TableCell({ crime, time, status, bg, id }) {
     let d = new Date(time)

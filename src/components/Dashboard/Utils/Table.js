@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Axios from 'axios'
 
 import TableCell from './TableCell'
@@ -8,31 +8,31 @@ import Loading from '../../Loading/Loading'
 export default function Table() {
 
     const [reports, setReports] = useState([])
-    let role = useParams().role;
+    const { role } = useParams();
 
-    useEffect(() => {
-        Axios.get('/reports')
-            .then((res) => {
-                console.log(res);
+    const fetchReports = useCallback(
+        async () => {
+            try {
+                const { data: { status, reports } } = await Axios.get('/reports')
                 let data;
-                if (res.data.status === 'success') {
+                if (status === 'success') {
                     if (role === 'sp') {
-                        data = res.data.reports.filter((report) => (
-                            report.status === 'Rejected by SHO' ||
-                            report.status === 'Rejected by SP' ||
-                            report.status === "Approved by SP"
+                        data = reports.filter(({ status }) => (
+                            status === 'Rejected by SHO' ||
+                            status === 'Rejected by SP' ||
+                            status === "Approved by SP"
                         ))
                     } else if (role === 'io') {
-                        data = res.data.reports.filter((report) => (
-                            report.status === 'Approved' ||
-                            report.status === 'Approved by SHO' ||
-                            report.status === 'Approved by SP' ||
-                            report.status === 'Approved by IO' ||
-                            report.status === 'Rejected by IO' ||
-                            report.status === 'Accepted by IO'
+                        data = reports.filter(({ status }) => (
+                            status === 'Approved' ||
+                            status === 'Approved by SHO' ||
+                            status === 'Approved by SP' ||
+                            status === 'Approved by IO' ||
+                            status === 'Rejected by IO' ||
+                            status === 'Accepted by IO'
                         ))
                     } else if (role === 'sho') {
-                        data = res.data.reports
+                        data = reports
                     } else {
                         data = [{
                             crime: 'Invalid URL: ' + role
@@ -41,11 +41,16 @@ export default function Table() {
                 }
                 data.reverse()
                 setReports(data)
-            })
-            .catch((err) => {
+            } catch (err) {
                 console.log(err)
-            })
-    }, [])
+            }
+        },
+        [role]
+    )
+
+    useEffect(() => {
+        fetchReports()
+    }, [fetchReports])
 
     return (
         <div className="container px-8 ">

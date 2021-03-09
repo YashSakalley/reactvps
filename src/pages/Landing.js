@@ -7,7 +7,7 @@ import Status from '../components/Home/Status/Status'
 import Footer from '../components/Home/Footer'
 import Workflow from '../components/Home/Workflow'
 
-export default function Landing() {
+const Landing = () => {
     return (
         <div>
             <Nav />
@@ -22,3 +22,5 @@ export default function Landing() {
         </div>
     )
 }
+
+export default Landing

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Line } from 'react-chartjs-2'
 import { Bar } from 'react-chartjs-2'
 import { Pie } from 'react-chartjs-2'
 import { Doughnut } from 'react-chartjs-2'
 
-export default function Chart({ status }) {
+const Chart = ({ status }) => {
     const data = {
         labels: ['JAN', 'FEB', 'MAR', 'ARP', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
         datasets: [
@@ -87,3 +87,5 @@ export default function Chart({ status }) {
         </div>
     )
 }
+
+export default Chart
