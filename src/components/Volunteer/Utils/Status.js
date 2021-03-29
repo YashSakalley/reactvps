@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Status() {
+const Status = () => {
     return (
         <>
             <div className="container mx-auto px-6 py-8">
@@ -15,3 +15,5 @@ export default function Status() {
         </>
     )
 }
+
+export default Status

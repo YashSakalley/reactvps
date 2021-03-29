@@ -9,7 +9,7 @@ import Table from '../../components/Dashboard/Utils/Table'
 
 import Auth from '../../middlewares/Auth'
 
-function Dashboard() {
+const Dashboard = () => {
     const [sideBarOpen, setSideBarOpen] = useState(false)
     const [count, setCount] = useState({
         approved: 0,

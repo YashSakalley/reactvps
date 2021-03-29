@@ -7,7 +7,7 @@ import Chart from '../../components/Dashboard/Chart/Chart'
 
 import Auth from '../../middlewares/Auth'
 
-function Dashboard() {
+const Dashboard = () => {
     const [sideBarOpen, setSideBarOpen] = useState(false)
 
     const [status, setStatus] = useState({})

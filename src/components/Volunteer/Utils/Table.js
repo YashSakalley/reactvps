@@ -4,7 +4,7 @@ import Axios from 'axios'
 import TableCell from './TableCell'
 import Loading from '../../Loading/Loading'
 
-export default function Table() {
+const Table = () => {
 
     const [reports, setReports] = useState([])
 
@@ -59,3 +59,5 @@ export default function Table() {
         </div>
     )
 }
+
+export default Table

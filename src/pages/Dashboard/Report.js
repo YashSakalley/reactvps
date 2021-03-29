@@ -8,7 +8,7 @@ import IoContent from '../../components/Dashboard/Io/IoContent'
 
 import Auth from '../../middlewares/Auth'
 
-function Dashboard() {
+const Dashboard = () => {
     const reportId = useParams().reportId
     const role = useParams().role
     const [sideBarOpen, setSideBarOpen] = useState(false)

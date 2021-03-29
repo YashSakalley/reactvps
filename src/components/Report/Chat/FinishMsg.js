@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import IpcContent from './Ipc_content'
 import Modal from '../../UI/Modal'
 
-export default function FinishMsg({ ipcMsg, submit }) {
+const FinishMsg = ({ ipcMsg, submit }) => {
     const [showModal, setShowModal] = useState(false)
     useEffect(() => {
         submit()
@@ -35,3 +35,5 @@ export default function FinishMsg({ ipcMsg, submit }) {
         </>
     )
 }
+
+export default FinishMsg

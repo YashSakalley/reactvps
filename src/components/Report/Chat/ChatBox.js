@@ -7,7 +7,7 @@ import ChatAnswer from './ChatAnswer'
 import FinishMsg from './FinishMsg'
 import Video from './Video'
 
-export default function ChatBox({ crime, submit }) {
+const ChatBox = ({ crime, submit }) => {
     const [state, setState] = useState({
         questions: [{ question: 'Error connecting database', suggestions: [], label: '' }],
         answers: []
@@ -205,3 +205,5 @@ export default function ChatBox({ crime, submit }) {
         </>
     )
 }
+
+export default ChatBox

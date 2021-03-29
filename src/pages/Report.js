@@ -6,7 +6,7 @@ import UploadPage from '../components/Report/UploadPage'
 import FinalPage from '../components/Report/FinalPage/FinalPage'
 import Auth from '../middlewares/Auth'
 
-function Report() {
+const Report = () => {
     const [currentPage, setCurrentPage] = useState({
         crimePage: true,
         chatPage: false,

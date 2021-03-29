@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Crime({ img, crime, click }) {
+const Crime = ({ img, crime, click }) => {
 
     const onClickHandler = () => {
         click(crime)
@@ -15,3 +15,5 @@ export default function Crime({ img, crime, click }) {
         </div>
     )
 }
+
+export default Crime

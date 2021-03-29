@@ -5,7 +5,7 @@ import Canvas from '../Canvas'
 import Modal from '../UI/Modal'
 import Webcam from '../Webcam'
 
-export default function UploadPage({ submit }) {
+const UploadPage = ({ submit }) => {
     const [evidence, setEvidence] = useState(null)
     const [signature, setSignature] = useState(null)
     const [imageId, setImageId] = useState(null)
@@ -259,3 +259,5 @@ export default function UploadPage({ submit }) {
         </div>
     )
 }
+
+export default UploadPage

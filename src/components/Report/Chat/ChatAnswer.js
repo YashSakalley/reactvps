@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ChatAnswer({ ind, children }) {
+const ChatAnswer = ({ ind, children }) => {
     const LAST_QUESTION = 6
 
     if (ind === LAST_QUESTION) {
@@ -18,3 +18,5 @@ export default function ChatAnswer({ ind, children }) {
         </div>
     )
 }
+
+export default ChatAnswer

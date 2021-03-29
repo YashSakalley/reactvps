@@ -5,7 +5,7 @@ import AnalyseText from '../../Dashboard/Io/AnalyseText'
 
 import loadingGif from '../../../assets/text_loading.gif'
 
-export default function ChatMessage({ ind, suggestions, children, submit }) {
+const ChatMessage = ({ ind, suggestions, children, submit }) => {
     const LAST_QUESTION = 5
 
     if (ind === LAST_QUESTION) {
@@ -129,3 +129,5 @@ export default function ChatMessage({ ind, suggestions, children, submit }) {
         </div>
     )
 }
+
+export default ChatMessage

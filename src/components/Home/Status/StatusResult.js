@@ -2,7 +2,7 @@ import React from 'react'
 
 import pdfImg from '../../../assets/pdf.png'
 
-export default function StatusResult({ show, work, result, reportId }) {
+const StatusResult = ({ show, work, result, reportId }) => {
 
     const pending = <div className="ml-4 mr-4 border-2 border-yellow-300 rounded p-4">
         <div className="">
@@ -178,3 +178,5 @@ export default function StatusResult({ show, work, result, reportId }) {
         </div>
     )
 }
+
+export default StatusResult

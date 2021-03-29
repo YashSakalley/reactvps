@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Search() {
+const Search = () => {
     return (
         <div className="px-8 mt-4">
             <input
@@ -9,3 +9,5 @@ export default function Search() {
         </div>
     )
 }
+
+export default Search

@@ -9,7 +9,7 @@ import back from '../../assets/back.png'
 import pdfImg from '../../assets/pdf.png'
 import ContentCell from '../Dashboard/Content/ContentCell'
 
-export default function LegalContent() {
+const LegalContent = () => {
 
     const [sideBarOpen, setSideBarOpen] = useState(false)
     const { reportId } = useParams()
@@ -235,3 +235,5 @@ export default function LegalContent() {
         </div>
     )
 }
+
+export default LegalContent

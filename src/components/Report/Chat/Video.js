@@ -1,7 +1,7 @@
 import React from 'react'
 import video from '../../../assets/animation2.mp4'
 
-export default function Video({ start, mid, end }) {
+const Video = ({ start, mid, end }) => {
     const onTimeChangedHanlder = (e) => {
         let currentTime = e.target.currentTime;
         if (currentTime >= end - 1) {
@@ -15,3 +15,5 @@ export default function Video({ start, mid, end }) {
         </div>
     )
 }
+
+export default Video

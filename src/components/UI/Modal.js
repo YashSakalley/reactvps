@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Modal({ children, style, close }) {
+const Modal = ({ children, style, close }) => {
     return (
         <>
             <div className="absolute top-0 left-0 bg-gray-400 flex flex-start">
@@ -29,3 +29,5 @@ export default function Modal({ children, style, close }) {
         </>
     )
 }
+
+export default Modal

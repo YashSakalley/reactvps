@@ -7,7 +7,7 @@ import login_wallpaper from '../../assets/login_wallpaper.jpg'
 import police_officer from '../../assets/police_officer.webp'
 import police_logo from '../../assets/police_logo.png'
 
-export default function Login() {
+const Login = () => {
 
     const [form, setForm] = useState({
         email: '',
@@ -121,3 +121,4 @@ export default function Login() {
     )
 }
 
+export default Login

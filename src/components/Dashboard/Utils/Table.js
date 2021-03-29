@@ -5,7 +5,7 @@ import TableCell from './TableCell'
 import { useParams } from 'react-router-dom'
 import Loading from '../../Loading/Loading'
 
-export default function Table() {
+const Table = () => {
 
     const [reports, setReports] = useState([])
     const { role } = useParams();
@@ -88,3 +88,5 @@ export default function Table() {
         </div>
     )
 }
+
+export default Table

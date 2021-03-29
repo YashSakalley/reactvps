@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
 
-export default function Webcam({ submit }) {
+const Webcam = ({ submit }) => {
     const [canSubmit, setCanSubmit] = useState(false)
     const [file, setFile] = useState(null)
 
@@ -94,3 +94,5 @@ export default function Webcam({ submit }) {
         </div>
     )
 }
+
+export default Webcam

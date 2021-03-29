@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ContentCell({ id, value }) {
+const ContentCell = ({ id, value }) => {
     return (
         <tr className="flex w-full mb-4">
             <td className="p-4 w-1/3">{id} :</td>
@@ -8,3 +8,5 @@ export default function ContentCell({ id, value }) {
         </tr>
     )
 }
+
+export default ContentCell

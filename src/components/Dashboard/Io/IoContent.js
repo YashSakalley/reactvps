@@ -7,7 +7,7 @@ import IoMedia from './IoMedia'
 import down from '../../../assets/down.png'
 import left from '../../../assets/left.png'
 
-export default function Content({ id }) {
+const Content = ({ id }) => {
 
     const initialContent = useMemo(() => ({
         report: {
@@ -22,8 +22,8 @@ export default function Content({ id }) {
         user: {}
     }), [])
 
-    let history = useHistory()
-    let role = useParams().role
+    const history = useHistory()
+    const { role } = useParams()
 
     const [content, setContent] = useState(initialContent)
 
@@ -369,3 +369,5 @@ export default function Content({ id }) {
         </main>
     )
 }
+
+export default Content

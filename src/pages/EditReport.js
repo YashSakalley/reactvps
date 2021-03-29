@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 
-export default function EditReport() {
+const EditReport = () => {
     const { reportId } = useParams()
     const [report, setReport] = useState({
         crime: '',
@@ -237,3 +237,5 @@ export default function EditReport() {
         </div>
     )
 }
+
+export default EditReport

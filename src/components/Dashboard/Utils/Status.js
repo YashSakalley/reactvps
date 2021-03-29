@@ -4,7 +4,7 @@ import pendingImg from '../../../assets/pending.webp'
 import approvedImg from '../../../assets/approved.webp'
 import rejectedImg from '../../../assets/rejected.webp'
 
-export default function Status({ pending, approved, rejected }) {
+const Status = ({ pending, approved, rejected }) => {
     return (
         <>
             <div className="container mx-auto px-6 py-8">
@@ -50,3 +50,5 @@ export default function Status({ pending, approved, rejected }) {
         </>
     )
 }
+
+export default Status

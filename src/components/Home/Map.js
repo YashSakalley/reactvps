@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react'
 
-function MapComponent({ google, setValue, finish, task }) {
+const MapComponent = ({ google, setValue, finish, task }) => {
 
     const set = (key, value) => {
         setValue(key, value)

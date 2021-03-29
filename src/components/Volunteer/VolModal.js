@@ -6,7 +6,7 @@ import Map from '../Home/Map'
 
 import check from '../../assets/check.gif'
 
-function VolModal({ close }) {
+const VolModal = ({ close }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [status, setStatus] = useState(null)

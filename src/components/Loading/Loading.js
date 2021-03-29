@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import './Loading.css'
 
-export default function Loading() {
+const Loading = () => {
     const [dots, setDots] = useState(1)
 
     useEffect(() => {
-        let interval = setInterval(() => {
+        const interval = setInterval(() => {
             setDots((dots + 1) % 4)
         }, 1000)
         return () => {
             clearInterval(interval)
         }
     })
-    
+
     return (
         <div className="loading-page">
             <div className="loading-box">
@@ -27,3 +27,5 @@ export default function Loading() {
         </div>
     )
 }
+
+export default Loading

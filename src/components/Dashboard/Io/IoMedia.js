@@ -8,7 +8,7 @@ import analyseText from './AnalyseText'
 import analyseAudio from './AnalyseAudio'
 import analyseFaces from './AnalyseFaces'
 
-export default function IoMedia({ index, src }) {
+const IoMedia = ({ index, src }) => {
 
     const [result, setResult] = useState(false)
     const [isError, setIsError] = useState(false)
@@ -173,3 +173,5 @@ export default function IoMedia({ index, src }) {
         </>
     )
 }
+
+export default IoMedia

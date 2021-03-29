@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
+import axios from 'axios'
 import Cookies from 'js-cookie'
 import ReactHtmlParser from 'react-html-parser';
 
@@ -11,7 +11,7 @@ import Canvas from '../../Canvas'
 import back from '../../../assets/back.png'
 import pdfImg from '../../../assets/pdf.png'
 
-export default function Content({ id }) {
+const Content = ({ id }) => {
 
     const [content, setContent] = useState({
         report: {
@@ -50,6 +50,7 @@ export default function Content({ id }) {
         },
         [id]
     )
+
     useEffect(() => {
         fetchReport()
     }, [fetchReport])
@@ -370,3 +371,5 @@ export default function Content({ id }) {
         </main>
     )
 }
+
+export default Content

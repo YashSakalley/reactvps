@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 
-function IPC_content({ ipcMsg, close }) {
+const IPC_content = ({ ipcMsg, close }) => {
     const [ipc, setIpc] = useState([])
     const [msg, setMsg] = useState(null)
 

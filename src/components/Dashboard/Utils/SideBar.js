@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 import police_officer_dashboard from '../../../assets/police_officer_dashboard.png'
 
-export default function SideBar({ sideBarOpen, setSideBarOpen }) {
+const SideBar = ({ sideBarOpen, setSideBarOpen }) => {
     const role = useParams().role
     const onLogout = () => {
         Cookies.remove('user')
@@ -118,3 +118,5 @@ export default function SideBar({ sideBarOpen, setSideBarOpen }) {
         </div>
     )
 }
+
+export default SideBar

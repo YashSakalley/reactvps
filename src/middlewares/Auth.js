@@ -3,7 +3,7 @@ import { withRouter, Redirect } from 'react-router-dom'
 
 import Cookies from 'js-cookie'
 
-export default function Auth(WrappedComponent) {
+const Auth = (WrappedComponent) => {
     console.log('Wrapper');
     class AuthHOC extends Component {
         render() {
@@ -13,3 +13,5 @@ export default function Auth(WrappedComponent) {
     }
     return withRouter(AuthHOC);
 }
+
+export default Auth

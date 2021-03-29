@@ -8,7 +8,7 @@ import circuit from '../../../assets/circuit.jpg'
 import doc from '../../../assets/doc.png'
 import { Link } from 'react-router-dom'
 
-export default function Status() {
+const Status = () => {
 
     const [form, setform] = useState({
         reportId: ''
@@ -131,3 +131,5 @@ export default function Status() {
         </>
     );
 };
+
+export default Status

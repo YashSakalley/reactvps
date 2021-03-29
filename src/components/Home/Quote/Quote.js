@@ -2,7 +2,7 @@ import React from 'react'
 
 import './Quote.css'
 
-export default function Quote({ msg, author }) {
+const Quote = ({ msg, author }) => {
 
     return (
         <div className="Quote">
@@ -12,6 +12,6 @@ export default function Quote({ msg, author }) {
             </blockquote>
         </div>
     )
-
-
 }
+
+export default Quote

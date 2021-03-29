@@ -18,7 +18,7 @@ import LegalContent from './components/Legal/LegalContent'
 import LegalLogin from './components/Legal/LegalLogin'
 import Legal from './pages/Legal'
 
-export default function AppRouter() {
+const AppRouter = () => {
     return (
         <Switch>
 
@@ -95,3 +95,5 @@ export default function AppRouter() {
         </Switch>
     )
 }
+
+export default AppRouter

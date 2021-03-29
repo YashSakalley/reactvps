@@ -4,9 +4,9 @@ import img1 from '../../../assets/Slider/img1.png'
 import img2 from '../../../assets/Slider/img2.jpg'
 import img3 from '../../../assets/Slider/img3.jpg'
 import img4 from '../../../assets/Slider/img4.jpg'
-
 import './Slider.css'
-export default function Slider() {
+
+const Slider = () => {
 
     return (
         <>
@@ -42,3 +42,5 @@ export default function Slider() {
         </>
     );
 };
+
+export default Slider

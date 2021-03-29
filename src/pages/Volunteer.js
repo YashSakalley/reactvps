@@ -8,7 +8,7 @@ import Table from '../components/Volunteer/Utils/Table'
 
 import Auth from '../middlewares/Auth'
 
-function Volunteer() {
+const Volunteer = () => {
     const [sideBarOpen, setSideBarOpen] = useState(false)
 
     return (

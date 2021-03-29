@@ -3,13 +3,14 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useHistory, Link } from 'react-router-dom'
 
-import wallpaper from '../../assets/landing_wallpaper.jpg'
-import aadhaar from '../../assets/aadhaar.png'
-import brain from '../../assets/brain.png'
 import Modal from '../UI/Modal'
 import VolModal from '../Volunteer/VolModal'
 
-export default function Auth() {
+import wallpaper from '../../assets/landing_wallpaper.jpg'
+import aadhaar from '../../assets/aadhaar.png'
+import brain from '../../assets/brain.png'
+
+const Auth = () => {
 
     const [form, setForm] = useState({
         uid: '',
@@ -231,3 +232,5 @@ export default function Auth() {
         </div>
     );
 };
+
+export default Auth

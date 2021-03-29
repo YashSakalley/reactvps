@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie'
 
-export default function WithoutAadhaar() {
+const WithoutAadhaar = () => {
     let history = useHistory()
 
     const [idProof, setIdProof] = useState(null)
@@ -170,3 +170,5 @@ export default function WithoutAadhaar() {
         </>
     )
 }
+
+export default WithoutAadhaar

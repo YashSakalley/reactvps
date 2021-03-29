@@ -1,7 +1,7 @@
 import React from 'react'
 import Cookies from 'js-cookie'
 
-export default function ChatHeader() {
+const ChatHeader = () => {
     const NOW = new Date().toLocaleDateString()
     const user = Cookies.getJSON('user').user
     let name = user.first_name + ' ' + user.last_name
@@ -36,3 +36,5 @@ export default function ChatHeader() {
         </div>
     )
 }
+
+export default ChatHeader

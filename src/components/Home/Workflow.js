@@ -6,7 +6,7 @@ import chatbot from '../../assets/chatbot.png'
 import fingerprint from '../../assets/fingerprint.jpg'
 import status from '../../assets/status.png'
 
-export default function workflow() {
+const Workflow = () => {
     return (
         <div
             className="sm:h-screen"
@@ -67,3 +67,5 @@ export default function workflow() {
 
     )
 }
+
+export default Workflow

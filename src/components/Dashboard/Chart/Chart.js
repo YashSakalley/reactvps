@@ -1,8 +1,5 @@
 import React from 'react'
-import { Line } from 'react-chartjs-2'
-import { Bar } from 'react-chartjs-2'
-import { Pie } from 'react-chartjs-2'
-import { Doughnut } from 'react-chartjs-2'
+import { Line, Bar, Pie, Doughnut } from 'react-chartjs-2'
 
 const Chart = ({ status }) => {
     const data = {

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Modal from '../../UI/Modal'
 import NearbyStation from '../NearbyStation'
 
-export default function Nav() {
+const Nav = () => {
     const [showModal, setShowModal] = useState(false)
     return (
         <>
@@ -81,3 +81,5 @@ export default function Nav() {
         </>
     );
 };
+
+export default Nav

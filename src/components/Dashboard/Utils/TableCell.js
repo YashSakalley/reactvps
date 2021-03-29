@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-export default function TableCell({ crime, time, status, bg, id }) {
+const TableCell = ({ crime, time, status, bg, id }) => {
     let d = new Date(time)
     d = d.toString()
     d = d.split(' ')
@@ -19,3 +19,5 @@ export default function TableCell({ crime, time, status, bg, id }) {
         </tr>
     )
 }
+
+export default TableCell

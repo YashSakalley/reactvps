@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 import police_officer_small from '../../../assets/police_officer_small.jpg'
 
-export default function Nav({ sideBarOpen, setSideBarOpen }) {
+const Nav = ({ sideBarOpen, setSideBarOpen }) => {
 
     const [dropDownOpen, setDropDownOpen] = useState(false)
 
@@ -78,8 +78,4 @@ export default function Nav({ sideBarOpen, setSideBarOpen }) {
     )
 }
 
-// eslint-disable-next-line no-lone-blocks
-{ /*
-@click="dropdownOpen = !dropdownOpen"
-@click="dropdownOpen = false"
-*/ }
+export default Nav

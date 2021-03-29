@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Map from './Map'
 
-export default function NearbyStation() {
+const NearbyStation = () => {
     const [showMap, setShowMap] = useState(false)
     const [PSname, setPSName] = useState('')
     const [PSlocation, setPSlocation] = useState('')
@@ -132,3 +132,5 @@ export default function NearbyStation() {
         </div>
     )
 }
+
+export default NearbyStation

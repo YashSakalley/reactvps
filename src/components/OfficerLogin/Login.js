@@ -3,80 +3,76 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useHistory, useParams } from 'react-router-dom'
 
+import Modal from '../UI/Modal'
+
 import login_wallpaper from '../../assets/login_wallpaper.jpg'
 import police_officer from '../../assets/police_officer.webp'
 import police_logo from '../../assets/police_logo.png'
-import Modal from '../UI/Modal'
 
-export default function Login() {
-
-    const role = useParams().role
-
+const Login = () => {
+    const [msg, setMsg] = useState(false)
+    const [uploadMsg, setUploadMsg] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const { role } = useParams()
     const [form, setForm] = useState({
         email: '',
         password: ''
     })
-
-    const [msg, setMsg] = useState(false)
-    const [uploadMsg, setUploadMsg] = useState(false)
-    const [showModal, setShowModal] = useState(false)
-
     const history = useHistory()
 
-    const changeHandler = (event) => {
+    const changeHandler = ({ target: { name, value } }) => {
         setForm({
             ...form,
-            [event.target.name]: event.target.value
+            [name]: value
         })
     }
 
-    const submitHandler = () => {
+    const submitHandler = async () => {
         setMsg('Verifying. Please Wait')
-
-        axios.post(`/${role}/login`, form)
-            .then((res) => {
-                console.log(res.data);
-                if (res.data.status === "success") {
-                    let user = res.data.user
-
-                    Cookies.remove('user')
-                    Cookies.set('token', user._id, { expires: 7 })
-                    Cookies.set('user', { user: user })
-                    Cookies.set('role', role)
-
-                    history.push(`/dashboard/${role}`)
-                } else if (res.data.msg === "NOUSER") {
-                    setMsg('No user with given details found')
-                } else if (res.data.msg === "INVPASS") {
-                    setMsg('Your password is incorrect')
-                } else if (res.data.msg === "DBERR") {
-                    setMsg('Database error occurred. Please try again later')
-                } else {
-                    setMsg('Unexpected error. Please try again later')
+        try {
+            const { data: { status, msg, user: dataUser } } = await axios.post(`/${role}/login`, form)
+            if (status === 'success') {
+                let user = dataUser
+                Cookies.remove('user')
+                Cookies.set('token', user._id, { expires: 7 })
+                Cookies.set('user', { user })
+                Cookies.set('role', role)
+                history.push(`/dashboard/${role}`)
+            } else {
+                switch (msg) {
+                    case 'NOUSER':
+                        setMsg('No user with given details found')
+                        break
+                    case 'INVPASS':
+                        setMsg('Your password is incorrect')
+                        break
+                    case 'DBERR':
+                        setMsg('Database error occurred. Please try again later')
+                        break
+                    default:
+                        setMsg('Unexpected error. Please try again later')
                 }
-            })
-            .catch((err) => {
-                console.log(err);
-                setMsg('Error requesting to database')
-            })
-
+            }
+        } catch (err) {
+            console.log(err);
+            setMsg('Error requesting to database')
+        }
     }
 
-    const uploadHandler = (e) => {
+    const uploadHandler = async (e) => {
         if ((e.target.files[0] === "") || (e.target.files === null))
             return
         setUploadMsg('Uploading')
         let data = new FormData()
         data.append('file', e.target.files[0])
-        axios.post('/upload', data)
-            .then((res) => {
-                console.log(res);
-                setUploadMsg('Uploaded Successfully. Please Login to continue')
-            })
-            .catch((err) => {
-                console.log(err);
-                setUploadMsg('Error uploading')
-            })
+        try {
+            const res = await axios.post('/upload', data)
+            console.log(res);
+            setUploadMsg('Uploaded Successfully. Please Login to continue')
+        } catch (err) {
+            console.log(err);
+            setUploadMsg('Error uploading')
+        }
     }
 
     return (
@@ -158,3 +154,4 @@ export default function Login() {
     )
 }
 
+export default Login

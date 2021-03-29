@@ -3,7 +3,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { Link } from 'react-router-dom'
 
-export default function FinalPage({ chatForm, mediaForm, crime }) {
+const FinalPage = ({ chatForm, mediaForm, crime }) => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [msg, setMsg] = useState("Please wait while we are submitting your report. This won't take long")
@@ -104,3 +104,5 @@ export default function FinalPage({ chatForm, mediaForm, crime }) {
         </>
     )
 }
+
+export default FinalPage

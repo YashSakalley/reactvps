@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
-export default function ChatControls({ submit }) {
+const ChatControls = ({ submit }) => {
 
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [isListening, setIsListening] = useState(false)
@@ -98,3 +98,5 @@ export default function ChatControls({ submit }) {
         </>
     )
 }
+
+export default ChatControls
