@@ -1,11 +1,9 @@
 import tesseract from 'tesseract.js'
 
 export default async (src) => {
-
     let res
     let image = new Image()
     image.src = `http://localhost:5000/getFile/${src}`
-
     try {
         const result = await tesseract.recognize(image)
         console.log('Returning', result);

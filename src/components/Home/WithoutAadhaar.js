@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
-import Axios from 'axios';
+import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie'
 
 const WithoutAadhaar = () => {
-    let history = useHistory()
-
     const [idProof, setIdProof] = useState(null)
     const [msg, setMsg] = useState(null)
-
     const [form, setForm] = useState({
         first_name: '',
         phone: '',
@@ -16,6 +13,7 @@ const WithoutAadhaar = () => {
         reason: '',
         id_proof: null
     })
+    const history = useHistory()
 
     const onInputChanged = (e) => {
         setForm({
@@ -24,51 +22,43 @@ const WithoutAadhaar = () => {
         })
     }
 
-    const onUploadFile = (e) => {
+    const onUploadFile = async (e) => {
         e.preventDefault()
-        let data = new FormData()
+        const data = new FormData()
         data.append('file', idProof)
-        Axios.post('/upload', data)
-            .then((res) => {
-                if (res.data.status === 'success') {
-                    setForm({
-                        ...form,
-                        id_proof: res.data.file.filename
-                    })
-                    setMsg('Upload successfully completed. Please submit the form')
-                } else {
-                    setMsg('Error Uploading')
-                }
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-                setMsg('Server Error')
-            })
+        try {
+            const { data: data1 } = await axios.post('/upload', data)
+            if (data1.status === 'success') {
+                setForm({
+                    ...form,
+                    id_proof: data1.file.filename
+                })
+                setMsg('Upload successfully completed. Please submit the form')
+            } else {
+                setMsg('Error Uploading')
+            }
+        } catch (err) {
+            console.log(err);
+            setMsg('Server Error')
+        }
     }
 
-    const onSubmitForm = (e) => {
+    const onSubmitForm = async (e) => {
         e.preventDefault()
-        console.log('Without aadhaar submitted');
-        Axios.post('/user/withoutAadhaar', form)
-            .then((res) => {
-                console.log(res);
-                if (res.data.status === 'success') {
-                    let user = res.data.user
-
-                    Cookies.remove('token')
-                    Cookies.remove('user')
-
-                    Cookies.set('token', user._id, { expires: 7 })
-                    Cookies.set('user', { user: user }, { expires: 7 })
-                    Cookies.set('role', 'user')
-
-                    history.push('/submitReport')
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        try {
+            const { data } = await axios.post('/user/withoutAadhaar', form)
+            if (data.status === 'success') {
+                const { user } = data
+                Cookies.remove('token')
+                Cookies.remove('user')
+                Cookies.set('token', user._id, { expires: 7 })
+                Cookies.set('user', { user }, { expires: 7 })
+                Cookies.set('role', 'user')
+                history.push('/submitReport')
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (

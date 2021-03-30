@@ -8,7 +8,6 @@ import down from '../../../assets/down.png'
 import left from '../../../assets/left.png'
 
 const Content = ({ id }) => {
-
     const initialContent = useMemo(() => ({
         report: {
             _id: '',
@@ -21,23 +20,20 @@ const Content = ({ id }) => {
         },
         user: {}
     }), [])
-
-    const history = useHistory()
-    const { role } = useParams()
-
     const [content, setContent] = useState(initialContent)
-
     const [showDetails, setShowDetails] = useState(false)
     const [showAnalytics, setShowAnalytics] = useState(false)
     const [showUpdate, setShowUpdate] = useState(false)
     const [showPrivateUpdate, setShowPrivateUpdate] = useState(false)
-
     const [showNotes, setShowNotes] = useState(false)
-
     const [work, setWork] = useState('')
     const [msg, setMsg] = useState(null)
     const [publishMsg, setPublishMsg] = useState(null)
-
+    const [showTextBox, setShowTextBox] = useState(false)
+    const [rejectedReason, setRejectedReason] = useState('')
+    const history = useHistory()
+    const { role } = useParams()
+    
     const onSubmitWork = async (vis) => {
         if (work === '') 
             return
@@ -46,8 +42,7 @@ const Content = ({ id }) => {
             const res = await axios.put(`/reports/work/${content.report._id}/${vis === 'public' ? 'public' : 'private'}`, {work: work})
             console.log(res);
             setMsg('Saved')
-            let location = window.location
-            location.reload()
+            window.location.reload()
         } catch (err) {
             console.log(err);
             setMsg('Error saving')
@@ -121,8 +116,6 @@ const Content = ({ id }) => {
         }
     }
 
-    const [showTextBox, setShowTextBox] = useState(false)
-    const [rejectedReason, setRejectedReason] = useState('')
     const controls =
         <>
             {
@@ -308,16 +301,17 @@ const Content = ({ id }) => {
                     </div>
                     <h2 className="m-2 text-2xl">Previous Work</h2>
                     <div className="m-4">
-                        {content.report.work.map((w, i) => {
-                            return <div className="m-4" key={i}>
-                                <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
+                        {content.report.work.map((w, i) => (
+                            <div className="m-4" key={i}>
+                                <span className="text-gray-600 mr-4">{i + 1}</span> 
+                                <span className="text-xl">{w}</span>
                             </div>
-                        })}
+                        ))}
                     </div>
                     <div>
                         <div className="flex">
-                        <button onClick={onPublishWork} className="p-2 px-4 rounded text-white bg-teal-600 m-2">PUBLISH</button>
-                        <button onClick={onHideWork} className="p-2 px-4 rounded text-white bg-teal-600 m-2">HIDE</button>
+                            <button onClick={onPublishWork} className="p-2 px-4 rounded text-white bg-teal-600 m-2">PUBLISH</button>
+                            <button onClick={onHideWork} className="p-2 px-4 rounded text-white bg-teal-600 m-2">HIDE</button>
                         </div>
                         <p className="text-red-600 m-2">{publishMsg}</p>
                     </div>
@@ -350,22 +344,23 @@ const Content = ({ id }) => {
                     </div>
                     <h2 className="m-2 text-2xl">Previous Work</h2>
                     <div className="m-4">
-                        {content.report.private_work.map((w, i) => {
-                            return <div className="m-4" key={i}>
-                                <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
+                        {content.report.private_work.map((w, i) => (
+                            <div className="m-4" key={i}>
+                                <span className="text-gray-600 mr-4">{i + 1}</span>
+                                <span className="text-xl">{w}</span>
                             </div>
-                        })}
+                        ))}
                     </div>
                 </div>
             </div>
 
-            {(content.report.status === 'Approved by IO' || content.report.status === 'Rejected by IO')
-                ? null
-                :
+            {
+                (content.report.status !== 'Approved by IO' && content.report.status !== 'Rejected by IO')
+                &&
                 <div className="m-16 ml-6">
                     {controls}
-                </div>}
-            
+                </div>
+            }
         </main>
     )
 }

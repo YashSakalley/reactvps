@@ -8,11 +8,19 @@ import ContentCell from './ContentCell'
 import Modal from '../../UI/Modal'
 import Canvas from '../../Canvas'
 
-import back from '../../../assets/back.png'
-import pdfImg from '../../../assets/pdf.png'
+import back from 'assets/back.png'
+import pdfImg from 'assets/pdf.png'
 
 const Content = ({ id }) => {
-
+    const [msg, setMsg] = useState('')
+    const [showDetails, setShowDetails] = useState(false)
+    const [showCanvas, setShowCanvas] = useState(false)
+    const [showAcceptModal, setShowAcceptModal] = useState(false)
+    const [signature, setSignature] = useState(null)
+    const [showTextBox, setshowTextBox] = useState(false)
+    const [rejectedReason, setRejectedReason] = useState('')
+    const [msgEntity, setMsgEntity] = useState(null)
+    const [entities, setEntities] = useState(null)
     const [content, setContent] = useState({
         report: {
             answers: ['', '', '', '', '', '', ''],
@@ -21,11 +29,8 @@ const Content = ({ id }) => {
         },
         user: {}
     })
-    const [msg, setMsg] = useState('')
-    const [showDetails, setShowDetails] = useState(false)
-
-    let history = useHistory()
-    let role = useParams().role
+    const history = useHistory()
+    const { role } = useParams()
 
     let d = new Date(content.report.time)
     d = d.toString()
@@ -59,26 +64,18 @@ const Content = ({ id }) => {
         history.goBack()
     }
 
-    const [showCanvas, setShowCanvas] = useState(false)
-    const [showAcceptModal, setShowAcceptModal] = useState(false)
     const onAcceptHandler = () => {
         setShowAcceptModal(true)
     }
 
-    const [signature, setSignature] = useState(null)
     const onSignatureChanged = (event) => {
-        console.clear()
-        console.log(event.target.files[0])
         setSignature(event.target.files[0])
     }
 
-    const onFinishHandler = () => {
+    const onFinishHandler = async () => {
         setMsg('Uploading Signature . . .');
-        console.log('Changing Status');
-
         const { user, report } = content
-        const officer = Cookies.getJSON('user').user
-
+        const { user: officer } = Cookies.getJSON('user')
         let officerRole
         if (role === 'sho') {
             officerRole = 'Station House Officer'
@@ -88,7 +85,7 @@ const Content = ({ id }) => {
             officerRole = 'Investigation Officer'
         }
 
-        let body = {
+        const body = {
             report_id: report._id,
             sender: {
                 name: `${user.first_name} ${user.last_name}`,
@@ -117,50 +114,37 @@ const Content = ({ id }) => {
             }
         }
 
-        let signatureData = new FormData()
+        const signatureData = new FormData()
         signatureData.append('file', signature)
-        axios.post('/upload', signatureData)
-            .then((res) => {
-                if (res.data.status === 'success') {
-                    console.log('Signature Uploaded');
-                    setMsg('Signature Uploaded. Changing Status to approved . . .')
-                    let infoSignature = res.data.file.filename
-                    body.info.reciever_sign = infoSignature
-                    axios.put(`/reports/${content.report._id}`, { status: `Approved by ${role.toUpperCase()}` })
-                        .then((res) => {
-                            if (res.data.status === 'success') {
-                                setMsg('Status updated. Generating pdf...')
-                                console.log('Generating pdf');
-                                axios.post('/firs', body)
-                                    .then((res) => {
-                                        if (res.data.status === 'success') {
-                                            setMsg('Pdf Generated. Redirecting...')
-                                            onBackHandler()
-                                        }
-                                    })
-                            }
-                        })
+        try {
+            const { data } = await axios.post('/upload', signatureData)
+            if (data.status === 'success') {
+                setMsg('Signature Uploaded. Changing Status to approved . . .')
+                const infoSignature = data.file.filename
+                body.info.reciever_sign = infoSignature
+                const { data: data1 } = await axios.put(`/reports/${content.report._id}`, { status: `Approved by ${role.toUpperCase()}` })
+                if (data1.status === 'success') {
+                    setMsg('Status updated. Generating pdf...')
+                    const { data: data2 } = await axios.post('/firs', body)
+                    if (data2.status === 'success') {
+                        setMsg('Pdf Generated. Redirecting...')
+                        onBackHandler()
+                    }
                 }
-            })
-            .catch((err) => {
-                setMsg('Error occurred. Please try later')
-                console.log(err)
-            })
-
+            }
+        } catch (err) {
+            setMsg('Error occurred. Please try later')
+            console.log(err)
+        }
     }
 
-    const [showTextBox, setshowTextBox] = useState(false)
-    const [rejectedReason, setRejectedReason] = useState('')
-
-    const onDeclineHandler = () => {
-        axios.put(`/reports/${content.report._id}`, { status: `Rejected by ${role.toUpperCase()}`, reason: rejectedReason })
-            .then((res) => {
-                console.log(res)
-                history.goBack()
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    const onDeclineHandler = async () => {
+        try {
+            await axios.put(`/reports/${content.report._id}`, { status: `Rejected by ${role.toUpperCase()}`, reason: rejectedReason })
+            history.goBack()
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const controls =
@@ -200,22 +184,17 @@ const Content = ({ id }) => {
             }
         </>
 
-    const [msgEntity, setMsgEntity] = useState(null)
-    const [entities, setEntities] = useState(null)
-    const onShowEntities = () => {
+
+    const onShowEntities = async () => {
         setMsgEntity('Please Wait')
-        axios.post('/entity', { desc: content.report.answers[6] })
-            .then((res) => {
-                console.log(res);
-                setEntities(res.data.entity)
-                setMsgEntity('')
-
-            })
-            .catch((err) => {
-                console.log(err);
-                setMsgEntity('Error Occurred')
-
-            })
+        try {
+            const { data } = await axios.post('/entity', { desc: content.report.answers[6] })
+            setEntities(data.entity)
+            setMsgEntity('')
+        } catch (err) {
+            console.log(err);
+            setMsgEntity('Error Occurred')
+        }
     }
 
     return (
@@ -230,52 +209,49 @@ const Content = ({ id }) => {
                 {/* Signature Modal */}
                 {
                     showCanvas
-                        ? <Canvas submit={(file) => { setSignature(file); setShowCanvas(false) }} />
-                        : null
+                    && <Canvas submit={(file) => { setSignature(file); setShowCanvas(false) }} />
                 }
-
             </Modal>
             <div className="container px-6 pt-8 bg-gray-200">
                 {
                     showAcceptModal
-                        ?
-                        <div
-                            style={{ backdropFilter: 'blur(3.8px)' }}
-                            className={`fixed z-20 flex text-center justify-center items-center inset-0 text-white bg-black bg-opacity-75 transition-opacity ${showAcceptModal ? 'block' : 'hidden'}`}>
-                            <div className="">
-                                <h2 className="text-xl m-4"> Please submit your signature to accept this report </h2>
-                                <input
-                                    type="file"
-                                    id="signature"
-                                    className="hidden"
-                                    onChange={onSignatureChanged} />
-                                <label htmlFor="signature" className="bg-green-400 p-2 pl-4 pr-4 m-2 text-black cursor-pointer">UPLOAD</label>
+                    &&
+                    <div
+                        style={{ backdropFilter: 'blur(3.8px)' }}
+                        className={`fixed z-20 flex text-center justify-center items-center inset-0 text-white bg-black bg-opacity-75 transition-opacity ${showAcceptModal ? 'block' : 'hidden'}`}>
+                        <div className="">
+                            <h2 className="text-xl m-4"> Please submit your signature to accept this report </h2>
+                            <input
+                                type="file"
+                                id="signature"
+                                className="hidden"
+                                onChange={onSignatureChanged} />
+                            <label htmlFor="signature" className="bg-green-400 p-2 pl-4 pr-4 m-2 text-black cursor-pointer">UPLOAD</label>
                                     OR
                                 <button
-                                    onClick={() => setShowCanvas(true)}
-                                    className="bg-blue-400 p-2 pl-4 pr-4 m-2 text-black">DRAW</button> <br /> <br />
-                                {
-                                    signature
-                                        ?
-                                        <>
-                                            Signature Uploaded: {signature.name} <br /> <br />
-                                            <button onClick={onFinishHandler} className="p-2 text-xl w-full bg-blue-600">FINISH</button>
-                                        </>
-                                        : null
-                                }
-                                {
-                                    msg !== ''
-                                        ?
-                                        <>
-                                            <br />
-                                            {msg} <br />
-                                            <i className="mt-4 text-4xl fas fa-circle-notch fa-spin"></i>
-                                        </>
-                                        : null
-                                }
-                            </div>
+                                onClick={() => setShowCanvas(true)}
+                                className="bg-blue-400 p-2 pl-4 pr-4 m-2 text-black">DRAW</button> <br /> <br />
+                            {
+                                signature
+                                    ?
+                                    <>
+                                        Signature Uploaded: {signature.name} <br /> <br />
+                                        <button onClick={onFinishHandler} className="p-2 text-xl w-full bg-blue-600">FINISH</button>
+                                    </>
+                                    : null
+                            }
+                            {
+                                msg !== ''
+                                    ?
+                                    <>
+                                        <br />
+                                        {msg} <br />
+                                        <i className="mt-4 text-4xl fas fa-circle-notch fa-spin"></i>
+                                    </>
+                                    : null
+                            }
                         </div>
-                        : null
+                    </div>
                 }
                 <div className="flex justify-between items-center">
                     <button
@@ -287,23 +263,21 @@ const Content = ({ id }) => {
                             alt="" />
                     </button>
                     <h1 className="text-3xl">DETAILED REPORT</h1>
-
                     <div>
                         {
                             content.report.status.includes('Approved')
-                                ?
-                                <a
-                                    title="Show Generated Pdf"
-                                    className="hover:text-red-400"
-                                    href={`${process.env.REACT_APP_API_URL}/getPdf/${content.report._id}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    {/* <i className="far fa-file-pdf text-3xl "></i> */}
-                                    <img src={pdfImg}
-                                        className="rounded duration-200 w-16 h-16 hover:bg-red-500"
-                                        alt="" />
-                                </a>
-                                : null
+                            &&
+                            <a
+                                title="Show Generated Pdf"
+                                className="hover:text-red-400"
+                                href={`${process.env.REACT_APP_API_URL}/getPdf/${content.report._id}`}
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                {/* <i className="far fa-file-pdf text-3xl "></i> */}
+                                <img src={pdfImg}
+                                    className="rounded duration-200 w-16 h-16 hover:bg-red-500"
+                                    alt="" />
+                            </a>
                         }
                     </div>
                 </div>
@@ -327,20 +301,19 @@ const Content = ({ id }) => {
                 </h1>
                 {
                     showDetails
-                        ?
-                        <table className="text-left w-full mt-4 bg-white text-lg shadow-xl">
-                            <tbody className="bg-grey-light flex flex-col items-center justify-between w-full">
-                                {
-                                    content.report.answers.map((answer, i) => (
-                                        <ContentCell
-                                            key={i}
-                                            id={content.report.questions[i].toUpperCase()}
-                                            value={answer} />
-                                    ))
-                                }
-                            </tbody>
-                        </table>
-                        : null
+                    &&
+                    <table className="text-left w-full mt-4 bg-white text-lg shadow-xl">
+                        <tbody className="bg-grey-light flex flex-col items-center justify-between w-full">
+                            {
+                                content.report.answers.map((answer, i) => (
+                                    <ContentCell
+                                        key={i}
+                                        id={content.report.questions[i].toUpperCase()}
+                                        value={answer} />
+                                ))
+                            }
+                        </tbody>
+                    </table>
                 }
 
                 {/* Entities */}
@@ -351,7 +324,7 @@ const Content = ({ id }) => {
                         onClick={onShowEntities}
                         className={`m-2 p-2 px-4 bg-teal-500 rounded ${entities ? 'hidden' : ''}`}>
                         Show
-                        </button>
+                    </button>
                     <div>{ReactHtmlParser(entities)}</div>
                 </div>
                 <div className="flex p-2">
@@ -360,11 +333,9 @@ const Content = ({ id }) => {
                         controls
                         :
                         content.report.status === 'Rejected by SHO'
-                            ?
-                            role === 'sp'
-                                ? controls
-                                : null
-                            : null
+                        &&
+                        role === 'sp'
+                        && controls
                     }
                 </div>
             </div>

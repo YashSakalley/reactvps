@@ -1,6 +1,6 @@
 import React from 'react'
 
-import pdfImg from '../../../assets/pdf.png'
+import pdfImg from 'assets/pdf.png'
 
 const StatusResult = ({ show, work, result, reportId }) => {
 
@@ -59,121 +59,103 @@ const StatusResult = ({ show, work, result, reportId }) => {
         </div>
     </div>
 
+    const downArrow = <div className="text-center text-xl text-teal-800 font-bold">
+        <i className="fas fa-arrow-down"></i>
+    </div>
+
     return (
         <div className="bg-white rounded-lg shadow-lg overflow-hidden m-2 p-5 sm:mx-24">
             <div className="flex justify-between">
                 <div> CURRENT STATUS: {result} </div>
                 {
                     result.includes('Approved')
-                        ?
-                        <a
-                            title="Show Generated Pdf"
-                            className="hover:text-red-400 float-right"
-                            href={`${process.env.REACT_APP_API_URL}/getPdf/${reportId}`}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            {/* <i className="far fa-file-pdf text-3xl float-right"></i> */}
-                            <img src={pdfImg}
-                                className="rounded duration-200 w-16 h-16 hover:bg-red-500"
-                                alt="" />
-                        </a>
-                        : null
+                    &&
+                    <a
+                        title="Show Generated Pdf"
+                        className="hover:text-red-400 float-right"
+                        href={`${process.env.REACT_APP_API_URL}/getPdf/${reportId}`}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <img src={pdfImg}
+                            className="rounded duration-200 w-16 h-16 hover:bg-red-500"
+                            alt="" />
+                    </a>
                 }
             </div>
             <div className="">
-                <h2 className="text-center text-3xl uppercase m-4">Status Tree</h2>
+                <h2 className="text-left text-3xl uppercase m-4">Status Tree</h2>
                 <div className="">
                     {
                         result === 'Pending'
-                            ?
-                            <>
-                                {pending}
-                            </>
-                            : null
+                        &&
+                        <>
+                            {pending}
+                        </>
                     }
                     {
                         result === 'Approved by SHO'
-                            ?
-                            <>
-                                {pending}
-                                <div className="text-center text-xl text-teal-800 font-bold">
-                                    <i class="fas fa-arrow-down"></i>
-                                </div>
-                                {approvedSho}
-                            </>
-                            : null
+                        &&
+                        <>
+                            {pending}
+                            {downArrow}
+                            {approvedSho}
+                        </>
                     }
                     {
                         result === 'Rejected by SHO'
-                            ?
-                            <>
-                                {pending}
-                                <div className="text-center text-xl text-teal-800 font-bold">
-                                    <i className="fas fa-arrow-down"></i>
-                                </div>
-                                {rejectedSho}
-                            </>
-                            : null
+                        &&
+                        <>
+                            {pending}
+                            {downArrow}
+                            {rejectedSho}
+                        </>
                     }
                     {
                         result === 'Approved by SP'
-                            ?
-                            <>
-                                {pending}
-                                <div className="text-center text-xl text-teal-800 font-bold">
-                                    <i class="fas fa-arrow-down"></i>
-                                </div>
-                                {rejectedSho}
-                                <div className="text-center text-xl text-teal-800 font-bold">
-                                    <i class="fas fa-arrow-down"></i>
-                                </div>
-                                {approvedSp}
-                            </>
-                            : null
+                        &&
+                        <>
+                            {pending}
+                            {downArrow}
+                            {rejectedSho}
+                            {downArrow}
+                            {approvedSp}
+                        </>
                     }
                     {
                         result === 'Rejected by SP'
-                            ?
-                            <>
-                                {pending}
-                                <div className="text-center text-xl text-teal-800 font-bold">
-                                    <i className="fas fa-arrow-down"></i>
-                                </div>
-                                {rejectedSho}
-                                <div className="text-center text-xl text-teal-800 font-bold">
-                                    <i className="fas fa-arrow-down"></i>
-                                </div>
-                                {rejectedSp}
-                            </>
-                            : null
+                        &&
+                        <>
+                            {pending}
+                            {downArrow}
+                            {rejectedSho}
+                            {downArrow}
+                            {rejectedSp}
+                        </>
                     }
                 </div>
-
                 {
                     result.includes('Approved')
-                        ?
-                        <>
-                            <h2 className="text-center text-3xl uppercase m-4">Work Done</h2>
-                            {
-                                (work.length === 0) || (!show)
-                                    ?
-                                    <div>This information is currently not available</div>
-                                    :
-                                    <>
-                                        {
-                                            work.map((w, i) => {
-                                                return <div className="m-4" key={i}>
-                                                    <span className="text-gray-600 mr-4">{i + 1}</span> <span className="text-xl">{w}</span>
-                                                </div>
-                                            })
-                                        }
-                                    </>
-                            }
-
-                        </>
-                        : null
+                    &&
+                    <>
+                        <h2 className="text-left mt-8 text-3xl uppercase m-4">Work Done</h2>
+                        {
+                            (work.length === 0) || (!show)
+                                ?
+                                <div>This information is currently not available</div>
+                                :
+                                <>
+                                    {
+                                        work.map((w, i) => (
+                                            <div className="m-4" key={i}>
+                                                <span className="text-gray-600 mr-4">{i + 1}</span>
+                                                <span className="text-xl">{w}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </>
+                        }
+                    </>
                 }
-
             </div>
         </div>
     )

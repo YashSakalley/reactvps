@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 
-import Nav from '../../components/Dashboard/Utils/Nav'
-import SideBar from '../../components/Dashboard/Utils/SideBar'
-import Chart from '../../components/Dashboard/Chart/Chart'
+import Nav from 'components/Dashboard/Utils/Nav'
+import SideBar from 'components/Dashboard/Utils/SideBar'
+import Chart from 'components/Dashboard/Chart/Chart'
 
-import Auth from '../../middlewares/Auth'
+import Auth from 'middlewares/Auth'
 
 const Dashboard = () => {
     const [sideBarOpen, setSideBarOpen] = useState(false)

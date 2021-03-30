@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import styles from './Nav.module.css' //using DropDown css from here
 import { Link } from 'react-router-dom'
+
 import Modal from '../../UI/Modal'
 import NearbyStation from '../NearbyStation'
+
+import styles from './Nav.module.css' //using DropDown css from here
 
 const Nav = () => {
     const [showModal, setShowModal] = useState(false)

@@ -1,11 +1,9 @@
 import Axios from "axios"
 
 export default async (src) => {
-
     let res = {
         status: '',
     }
-
     try {
         const { data: { status, path, total } } = await Axios.get(`/analyse/faces/${src}`)
         if (status !== "success") throw new Error("Success not recieved")
@@ -23,5 +21,4 @@ export default async (src) => {
     } finally {
         return res
     }
-
 }

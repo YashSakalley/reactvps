@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-import Nav from '../../components/Dashboard/Utils/Nav'
-import SideBar from '../../components/Dashboard/Utils/SideBar'
+import Nav from 'components/Dashboard/Utils/Nav'
+import SideBar from 'components/Dashboard/Utils/SideBar'
 import { useParams } from 'react-router-dom'
-import Content from '../../components/Dashboard/Content/Content'
-import IoContent from '../../components/Dashboard/Io/IoContent'
+import Content from 'components/Dashboard/Content/Content'
+import IoContent from 'components/Dashboard/Io/IoContent'
 
-import Auth from '../../middlewares/Auth'
+import Auth from 'middlewares/Auth'
 
 const Dashboard = () => {
     const reportId = useParams().reportId

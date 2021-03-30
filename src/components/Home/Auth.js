@@ -12,109 +12,83 @@ import brain from '../../assets/brain.png'
 
 const Auth = () => {
 
+    const [phone, setPhone] = useState('')
+    const [msg, setMsg] = useState(false)
+    const [isUidDisabled, setIsUidDisabled] = useState(false)
+    const [isOtpDisabled, setIsOtpDisabled] = useState(true)
+    const [showVolModal, setShowVolModal] = useState(false)
     const [form, setForm] = useState({
         uid: '',
         otp: ''
     })
-    const [phone, setPhone] = useState('')
-    const [msg, setMsg] = useState(false)
-
-    const [isUidDisabled, setIsUidDisabled] = useState(false)
-    const [isOtpDisabled, setIsOtpDisabled] = useState(true)
-
-    const [showVolModal, setShowVolModal] = useState(false)
 
     const history = useHistory();
 
-    const uidSubmitHandler = (event) => {
+    const uidSubmitHandler = async (event) => {
         event.preventDefault()
         setIsUidDisabled(true)
         setMsg('Verifying Aadhaar. Please Wait')
-        let formBody = {
+        const formBody = {
             uid: form.uid
         }
-        axios.post('/verify', formBody)
-            .then((response) => {
-                console.log(response)
-                if (response.data.status === 'success') {
-                    console.log(response.data.phone)
-                    setPhone(response.data.phone)
-                    setIsOtpDisabled(false)
-                    setMsg(false)
+        try {
+            const { data } = await axios.post('/verify', formBody)
+            if (data.status === 'success') {
+                setPhone(data.phone)
+                setIsOtpDisabled(false)
+                setMsg(false)
+            } else {
+                if (data.error) {
+                    setMsg('Too many requests. Try again later')
                 } else {
-                    if (response.data.error) {
-                        setMsg('Too many requests. Try again later')
-                    } else {
-                        setMsg(response.data)
-                    }
-                    console.log(response.data.error)
-                    setIsUidDisabled(false)
+                    setMsg(data)
                 }
-            })
-            .catch((error) => {
-                console.log('Unexpected axios error: ', error)
-                setMsg('Error Occurred. Please Try Later')
                 setIsUidDisabled(false)
-            })
+            }
+        } catch (err) {
+            console.error('Unexpected axios error: ', err)
+            setMsg('Error Occurred. Please Try Later')
+            setIsUidDisabled(false)
+        }
     }
 
-    const otpSubmitHandler = (event) => {
+    const otpSubmitHandler = async (event) => {
         event.preventDefault();
         setMsg('Verifying OTP. Please Wait')
-
-        let formBody = {
-            phone: phone,
+        const formBody = {
+            phone,
             otp: form.otp
         }
-
-        axios.post('/verify/otp', formBody)
-            .then((response) => {
-                console.log('otp response', response);
-                if (response.data.status === 'success') {
-
-                    console.log('Redirect to Report');
-                    setMsg('Redirecting. Please Wait')
-
-                    let formBody = {
-                        uid: form.uid
-                    }
-
-                    axios.post('/user/create', formBody)
-                        .then((response) => {
-                            console.log(response)
-                            if (response.data.status === 'success') {
-                                let user = response.data.user;
-                                console.log(user);
-
-                                Cookies.remove('token')
-                                Cookies.remove('user')
-
-                                Cookies.set('token', user._id, { expires: 7 })
-                                Cookies.set('user', { user: user }, { expires: 7 })
-                                Cookies.set('role', 'user')
-
-                                history.push('/submitReport')
-                            } else {
-                                setMsg('Internal Database Error')
-                            }
-                        })
-                        .catch((error) => {
-                            console.log('Axios Error', error)
-                            setMsg('Error Occurred. Please Try Later')
-                        });
+        try {
+            const { data } = await axios.post('/verify/otp', formBody)
+            if (data.status === 'success') {
+                setMsg('Redirecting. Please Wait')
+                const { data: { status, user } } = await axios.post('/user/create', { uid: form.uid })
+                if (status === 'success') {
+                    Cookies.remove('token')
+                    Cookies.remove('user')
+                    Cookies.set('token', user._id, { expires: 7 })
+                    Cookies.set('user', { user }, { expires: 7 })
+                    Cookies.set('role', 'user')
+                    history.push('/submitReport')
                 } else {
-                    console.log('Invalid OTP')
-                    setMsg('Invalid OTP')
+                    setMsg('Internal Database Error')
                 }
-            })
-            .catch((error) => {
-                console.log('Axios OTP Error', error);
-                setMsg('Error sending OTP. Please Try Later')
-            })
+            } else {
+                console.log('Invalid OTP')
+                setMsg('Invalid OTP')
+            }
+        } catch (err) {
+            console.log('Axios Error', err)
+            setMsg('Error Occurred. Please Try Later')
+        }
     }
 
-    const inputChangedHandler = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value })
+    const inputChangedHandler = ({ target: { name, value } }) => {
+        setForm({
+            ...form,
+            [name]: value
+        })
     }
 
     return (
@@ -175,18 +149,16 @@ const Auth = () => {
                                     onClick={uidSubmitHandler}
                                     disabled={isUidDisabled}>
                                     Generate OTP
-                                    </button>
+                                </button>
                             </div>
 
                             {/* OTP Input */}
                             <div className="mt-8">
                                 <div className={`h-4 text-xl text-green-500 flex`}>
-                                    {isOtpDisabled ? null :
-                                        <>
-
-                                            <div> OTP send to {phone} </div>
-
-                                        </>
+                                    {
+                                        !isOtpDisabled
+                                        &&
+                                        <div> OTP send to {phone} </div>
                                     }
                                 </div>
                                 <div className="mt-4 flex justify-between">
@@ -207,7 +179,7 @@ const Auth = () => {
                                     onClick={otpSubmitHandler}
                                     disabled={isOtpDisabled}>
                                     Submit OTP
-                                    </button>
+                                </button>
                             </div>
 
                         </div>
@@ -218,13 +190,10 @@ const Auth = () => {
                             <Link to="/loginWithoutUid">
                                 Don't have an aadhaar available? Click here
                             </Link>
-
-
                             <div className="">OR</div>
                             <div className="cursor-pointer" onClick={() => setShowVolModal(true)}>
                                 Want facilitator support? Click here
                             </div>
-
                         </div>
                     </div>
                 </div>

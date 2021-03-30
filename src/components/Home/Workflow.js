@@ -18,7 +18,7 @@ const Workflow = () => {
             <div id="login-section" className="bg-black font-black text-white text-2xl mx-12 p-5 border-l-8 border-purple-500" style={{ background: 'linear-gradient(45deg, black, gray)' }}>
                 <div>
                     HOW IT WORKS
-                    </div>
+                </div>
             </div>
             <div className="mx-12 mt-6 sm:mt-32 p-5">
                 <div className="flex flex-wrap">
@@ -27,8 +27,8 @@ const Workflow = () => {
                         <div className="mx-4 mt-8">
                             <img src={aadhaar} className="w-full h-48" alt="" />
                         </div>
-                        <div className="bg-gray-900 text-white px-5 mb-2 italic text-center text-xl mx-4 mt-4">
-                            login using aadhar number
+                        <div className="bg-gray-900 text-white px-5 mb-2 text-center text-xl mx-4 mt-4">
+                            Login With Aadhaar
                         </div>
                     </div>
                     <div className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
@@ -37,8 +37,8 @@ const Workflow = () => {
                             <img src={chatbot}
                                 className="w-full h-48" alt="" />
                         </div>
-                        <div className="bg-gray-900 text-white px-5 mb-2 italic text-center text-xl mt-4">
-                            interact with bot
+                        <div className="bg-gray-900 text-white px-5 mb-2 text-center text-xl mt-4">
+                            Interact With Bot
                         </div>
                     </div>
                     <div className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
@@ -47,8 +47,8 @@ const Workflow = () => {
                             <img src={fingerprint}
                                 className="w-full h-48" alt="" />
                         </div>
-                        <div className="bg-gray-900 text-white px-5 mb-2 italic text-center text-xl mx-4 mt-4">
-                            signature and evidences
+                        <div className="bg-gray-900 text-white px-5 mb-2 text-center text-xl mx-4 mt-4">
+                            Provide Your Signature
                         </div>
                     </div>
                     <div className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
@@ -57,8 +57,8 @@ const Workflow = () => {
                             <img src={status}
                                 className="w-full h-48" alt="" />
                         </div>
-                        <div className="bg-gray-900 text-white px-5 mb-2 italic text-center text-xl mt-4">
-                            finished reporting
+                        <div className="bg-gray-900 text-white px-5 mb-2 text-uppercase text-center text-xl mt-4">
+                            Reporting Finished
                         </div>
                     </div>
                 </div>
