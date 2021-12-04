@@ -75,16 +75,16 @@ const FinalPage = ({ chatForm, mediaForm, crime }) => {
                         style={{ background: "url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f7702d6e-c194-4cf5-bee2-7177082d8e4a/d5eyfb2-4ae49ebc-e8a3-4e3a-b3ef-ba2d1fc3e9e1.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvZjc3MDJkNmUtYzE5NC00Y2Y1LWJlZTItNzE3NzA4MmQ4ZTRhXC9kNWV5ZmIyLTRhZTQ5ZWJjLWU4YTMtNGUzYS1iM2VmLWJhMmQxZmMzZTllMS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.yVoidfiHJFqumIZBlTsn5BS1PegOfbQmQH83QEYdSz8')", backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
                         class="sm:h-screen">
                         <div class="py-24 px-4 sm:px-16">
-                            <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-24 ">
-                                <div class="hidden lg:block lg:w-1/2 bg-cover"
+                            <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx- 2 sm:mx-32 ">
+                                {/* <div class="hidden lg:block lg:w-1/2 bg-cover"
                                     style={{
                                         background: "url('https://www.cds.net/res/global/images/blog/CDS_GDPR_Compliant.gif')",
                                         backgroundSize: 'cover',
                                         backgroundRepeat: 'no-repeat',
                                         backgroundPosition: 'center'
                                     }}>
-                                </div>
-                                <div class="w-full p-4 sm:p-8 lg:w-1/2 bg-gray-300">
+                                </div> */}
+                                <div class="w-full p-4 sm:p-8 bg-gray-300">
                                     <div class="text-xl font-bold text-white bg-gray-900 p-5">YOUR REPORT SUBMITTED SUCCESSFULLY</div>
                                     <div class="mt-4 h-12 bg-yellow-200 border-l-8 border-black px-2">#NOTE : <span
                                         class="italic">Now your report has been submitted successfully and its status is considered as pending, our officers will go through your report now</span></div>

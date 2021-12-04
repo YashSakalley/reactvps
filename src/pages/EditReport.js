@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Axios from 'axios'
+import axios from 'axios'
 
 const EditReport = () => {
     const { reportId } = useParams()
@@ -17,15 +17,15 @@ const EditReport = () => {
     const [msg, setMsg] = useState(null)
 
     useEffect(() => {
-        Axios.get(`/reports/${reportId}`)
-            .then((res) => {
-                console.log(res);
-                setReport(res.data.report)
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-
+        try {
+            const fetchReports = async () => {
+                const { data: { report } } = await axios.get(`/reports/${reportId}`)
+                setReport(report)
+            }
+            fetchReports()
+        } catch (error) {
+            console.log(error)
+        }
     }, [reportId])
 
     const onChangeHandler = (e) => {
@@ -44,21 +44,20 @@ const EditReport = () => {
         })
     }
 
-    const onFormSubmit = (e) => {
+    const onFormSubmit = async (e) => {
         e.preventDefault()
         setMsg('Updating...')
-        Axios.put(`/reports/complete/${reportId}`, report)
-            .then((res) => {
-                if (res.data.status === 'success') {
-                    console.log(res);
-                    setMsg('Updated Successfully')
-                    // history.push('/')
-                }
-            })
-            .catch((err) => {
-                setMsg('Error updating report')
-                console.log(err);
-            })
+        try {
+            const { data: { status } } = await axios.put(`/reports/complete/${reportId}`, report)
+            if (status === 'success') {
+                console.log(status);
+                setMsg('Updated Successfully')
+                // history.push('/')
+            }
+        } catch (error) {
+            setMsg('Error updating report')
+            console.log(error);
+        }
     }
 
     return (

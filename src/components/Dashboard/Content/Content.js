@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser'
 
 import ContentCell from './ContentCell'
-import Modal from '../../UI/Modal'
-import Canvas from '../../Canvas'
+import Modal from 'components/UI/Modal'
+import Canvas from 'components/Canvas'
 
 import back from 'assets/back.png'
 import pdfImg from 'assets/pdf.png'
@@ -27,7 +27,9 @@ const Content = ({ id }) => {
             questions: ['', '', '', '', '', '', ''],
             status: ''
         },
-        user: {}
+        user: {
+            last_name: 'empty'
+        }
     })
     const history = useHistory()
     const { role } = useParams()
@@ -284,7 +286,7 @@ const Content = ({ id }) => {
                 <table className="text-left w-full mt-4 bg-white text-lg shadow-xl">
                     <tbody className="bg-grey-light flex flex-col items-center justify-between w-full">
                         <ContentCell id="AADHAAR NUMBER" value={content.user.uid} />
-                        <ContentCell id="FULLNAME" value={`${content.user.first_name} ${content.user.last_name}`} />
+                        <ContentCell id="FULLNAME" value={`${content.user.first_name} ${content.user.last_name || 'Sakalley'}`} />
                         <ContentCell id="SUBMITTED ON (DATE AND TIME)" value={`${date} ${Time}`} />
                         <ContentCell id="CRIME RELATED" value={content.report.crime} />
                         <ContentCell id="PLACE" value="BHOPAL" />
